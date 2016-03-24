@@ -84,4 +84,15 @@ public abstract class Card {
 			System.out.println("The player gets "+victoryPoints+"Victory points");
 		}
 	}
+	
+	//override om kaarten te vergelijken
+	public boolean equals(Object o) {
+	    Card card = (Card) o;
+		if (this.ID == card.ID){
+	    	return true;
+	    }
+	    else {
+	    	return false;
+	    }
+	}
 }
