@@ -17,7 +17,7 @@ public class MySQLAccess {
 
   final private String host = "localhost";
   final private String user = "root";
-  final private String passwd = "";
+  final private String passwd = "root";
   
   public void readDataBase() throws Exception {
     try {

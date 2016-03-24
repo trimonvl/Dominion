@@ -4,13 +4,15 @@
 public abstract class Card {
 	private int ID;
 	private String name;
+	private String text;
 	private int cost;
 	private String type;
 	private EXPANSION expansion;
 	
-	public Card(int id, String name, int cost, String type, EXPANSION expansion){
+	public Card(int id, String name,String text, int cost, String type, EXPANSION expansion){
 		this.ID = id;
 		this.name = name;
+		this.text = text;
 		this.cost = cost;
 		this.type = type;
 		this.expansion = expansion;
@@ -21,6 +23,9 @@ public abstract class Card {
 	public String getName(){
 		return name;
 	};
+	public String getText(){
+		return text;
+	}
 	public int getCost(){
 		return cost;
 	};
@@ -34,4 +39,5 @@ public abstract class Card {
 		return "ID = " + ID + ", name = " + name + ", cost = " + cost 
 				+ ", type = " + type + ", expansion = " + expansion;
 	}
+	public abstract void run();
 }
