@@ -6,11 +6,10 @@ public class Main {
     //dao.readDataBase();
 	Card[] mijnHand = new Card[2];
 	  
-	mijnHand[0] = new Treasure(50, "Gold card die 33 kost en 15 gold geeft","", 33, "Treasure", EXPANSION.basic, 15);
-    mijnHand[1] = new Action(23, "Festival","", 5, "Action", EXPANSION.basic, 
-			0, 2, 2, 1);
-    mijnHand[0].run();
-    mijnHand[1].run();
+	mijnHand[0] = new Treasure(50, "super gold coin","", 5, "Action", EXPANSION.basic, 0, 50, 0, 0,0);
+    mijnHand[1] = new Action(23, "Festival","", 5, "Action", EXPANSION.basic, 0, 2, 2, 1,0);
+    mijnHand[0].play();
+    mijnHand[1].play();
     
   }
   
