@@ -1,6 +1,5 @@
-//Ik gebruik hier het Template pattern:
-//Dit is de basis klasse, afgeleide klassen erven methodes over MAAR moeten specialMove() aanpassen
-//als het een kaart is zonder speciale effecten kan die gwn specialMove() leeg laten
+
+import java.util.ArrayList;
 public abstract class Card {
 	private int ID;
 	private String name;
@@ -13,6 +12,9 @@ public abstract class Card {
 	private int bonusAction;
 	private int bonusBuy;
 	private int victoryPoints;
+	private Player player;
+	//commands misschien nodig voor speciale kaarten
+	private ArrayList<Command> commands = new ArrayList<>();
 	public Card(int id, String name, String text, int cost, String type, EXPANSION expansion, 
 			int cardDraw, int bonusGold, int bonusAction, int bonusBuy, int victoryPoints){
 		this.ID = id;
@@ -26,6 +28,10 @@ public abstract class Card {
 		this.bonusAction = bonusAction;
 		this.bonusBuy = bonusBuy;
 		this.victoryPoints = victoryPoints;
+		
+	}
+	public void setPlayer(Player player){
+		this.player = player;
 	}
 	public int getID(){
 		return ID;
@@ -61,26 +67,31 @@ public abstract class Card {
 	
 	final void giveGold(){
 		if(bonusGold != 0){
+			player.addGold(bonusGold);
 			System.out.println("The player gets "+bonusGold+" Gold");
 		}
 	}
 	final void drawCard() {
-		if(cardDraw!= 0) {
-			System.out.println("De speler trekt " + cardDraw+ " kaart(en)");		
+		for(int i = 0; i < cardDraw; i++){
+			player.drawCard();
+			System.out.println("De speler trekt een kaart");
 		}
 	}
 	final void bonusAction() {
 		if(bonusAction!= 0) {
+			player.addAction(bonusAction);
 			System.out.println("De speler krijgt " + bonusAction + " extra beurten");		
 		}
 	}
 	final void bonusBuy() {
 		if(bonusBuy!= 0) {
-			System.out.println("De speler krijgt " + bonusBuy + " extra koop acties");		
+			player.addBuysLeft(bonusBuy);
+			System.out.println("De speler krijgt " + bonusBuy + " extra koop beurten");		
 		}
 	}
 	final void giveVictoryPoints(){
 		if(victoryPoints != 0){
+			player.victoryPoints += victoryPoints;
 			System.out.println("The player gets "+victoryPoints+"Victory points");
 		}
 	}

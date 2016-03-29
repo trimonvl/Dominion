@@ -1,17 +1,11 @@
 import java.util.ArrayList;
 
-public class Hand {
-	private ArrayList<Card> hand = new ArrayList();
-	public void addCard(Card card){
-		hand.add(card);
-	}
-	public ArrayList<Card> showHand(){
-		return hand;
-	}
+public class Hand extends CardPile {
+	private ArrayList<Card> hand = new ArrayList<Card>();
 	public void playCard(Card card){
-		if(hand.contains(card)){
+		if(List.contains(card)){
 			card.play();
-			hand.remove(card);		
+			List.remove(card);		
 		}
 	}
 	public void destroyCard(Card card){
