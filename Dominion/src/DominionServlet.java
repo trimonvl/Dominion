@@ -25,11 +25,37 @@ public class DominionServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	    response.setContentType("text/html");
-	    		    response.setCharacterEncoding("utf-8");
-	    		    PrintWriter out = response.getWriter();
-	    		    out.println("<html><body>Hello World.</body></html>");
-	    		      System.out.println("ik heb gewerkt...");
+	    response.setContentType("application/json");
+	    response.setCharacterEncoding("utf-8");
+	    Writer out = response.getWriter();
+	    //out.println("<html><body>Hello World.</body></html>");
+	    System.out.println("ik heb gewerkt...");
+	    		    
+	    String operation;
+	    		    
+	    operation = request.getParameter("operation");
+	    
+	    if(operation != null) {
+	    switch(operation) {
+		    case "initialize":
+		    	String playerName1 = request.getParameter("name1");
+		    	String playerName2 = request.getParameter("name2");
+		    	out.append("{ \"status\":\"OK\", \"name1\":\"");
+		    	out.append(playerName1);
+		    	out.append("\" }");
+		    	
+		    	//dominion.initialize();
+		    	break;
+		    case "draw":
+		    	int cardNumber = Integer.parseInt(request.getParameter("cardNumber"));
+		    	out.append(" { 'status':'OK', 'cardNumber':");
+		    	out.append(Integer.toString(cardNumber));
+		    	out.append(" } ");
+		    	break;
+		    default:
+		    	out.append(" { 'status':'NOK', 'errorMessage':'Invalid operation' } ");
+		    	break;
+	    } }
 	}
 
 	/**
