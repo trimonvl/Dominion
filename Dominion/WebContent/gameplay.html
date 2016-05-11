@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Index</title>
+<link rel="stylesheet" type="text/css" href="css/default.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script>
+	var numberPlayers = null;
+	
+	$(document).ready(function() {
+		$("input[type=radio][name=number-players]").change(function() {
+			numberPlayers = parseInt(this.value);
+			
+			for (i = 1; i <= numberPlayers; i++) {
+				var usernameId = "username-player-" + i;
+				$("#"+usernameId).addClass("display");
+			}
+			
+			for (i = numberPlayers + 1; i <= 4; i++) {
+				var usernameId = "username-player-" + i;
+				$("#"+usernameId).removeClass("display");
+			}
+	    });
+	});
+	
+	function validateForm() {
+	    var numberPlayers = document.forms["initialize-game"]["number-players"].value;
+	    //var usernamesPlayers = document.forms["initialize-game"]["username-players"].value;
+	    //console.log(usernamesPlayers);
+	    
+	    if (numberPlayers == null || numberPlayers == "") {
+	        alert("Please choose a number of players.");
+	        return false;
+	    }
+	    
+	    for (i = 1; i <= numberPlayers; i++) {
+			var usernameName = "username-player-" + i;
+			var usernamePlayer = document.forms["initialize-game"][usernameName].value;
+			if(usernamePlayer == null || usernamePlayer == "") {
+				alert("Please choose a username for every player.");
+				return false;
+			}
+		}
+	}
+</script>
+</head>
+<body>
+	<div class="left">
+		<div class="cards victoryCards">
+			<div class="card victoryCard">
+				<div class="amount">9</div>
+				<h4 class="name">Cardname</h4>
+				<div class="image"></div>
+				<div class="cost">5</div>
+				<h6 class="type">Cardtype</h6>
+				<button type="button" class="buy">+</button>
+			</div>
+			<div class="card victoryCard">
+				<div class="amount">9</div>
+				<h4 class="name">Cardname</h4>
+				<div class="image"></div>
+				<div class="cost">5</div>
+				<h6 class="type">Cardtype</h6>
+				<button type="button" class="buy">+</button>
+			</div>
+			<div class="card victoryCard">
+				<div class="amount">9</div>
+				<h4 class="name">Cardname</h4>
+				<div class="image"></div>
+				<div class="cost">5</div>
+				<h6 class="type">Cardtype</h6>
+				<button type="button" class="buy">+</button>
+			</div>
+		</div>
+	</div>
+	<div class="right">
+		<div class="cards victoryCards">
+			<div class="card victoryCard">
+				<div class="amount">9</div>
+				<h4 class="name">Cardname</h4>
+				<div class="image"></div>
+				<div class="cost">5</div>
+				<h6 class="type">Cardtype</h6>
+				<button type="button" class="buy">+</button>
+			</div>
+			<div class="card victoryCard">
+				<div class="amount">9</div>
+				<h4 class="name">Cardname</h4>
+				<div class="image"></div>
+				<div class="cost">5</div>
+				<h6 class="type">Cardtype</h6>
+				<button type="button" class="buy">+</button>
+			</div>
+			<div class="card victoryCard">
+				<div class="amount">9</div>
+				<h4 class="name">Cardname</h4>
+				<div class="image"></div>
+				<div class="cost">5</div>
+				<h6 class="type">Cardtype</h6>
+				<button type="button" class="buy">+</button>
+			</div>
+		</div>
+	</div>
+	<div class="right bis">
+		<div class="cards curseCards">
+			<div class="card curseCard">
+				<div class="amount">9</div>
+				<h4 class="name">Cardname</h4>
+				<div class="image"></div>
+				<div class="cost">5</div>
+				<h6 class="type">Cardtype</h6>
+				<button type="button" class="buy">+</button>
+			</div>
+		</div>
+	</div>
+	<div class="center">
+		<div class="cards kingdomCards">
+			<div class="card kingdomCard">
+				<div class="amount">9</div>
+				<h4 class="name">Cardname</h4>
+				<div class="image"></div>
+				<div class="cost">5</div>
+				<h6 class="type">Cardtype</h6>
+				<button type="button" class="buy">+</button>
+			</div>
+			<div class="card kingdomCard">
+				<div class="amount">9</div>
+				<h4 class="name">Cardname</h4>
+				<div class="image"></div>
+				<div class="cost">5</div>
+				<h6 class="type">Cardtype</h6>
+				<button type="button" class="buy">+</button>
+			</div>
+			<div class="card kingdomCard">
+				<div class="amount">9</div>
+				<h4 class="name">Cardname</h4>
+				<div class="image"></div>
+				<div class="cost">5</div>
+				<h6 class="type">Cardtype</h6>
+				<button type="button" class="buy">+</button>
+			</div>
+			<div class="card kingdomCard">
+				<div class="amount">9</div>
+				<h4 class="name">Cardname</h4>
+				<div class="image"></div>
+				<div class="cost">5</div>
+				<h6 class="type">Cardtype</h6>
+				<button type="button" class="buy">+</button>
+			</div>
+			<div class="card kingdomCard">
+				<div class="amount">9</div>
+				<h4 class="name">Cardname</h4>
+				<div class="image"></div>
+				<div class="cost">5</div>
+				<h6 class="type">Cardtype</h6>
+				<button type="button" class="buy">+</button>
+			</div>
+			<div class="card kingdomCard">
+				<div class="amount">9</div>
+				<h4 class="name">Cardname</h4>
+				<div class="image"></div>
+				<div class="cost">5</div>
+				<h6 class="type">Cardtype</h6>
+				<button type="button" class="buy">+</button>
+			</div>
+			<div class="card kingdomCard">
+				<div class="amount">9</div>
+				<h4 class="name">Cardname</h4>
+				<div class="image"></div>
+				<div class="cost">5</div>
+				<h6 class="type">Cardtype</h6>
+				<button type="button" class="buy">+</button>
+			</div>
+			<div class="card kingdomCard">
+				<div class="amount">9</div>
+				<h4 class="name">Cardname</h4>
+				<div class="image"></div>
+				<div class="cost">5</div>
+				<h6 class="type">Cardtype</h6>
+				<button type="button" class="buy">+</button>
+			</div>
+			<div class="card kingdomCard">
+				<div class="amount">9</div>
+				<h4 class="name">Cardname</h4>
+				<div class="image"></div>
+				<div class="cost">5</div>
+				<h6 class="type">Cardtype</h6>
+				<button type="button" class="buy">+</button>
+			</div>
+			<div class="card kingdomCard">
+				<div class="amount">9</div>
+				<h4 class="name">Cardname</h4>
+				<div class="image"></div>
+				<div class="cost">5</div>
+				<h6 class="type">Cardtype</h6>
+				<button type="button" class="buy">+</button>
+			</div>
+		</div>
+		<div class="cards playedCards">
+			<div class="overviewTurn">
+				<h4>Actions</h4>
+				<div class="amountActions">1</div>
+				<h4>Buys</h4>
+				<div class="amountBuys">1</div>
+				<h4>Coins</h4>
+				<div class="amountCoins">0</div>
+			</div>
+			<div class="actionButtons">
+				<button type="button" class="">Action</button>
+				<button type="button" class="">Action</button>
+			</div>
+		</div>
+		<div class="cards handCards"></div>
+	</div>
+</body>
+</html>

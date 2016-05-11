@@ -3,40 +3,67 @@
 <head>
 <meta charset="UTF-8">
 <title>Index</title>
+<link rel="stylesheet" type="text/css" href="css/default.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$("#submit").click(function(){
-			var request = $.ajax({ cache: false,
-			    url: '/Dominion/DominionServlet',
-			    data: { operation: 'initialize',
-			    	name1: $("#name1").val(),
-			    	name2: $("#name2").val() }
-			});
-
-			request.done(function (data) {
-				var obj = JSON.parse(data);
-				
-				$("#response").html("status was " + obj.status + " en name1 was " + obj.name1 + " en name2 was " + obj.name2);
-			});
-			request.fail(function (jqXHR, textStatus) {
-			    alert("Ajax call has failed.");
-			});
-		});
+<script>
+	var numberPlayers = null;
+	
+	$(document).ready(function() {
+		$("input[type=radio][name=number-players]").change(function() {
+			numberPlayers = parseInt(this.value);
+			
+			for (i = 1; i <= numberPlayers; i++) {
+				var usernameId = "username-player-" + i;
+				$("#"+usernameId).addClass("display");
+			}
+			
+			for (i = numberPlayers + 1; i <= 4; i++) {
+				var usernameId = "username-player-" + i;
+				$("#"+usernameId).removeClass("display");
+			}
+	    });
 	});
+	
+	function validateForm() {
+	    var numberPlayers = document.forms["initialize-game"]["number-players"].value;
+	    //var usernamesPlayers = document.forms["initialize-game"]["username-players"].value;
+	    //console.log(usernamesPlayers);
+	    
+	    if (numberPlayers == null || numberPlayers == "") {
+	        alert("Please choose a number of players.");
+	        return false;
+	    }
+	    
+	    for (i = 1; i <= numberPlayers; i++) {
+			var usernameName = "username-player-" + i;
+			var usernamePlayer = document.forms["initialize-game"][usernameName].value;
+			if(usernamePlayer == null || usernamePlayer == "") {
+				alert("Please choose a username for every player.");
+				return false;
+			}
+		}
+	}
 </script>
 </head>
 <body>
-	<h1>Hello world!</h1>
-	
-	<form>
-		Naam 1: <input type="text" id="name1"><br>
-		Naam 2: <input type="text" id="name2"><br>
-		<input type="submit" id="submit" value="Submit">
-		
-		<div id="response">
-			Nog geen request of antwoord ontvangen.
-		</div>
-	</form>
+	<div class="menu">
+		<form id="initialize-game" name="initialize-game" action="gameplay.html" method="post" onsubmit="return validateForm()">
+			<input id="two-players" type="radio" name="number-players" value="2" />
+        	<label class="number-players two-players" for="two-players"></label>
+        	<input id="three-players" type="radio" name="number-players" value="3" />
+        	<label class="number-players three-players" for="three-players"></label>
+        	<input id="four-players" type="radio" name="number-players" value="4" />
+        	<label class="number-players four-players" for="four-players"></label>
+        	<input id="username-player-1" type="text" name="username-player-1" placeholder="Username player 1">
+        	<label class="username-players" for="username-player-1"></label>
+        	<input id="username-player-2" type="text" name="username-player-2" placeholder="Username player 2">
+        	<label class="username-players" for="username-player-2"></label>
+        	<input id="username-player-3" type="text" name="username-player-3" placeholder="Username player 3">
+        	<label class="username-players" for="username-player-3"></label>
+        	<input id="username-player-4" type="text" name="username-player-4" placeholder="Username player 4">
+        	<label class="username-players" for="username-player-4"></label>
+			<input type="submit" value="Play">
+		</form>
+	</div>
 </body>
 </html>
