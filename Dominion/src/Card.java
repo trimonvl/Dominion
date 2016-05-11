@@ -28,10 +28,6 @@ public abstract class Card {
 		this.bonusAction = bonusAction;
 		this.bonusBuy = bonusBuy;
 		this.victoryPoints = victoryPoints;
-		
-	}
-	public void setPlayer(Player player){
-		this.player = player;
 	}
 	public int getID(){
 		return ID;
@@ -56,7 +52,8 @@ public abstract class Card {
 				+ ", type = " + type + ", expansion = " + expansion;
 	}
 	
-	final void play(){
+	final void play(Player player){
+		this.player = player;
 		specialMove();
 		giveGold();
 		drawCard();

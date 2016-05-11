@@ -8,7 +8,8 @@ public class Main {
     //dao.readDataBase();
 	
 	Game newGame = new Game();
-	newGame.start();
+	TestFrame newFrame = new TestFrame(newGame);
+/*	newGame.start();
 	System.out.println("Player " + newGame.currentPlayer.name + " has these cards in his hand: ");
 	System.out.println(newGame.currentPlayer.hand.toString());
 	
@@ -23,6 +24,6 @@ public class Main {
 	//hieronder pak ik de kaart nr 0 uit de arraylist kaarten van hierboven
 	//en zeg ik dat de huidige speler deze moet spelen
 	newGame.currentPlayer.playCard(kaarten.get(0));
-	
+*/
   }
 }

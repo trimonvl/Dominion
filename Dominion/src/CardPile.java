@@ -2,24 +2,25 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Random;
+//import java.util.Random;
 
 public class CardPile {
-	protected Queue<Card> List = new LinkedList<Card>();
+	Queue<Card> List = new LinkedList<Card>();
 	public void insertCards(ArrayList<Card> cardArray){
-		List = new LinkedList<Card>(shufflePile(cardArray));
+		List.addAll(shufflePile(cardArray));
 	}
 	public void addCard(Card card){
 		List.add(card);
 	}
 	public Card drawCard(Player player){
+		System.out.println(List.size());
+		System.out.println(List.peek());
 		Card c = List.poll();
-		c.setPlayer(player);
 		return c;
 	}
 	public ArrayList<Card> shufflePile(ArrayList<Card> list){
-		long seed = System.nanoTime();
-		Collections.shuffle(list, new Random(seed));
+		//long seed = System.nanoTime();
+		Collections.shuffle(list);
 		return list;
 	}
 	public ArrayList<Card> getCards(){

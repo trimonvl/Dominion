@@ -1,31 +1,45 @@
 import java.util.ArrayList;
 
 public class Player {
-	private int gold = 0;
-	private int actions = 0;
-	private int buysLeft = 0;
-	public int victoryPoints;
-	public CardPile deck = new CardPile();
-	public CardPile discardPile = new CardPile();
-	public Hand hand = new Hand();
-	public String name;
-	public Player(String name){
+	int gold = 0;
+	int actions = 1;
+	int buysLeft = 1;
+	int victoryPoints;
+	int phase = 1;
+	CardPile deck = new CardPile();
+	CardPile discardPile = new CardPile();
+	Hand hand = new Hand();
+	String name;
+	Player(String name){
 		this.name = name;
 	}
 	public ArrayList<Card> getHand(){
 		return hand.getCards();
 	}
 	public void playCard(Card card){
-		if(actions > 0){
-			hand.playCard(card);
-			discardPile.addCard(card);	
-			actions -= 1;
+		switch(phase)
+		{
+		case 1:
+			if(actions > 0 && card.getType() == "Action"){
+				hand.playCard(card, this);
+	//			System.out.println(card.toString());
+				discardPile.addCard(card);	
+				actions -= 1;
+				System.out.println("Player played card");
+			}
+			break;
+		case 2:
+			if(card.getType() == "Treasure"){
+				hand.playCard(card, this);
+		//		System.out.println(card.toString());
+				discardPile.addCard(card);	
+				System.out.println("Player played card");
+			}
+			break;
 		}
 	}
 	public void addCardstoDeck(ArrayList<Card> cards){
-		for(Card card : cards){
-			deck.addCard(card);
-		}
+		deck.insertCards(cards);
 	}
 	public void moveDiscardToNewDeck(){
 		deck.insertCards(discardPile.getCards());
@@ -33,31 +47,53 @@ public class Player {
 	}
 	public void moveHandtoDiscard(){
 		discardPile.insertCards(hand.getCards());
+	//	System.out.println(discardPile.List.size() + " In discard");
 		hand.emptyPile();
 	}
 	public void drawCard(){
-		if(deck.getCards().size() == 0){
+		if(deck.getCards().size() <= 0){
+	//		System.out.println("Empty");
 			moveDiscardToNewDeck();
 		}
+	//	System.out.println("Not Empty");
 		hand.addCard(deck.drawCard(this));	
 	}
-	public void buyCard(Card card){
+	public void buyCard(FieldCards cards){
 		if(buysLeft > 0){
-			if(card.getCost() <= gold){
-				gold -= card.getCost();
-				discardPile.addCard(card);
+			if(cards.getCard().getCost() <= gold){
+				gold -= cards.getCard().getCost();
+				discardPile.addCard(cards.getCard());
+	//			System.out.println(discardPile.List.size());
+				cards.remove();
 				buysLeft -= 1;
 			}	
 		}
 	}
 	public void endTurn(){
-		this.moveHandtoDiscard();
+		moveHandtoDiscard();
 		  for(int i = 0; i < 5; i++){
-			  this.drawCard();
+			  drawCard();
 		  }
 		  gold = 0;
-		  actions = 0;
-		  buysLeft = 0;
+		  actions = 1;
+		  buysLeft = 1;
+		  phase = 0;
+	}
+	public void nextPhase(){
+		switch(phase)
+		{
+		case 3: endTurn();
+		phase = 1;
+		break;
+		case 2: phase = 3;
+		break;
+		case 1: phase = 2;
+		break;
+		}
+	}
+	public int getPhase()
+	{
+		return phase;
 	}
 	public void addAction(int action){
 		this.actions += action;
@@ -80,5 +116,21 @@ public class Player {
 	    else {
 	    	return false;
 	    }
+	}
+	public String getName()
+	{
+		return name;
+	}
+	public int getGold()
+	{
+		return gold;
+	}
+	public int getBuys()
+	{
+		return buysLeft;
+	}
+	public int getActions()
+	{
+		return actions;
 	}
 }
