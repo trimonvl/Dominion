@@ -257,10 +257,11 @@ input[type=submit] {
 }
 
 .playedCards {
-	position: relative;
 	width: calc(100% - 66px);
 	height: 25%;
 	padding: 0 33px;
+	overflow: hidden;
+	text-align: center;
 	background: #e6e6e6;
 }
 
@@ -272,6 +273,8 @@ input[type=submit] {
 	text-align: center;
 	background: #cccccc;
 }
+
+/**** inHand ****/
 
 .inHand {
 	float: none !important;
@@ -292,6 +295,18 @@ input[type=submit] {
 	left: 5px;
 	bottom: 0;
 }
+
+/********/
+
+/**** played ****/
+
+.played {
+	height: 100% !important;
+	margin-right: 0 !important;
+	transform: rotate(0) !important;
+}
+
+/********/
 
 .victoryCard {
 	float: none !important;

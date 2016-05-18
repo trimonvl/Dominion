@@ -22,6 +22,27 @@
 				$("#"+usernameId).removeClass("display");
 			}
 	    });
+		
+		$("#initialize").click(function() {
+			var usernameplayer1 = $("#username-player-1").val();
+			var usernameplayer2 = $("#username-player-2").val();
+			var usernameplayer3 = $("#username-player-3").val();
+			var usernameplayer4 = $("#username-player-4").val();
+			
+			$.ajax({
+				type: 'POST',
+				data: {operation: "initialize",
+					numberplayers: numberPlayers,
+					usernameplayer1: usernameplayer1,
+					usernameplayer2: usernameplayer2,
+					usernameplayer3: usernameplayer3,
+					usernameplayer4: usernameplayer4},
+				url: 'AjaxController',
+				success: function(result){
+					$("#result1").html(result);
+				}
+			});
+		});
 	});
 	
 	function validateForm() {
@@ -47,7 +68,7 @@
 </head>
 <body>
 	<div class="menu">
-		<form id="initialize-game" name="initialize-game" action="gameplay.html" method="post" onsubmit="return validateForm()">
+		<form class="initialize-game" id="initialize-game" onsubmit="return validateForm()" method="POST" action="gameplay.html">
 			<h2>Choose your number of players.</h2>
 			<input id="two-players" type="radio" name="number-players" value="2" />
         	<label class="number-players two-players" for="two-players"></label>
@@ -63,7 +84,8 @@
         	<label class="username-players" for="username-player-3"></label>
         	<input id="username-player-4" type="text" name="username-player-4" placeholder="Username player 4">
         	<label class="username-players" for="username-player-4"></label>
-			<input type="submit" value="Play">
+			<input type="submit" value="Play" id="initialize">
+			<span id="result1"></span>
 		</form>
 	</div>
 </body>

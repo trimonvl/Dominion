@@ -22,6 +22,30 @@
 	$(window).ready(function() {
 		resizeCards();
 		rotateCards();
+		
+		/*window.onbeforeunload = function() {
+	        return "";
+	    }*/
+		
+		$(".inHand").click(function() {
+			var cardname = $(this).attr("cardname");  
+		    
+		    $(this).appendTo(".playedCards");
+		    $(this).removeClass("inHand");
+		    $(this).addClass("played");
+		    
+		    resizeCards();
+			
+			$.ajax({
+				type: 'POST',
+				data: {operation: "draw",
+					cardname: cardname},
+				url: 'AjaxController',
+				success: function(result){
+					$("#result1").html(result);
+				}
+			});
+		});
 	});
 	
 	$(window).resize(function() {
@@ -33,14 +57,17 @@
 		var heightKingdomCards = $(".kingdomCards .card").height();
 		var heightVictoryCards = $(".victoryCards .card").height();
 		var heightHandCards = $(".handCards .card").height();
+		var heightPlayedCards = $(".playedCards .card").height();
 		
 		var widthKingdomCards = heightKingdomCards * 1.217;
 		var widthVictoryCards = heightVictoryCards * 1.217;
 		var widthHandCards = heightHandCards * 0.652;
+		var widthPlayedCards = heightPlayedCards * 0.652;
 		
 		$(".kingdomCards .card").css("width", widthKingdomCards);
 		$(".victoryCards .card, .treasureCards .card, .curseCards .card").css("width", widthVictoryCards);
 		$(".handCards .card").css("width", widthHandCards);
+		$(".playedCards .card").css("width", widthPlayedCards);
 	}
 	
 	function rotateCards() {
@@ -182,6 +209,7 @@
 				<div class="piles">
 					<div class="trashPile"></div>
 				</div>
+				<span id="result1"></span>
 			</div>
 		</div>
 	</div>
@@ -271,7 +299,7 @@
 			</div>
 		</div>
 		<div class="cards playedCards">
-			<div class="overviewTurn">
+			<!--<div class="overviewTurn">
 				<h4>Actions</h4>
 				<div class="amountActions">1</div>
 				<h4>Buys</h4>
@@ -282,38 +310,38 @@
 			<div class="actionButtons">
 				<button type="button" class="">Action</button>
 				<button type="button" class="">Action with a long description</button>
-			</div>
+			</div> -->
 		</div>
 		<div class="cards handCards">
-			<div class="card inHand kingdomCard copperLarge">
+			<div class="card inHand kingdomCard copperLarge" cardname="Copper">
 				<div class="value">9</div>
 				<h4 class="name hidden">Cardname</h4>
 				<div class="image hidden"></div>
 				<div class="cost">5</div>
 				<h6 class="type hidden">Cardtype</h6>
 			</div>
-			<div class="card inHand kingdomCard copperLarge">
+			<div class="card inHand kingdomCard copperLarge" cardname="Copper">
 				<div class="value">9</div>
 				<h4 class="name hidden">Cardname</h4>
 				<div class="image hidden"></div>
 				<div class="cost">5</div>
 				<h6 class="type hidden">Cardtype</h6>
 			</div>
-			<div class="card inHand victoryCard provinceLarge">
+			<div class="card inHand victoryCard provinceLarge" cardname="Province">
 				<div class="value">9</div>
 				<h4 class="name hidden">Cardname</h4>
 				<div class="image hidden"></div>
 				<div class="cost">5</div>
 				<h6 class="type hidden">Cardtype</h6>
 			</div>
-			<div class="card inHand victoryCard gardensLarge">
+			<div class="card inHand victoryCard gardensLarge" cardname="Gardens">
 				<div class="value">9</div>
 				<h4 class="name hidden">Cardname</h4>
 				<div class="image hidden"></div>
 				<div class="cost">5</div>
 				<h6 class="type hidden">Cardtype</h6>
 			</div>
-			<div class="card inHand victoryCard councilRoomLarge">
+			<div class="card inHand victoryCard councilRoomLarge" cardname="CouncilRoom">
 				<div class="value">9</div>
 				<h4 class="name hidden">Cardname</h4>
 				<div class="image hidden"></div>
