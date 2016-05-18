@@ -4,7 +4,4 @@ public class Action extends Card{
 			int cardDraw, int bonusGold, int bonusAction, int bonusBuy, int victoryPoints){
 		super(id, name, text, cost, type, expansion, cardDraw, bonusGold, bonusAction, bonusBuy,victoryPoints);
 	}
-	public void specialMove(){
-		//do nothing
-	}
 }

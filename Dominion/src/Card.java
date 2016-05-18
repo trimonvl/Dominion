@@ -1,5 +1,3 @@
-
-import java.util.ArrayList;
 public abstract class Card {
 	private int ID;
 	private String name;
@@ -13,8 +11,6 @@ public abstract class Card {
 	private int bonusBuy;
 	private int victoryPoints;
 	private Player player;
-	//commands misschien nodig voor speciale kaarten
-	private ArrayList<Command> commands = new ArrayList<>();
 	public Card(int id, String name, String text, int cost, String type, EXPANSION expansion, 
 			int cardDraw, int bonusGold, int bonusAction, int bonusBuy, int victoryPoints){
 		this.ID = id;
@@ -54,13 +50,11 @@ public abstract class Card {
 	
 	final void play(Player player){
 		this.player = player;
-		specialMove();
-		giveGold();
 		drawCard();
-		bonusBuy();
+		giveGold();
 		bonusAction();
+		bonusBuy();
 	}
-	public abstract void specialMove();
 	
 	final void giveGold(){
 		if(bonusGold != 0){

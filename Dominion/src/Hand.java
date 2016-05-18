@@ -12,4 +12,11 @@ public class Hand extends CardPile {
 	public void destroyCard(Card card){
 		hand.remove(card);
 	}
+	public void discard(Card card, Player player)
+	{
+		if(List.contains(card)){
+			List.remove(card);
+			System.out.println("Hand discarded card");
+		}
+	}
 }

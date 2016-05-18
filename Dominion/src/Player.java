@@ -8,6 +8,7 @@ public class Player {
 	int phase = 1;
 	CardPile deck = new CardPile();
 	CardPile discardPile = new CardPile();
+	CardPile thrash = new CardPile();
 	Hand hand = new Hand();
 	String name;
 	Player(String name){
@@ -37,6 +38,10 @@ public class Player {
 			}
 			break;
 		}
+	}
+	public void discardCard(Card card)
+	{
+		hand.discard(card, this);
 	}
 	public void addCardstoDeck(ArrayList<Card> cards){
 		deck.insertCards(cards);

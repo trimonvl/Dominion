@@ -7,10 +7,15 @@ import javax.swing.*;
 public class TestFrame{
 	JButton[] FieldButtons = new JButton[17];
 	JButton[] HandButtons;
+	JButton next;
 	JFrame frame;
 	JPanel buttonPane;
 	JPanel playerPane;
 	Game currentGame;
+	String state = "normal";
+	JLabel actions;
+	JLabel buys;
+	JLabel gold;
 	ArrayList<Card> cardsInHand;
 	public TestFrame(Game currentGame){
 		this.currentGame = currentGame;
@@ -25,6 +30,7 @@ public class TestFrame{
 		playerPane.setLayout(new FlowLayout());
 		paint();
 	}
+	
 	private void clearButtons()
 	{
 		for(int i = 0;i < 17;i++)
@@ -36,6 +42,7 @@ public class TestFrame{
 			HandButtons[i] = null;
 		}
 	}
+	
 	private void paint()
 	{
 		Player player = currentGame.getCurrentPlayer();
@@ -51,6 +58,22 @@ public class TestFrame{
 				FieldButtons[i].setEnabled(false);
 			}
 		}
+		actions = new JLabel("Actions: " + player.getActions());
+		buys = new JLabel("Buys: " + player.getBuys());
+		gold = new JLabel("Gold: " + player.getGold());
+		next = new JButton();
+		switch(state)
+		{
+		case "Cellar": paintCellar(player);
+		break;
+		default: paintNormal(player);
+		break;
+		}
+		frame.setVisible(true);
+	}
+	
+	private void paintNormal(Player player)
+	{
 		JLabel playerName= new JLabel(player.getName());
 		playerPane.add(playerName);
 		cardsInHand = player.getHand();
@@ -58,11 +81,10 @@ public class TestFrame{
 		for(int i = 0;i < cardsInHand.size();i++)
 		{
 			Card card = cardsInHand.get(i);
-			//System.out.println(card.toString());
 			HandButtons[i]= new JButton(card.getName() + " | Cost " + card.getCost());
 			HandButtons[i].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e){HandCardButtonPressed(e);}});
 			playerPane.add(HandButtons[i]);
-			if((card.getType()!="Action" && player.getPhase()== 1)||(card.getType()!="Treasure" && player.getPhase()== 2))
+			if((card.getType()!="Action" && player.getPhase()== 1)||(card.getType()!="Treasure" && player.getPhase()== 2) || (player.getPhase()==3))
 			{
 				HandButtons[i].setEnabled(false);
 			}
@@ -71,13 +93,9 @@ public class TestFrame{
 				HandButtons[i].setEnabled(false);
 			}
 		}
-		JLabel actions= new JLabel("Actions: " + player.getActions());
-		JLabel buys= new JLabel("Buys: " + player.getBuys());
-		JLabel gold= new JLabel("Gold: " + player.getGold());
 		playerPane.add(actions);
 		playerPane.add(buys);
 		playerPane.add(gold);
-		JButton next = new JButton();
 		switch(player.getPhase())
 		{
 		case 1: next.setText("End actions");
@@ -88,10 +106,31 @@ public class TestFrame{
 			break;	
 		}
 		next.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e){nextPressed(e);}});
-		playerPane.add(next);
-		frame.setVisible(true);
+		playerPane.add(next);	
 	}
-	public void repaint()
+	
+	private void paintCellar(Player player)
+	{
+		JLabel playerName= new JLabel(player.getName());
+		playerPane.add(playerName);
+		cardsInHand = player.getHand();
+		HandButtons = new JButton[cardsInHand.size()];
+		for(int i = 0;i < cardsInHand.size();i++)
+		{
+			Card card = cardsInHand.get(i);
+			HandButtons[i]= new JButton(card.getName() + " | Cost " + card.getCost());
+			HandButtons[i].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e){DiscardHandCard(e);}});
+			playerPane.add(HandButtons[i]);
+		}
+		playerPane.add(actions);
+		playerPane.add(buys);
+		playerPane.add(gold);
+		next.setText("end discard");
+		next.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e){endDiscard(e);}});
+		playerPane.add(next);	
+	}
+	
+	private void repaint()
 	{
 		buttonPane.removeAll();
 		buttonPane.repaint();
@@ -100,7 +139,8 @@ public class TestFrame{
 		clearButtons();
 		paint();
 	}
-	public void FieldCardButtonPressed(ActionEvent e) 
+	
+	private void FieldCardButtonPressed(ActionEvent e) 
 	{
 		System.out.println("clickedField");
 		for(int i = 0;i < 17;i++)
@@ -112,19 +152,26 @@ public class TestFrame{
 		}
 		repaint();
 	}
-	public void HandCardButtonPressed(ActionEvent e)
+	
+	private void HandCardButtonPressed(ActionEvent e)
 	{
 		System.out.println("clickedHand");
+		Player player = currentGame.getCurrentPlayer();
 		for(int i = 0;i < HandButtons.length;i++)
 		{
 			if(e.getSource().equals(HandButtons[i]))
 			{
-				currentGame.getCurrentPlayer().playCard(cardsInHand.get(i));
+				if(player.getPhase()==1 && cardsInHand.get(i).getType()=="Action" || player.getPhase()==2 && cardsInHand.get(i).getType()=="Treasure")
+				{
+					player.playCard(cardsInHand.get(i));
+					specialAction(cardsInHand.get(i));
+				}
 			}
 		}
 		repaint();
 	}
-	public void nextPressed(ActionEvent e)
+	
+	private void nextPressed(ActionEvent e)
 	{
 		System.out.println("clickedNext");
 		if(currentGame.currentPlayer.getPhase()==3)
@@ -136,5 +183,35 @@ public class TestFrame{
 			currentGame.currentPlayer.nextPhase();
 		}
 		repaint();
+	}
+	private void endDiscard(ActionEvent e)
+	{
+		currentGame.getCommand().CellarComplete(currentGame.getCurrentPlayer());
+		state = "normal";
+		repaint();
+	}
+	private void specialAction(Card card)
+	{
+		String name = card.getName();
+		if(name == "Village" || name == "Woodcutter" || name == "Smithy" || name == "Festival" || name == "Laboratory" || name == "Market")
+		{
+			state = "normal";
+		}
+		else
+		{
+			state = name;
+		}
+	}
+	
+	private void DiscardHandCard(ActionEvent e)
+	{
+		for(int i = 0;i < HandButtons.length;i++)
+		{
+			if(e.getSource().equals(HandButtons[i]))
+			{
+				currentGame.getCommand().addDiscard(cardsInHand.get(i));
+				HandButtons[i].setEnabled(false);
+			}
+		}
 	}
 }

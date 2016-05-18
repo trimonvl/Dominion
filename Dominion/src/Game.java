@@ -6,6 +6,7 @@ public class Game {
 	Player currentPlayer = null;
 	FieldCards[] cardsInField = new FieldCards[17];
 	ArrayList<Card> startingCards = new ArrayList<Card>();
+	Command command = new Command();
 	//Timer turnTimer = new Timer();
 	public Game(){
 		startingCards.add(new Treasure(1, "copper", "", 0, "Treasure", EXPANSION.basic, 0, 1, 0, 0, 0));
@@ -14,13 +15,13 @@ public class Game {
 		startingCards.add(new Treasure(1, "copper", "", 0, "Treasure", EXPANSION.basic, 0, 1, 0, 0, 0));
 		startingCards.add(new Treasure(1, "copper", "", 0, "Treasure", EXPANSION.basic, 0, 1, 0, 0, 0));
 		startingCards.add(new Treasure(1, "copper", "", 0, "Treasure", EXPANSION.basic, 0, 1, 0, 0, 0));
-		startingCards.add(new Treasure(1, "copper", "", 0, "Treasure", EXPANSION.basic, 0, 1, 0, 0, 0));
+//		startingCards.add(new Treasure(1, "copper", "", 0, "Treasure", EXPANSION.basic, 0, 1, 0, 0, 0));
+		startingCards.add(new Action(8, "Cellar", "", 2, "Action", EXPANSION.basic, 0, 0, 1, 0, 0));
 		startingCards.add(new Victory(4, "estate", "", 2, "Victory", EXPANSION.basic, 0, 0, 0, 0, 1));
 		startingCards.add(new Victory(4, "estate", "", 2, "Victory", EXPANSION.basic, 0, 0, 0, 0, 1));
 		startingCards.add(new Victory(4, "estate", "", 2, "Victory", EXPANSION.basic, 0, 0, 0, 0, 1));
 		addPlayer("Player1");
 		addPlayer("Player2");
-		addPlayer("Player3");
 		
 		cardsInField[0] = new FieldCards(new Treasure(1, "Copper", "", 0, "Treasure", EXPANSION.basic, 0, 1, 0, 0,0), 60);
 		cardsInField[1] = new FieldCards(new Treasure(2, "Silver", "", 3, "Treasure", EXPANSION.basic, 0, 2, 0, 0,0), 40);
@@ -47,7 +48,7 @@ public class Game {
 			cardsInField[6] = new FieldCards(new Action(7, "Curse", "", 3, "Curse", EXPANSION.basic, 0, 0, 0, 0, -1), 30);
 			break;
 		}
-		cardsInField[7] = new FieldCards(new Action(8, "Card2", "", 3, "Action", EXPANSION.basic, 1, 1, 1, 1, 0), 10);
+		cardsInField[7] = new FieldCards(new Action(8, "Cellar", "", 2, "Action", EXPANSION.basic, 0, 0, 1, 0, 0), 10);
 		cardsInField[8] = new FieldCards(new Action(9, "Card3", "", 2, "Action", EXPANSION.basic, 0, 3, 0, 1, 0), 10);
 		cardsInField[9] = new FieldCards(new Action(10, "Card4", "", 2, "Action", EXPANSION.basic, 2, 0, 0, 0, 0), 10);
 		cardsInField[10] = new FieldCards(new Action(11, "Card5", "", 3, "Action", EXPANSION.basic, 0, 0, 2, 0, 0), 10);
@@ -103,6 +104,11 @@ public class Game {
 	}
 	public Player getCurrentPlayer()
 	{
+		System.out.println(currentPlayer.getName());
 		return currentPlayer;
+	}
+	public Command getCommand()
+	{
+		return command;
 	}
 }
