@@ -24,10 +24,6 @@ public class TestFrame{
 	ArrayList<Card> cardsInHand;
 	public TestFrame(Game currentGame){
 		this.currentGame = currentGame;
-		currentGame.addPlayerToGame("Player1");
-		currentGame.addPlayerToGame("Player2");
-		currentGame.addCardsToGame();
-		currentGame.setStartingPlayer();
 		frame = new JFrame("DominionFrame");
 		buttonPane = new JPanel();
 		playerPane = new JPanel();
