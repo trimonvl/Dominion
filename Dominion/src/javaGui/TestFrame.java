@@ -1,9 +1,14 @@
+package javaGui;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.*;
 import java.util.ArrayList;
 
 import javax.swing.*;
+
+import card.*;
+import game.*;
+import player.*;
 public class TestFrame{
 	JButton[] FieldButtons = new JButton[17];
 	JButton[] HandButtons;
@@ -174,13 +179,13 @@ public class TestFrame{
 	private void nextPressed(ActionEvent e)
 	{
 		System.out.println("clickedNext");
-		if(currentGame.currentPlayer.getPhase()==3)
+		if(currentGame.getCurrentPlayer().getPhase()==3)
 		{
-			currentGame.currentPlayer.nextPhase();
+			currentGame.getCurrentPlayer().nextPhase();
 			currentGame.nextPlayer();
 		}
 		else{
-			currentGame.currentPlayer.nextPhase();
+			currentGame.getCurrentPlayer().nextPhase();
 		}
 		repaint();
 	}

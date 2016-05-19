@@ -1,3 +1,6 @@
+package game;
+
+import card.*;
 
 public class FieldCards {
 	Card card;
