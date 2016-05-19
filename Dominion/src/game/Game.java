@@ -20,13 +20,12 @@ public class Game {
 		startingCards.add(new Treasure(1, "copper", "", 0, "Treasure", 0, 1, 0, 0, 0));
 		startingCards.add(new Treasure(1, "copper", "", 0, "Treasure", 0, 1, 0, 0, 0));
 		startingCards.add(new Treasure(1, "copper", "", 0, "Treasure", 0, 1, 0, 0, 0));
-//		startingCards.add(new Action(8, "Cellar", "", 2, "Action", 0, 0, 1, 0, 0));
 		startingCards.add(new Victory(4, "estate", "", 2, "Victory", 0, 0, 0, 0, 1));
 		startingCards.add(new Victory(4, "estate", "", 2, "Victory", 0, 0, 0, 0, 1));
 		startingCards.add(new Victory(4, "estate", "", 2, "Victory", 0, 0, 0, 0, 1));
-		addPlayer("Player1");
-		addPlayer("Player2");
-		
+	}
+	public void addCardsToGame()
+	{	
 		cardsInField[0] = new FieldCards(new Treasure(1, "Copper", "", 0, "Treasure", 0, 1, 0, 0,0), 60);
 		cardsInField[1] = new FieldCards(new Treasure(2, "Silver", "", 3, "Treasure", 0, 2, 0, 0,0), 40);
 		cardsInField[2] = new FieldCards(new Treasure(3, "Gold", "", 6, "Treasure", 0, 3, 0, 0,0), 30);
@@ -62,13 +61,8 @@ public class Game {
 		cardsInField[14] = new FieldCards(new Action(15, "Card9", "", 1, "Action", 2, 1, 1, 0, 0), 10);
 		cardsInField[15] = new FieldCards(new Action(16, "Card10", "", 4, "Action", 0, 2, 2, 0, 0), 10);
 		cardsInField[16] = new FieldCards(new Action(17, "Card15", "", 4, "Action", 1, 0, 1, 0, 0), 10);
-		
-		currentPlayer = players.get(0);
-//		currentPlayer.addAction(1);
-//		currentPlayer.addBuysLeft(1);
-		//System.out.println("The current player is : " + currentPlayer.toString());
 	}
-	public void addPlayer(String name){
+	public void addPlayerToGame(String name){
 		Player temp = new Player(name);
 		temp.addCardstoDeck(startingCards);
 		temp.drawCard();
@@ -111,8 +105,16 @@ public class Game {
 		System.out.println(currentPlayer.getName());
 		return currentPlayer;
 	}
+	public void setStartingPlayer()
+	{
+		 currentPlayer = players.get(0);
+	}
 	public Command getCommand()
 	{
 		return command;
+	}
+	public ArrayList<Player> getPlayersArray()
+	{
+		return players;
 	}
 }
