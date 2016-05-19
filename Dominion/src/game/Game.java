@@ -24,8 +24,29 @@ public class Game {
 		startingCards.add(new Victory(4, "estate", "", 2, "Victory", 0, 0, 0, 0, 1));
 		startingCards.add(new Victory(4, "estate", "", 2, "Victory", 0, 0, 0, 0, 1));
 		startingCards.add(new Victory(4, "estate", "", 2, "Victory", 0, 0, 0, 0, 1));
-		addPlayer("Player1");
-		addPlayer("Player2");
+		
+		cardsInField[0] = new FieldCards(new Treasure(1, "Copper", "", 0, "Treasure", 0, 1, 0, 0,0), 60);
+		cardsInField[1] = new FieldCards(new Treasure(2, "Silver", "", 3, "Treasure", 0, 2, 0, 0,0), 40);
+		cardsInField[2] = new FieldCards(new Treasure(3, "Gold", "", 6, "Treasure", 0, 3, 0, 0,0), 30);
+
+	}
+	public void addCardsToGame()
+	{	
+		cardsInField[0] = new FieldCards(new Treasure(1, "Copper", "", 0, "Treasure", 0, 1, 0, 0,0), 60);
+		cardsInField[1] = new FieldCards(new Treasure(2, "Silver", "", 3, "Treasure", 0, 2, 0, 0,0), 40);
+		cardsInField[2] = new FieldCards(new Treasure(3, "Gold", "", 6, "Treasure", 0, 3, 0, 0,0), 30);
+		
+		startingCards.add(new Treasure(1, "copper", "", 0, "Treasure", 0, 1, 0, 0, 0));
+		startingCards.add(new Treasure(1, "copper", "", 0, "Treasure", 0, 1, 0, 0, 0));
+		startingCards.add(new Treasure(1, "copper", "", 0, "Treasure", 0, 1, 0, 0, 0));
+		startingCards.add(new Treasure(1, "copper", "", 0, "Treasure", 0, 1, 0, 0, 0));
+		startingCards.add(new Treasure(1, "copper", "", 0, "Treasure", 0, 1, 0, 0, 0));
+		startingCards.add(new Treasure(1, "copper", "", 0, "Treasure", 0, 1, 0, 0, 0));
+//		startingCards.add(new Treasure(1, "copper", "", 0, "Treasure", 0, 1, 0, 0, 0));
+		startingCards.add(new Action(8, "Cellar", "", 2, "Action", 0, 0, 1, 0, 0));
+		startingCards.add(new Victory(4, "estate", "", 2, "Victory", 0, 0, 0, 0, 1));
+		startingCards.add(new Victory(4, "estate", "", 2, "Victory", 0, 0, 0, 0, 1));
+		startingCards.add(new Victory(4, "estate", "", 2, "Victory", 0, 0, 0, 0, 1));
 		
 		cardsInField[0] = new FieldCards(new Treasure(1, "Copper", "", 0, "Treasure", 0, 1, 0, 0,0), 60);
 		cardsInField[1] = new FieldCards(new Treasure(2, "Silver", "", 3, "Treasure", 0, 2, 0, 0,0), 40);
@@ -52,6 +73,18 @@ public class Game {
 			cardsInField[6] = new FieldCards(new Action(7, "Curse", "", 3, "Curse", 0, 0, 0, 0, -1), 30);
 			break;
 		}
+
+		cardsInField[7] = new FieldCards(new Action(8, "Cellar", "", 2, "Action", 0, 0, 1, 0, 0), 10);
+		cardsInField[8] = new FieldCards(new Action(9, "Card3", "", 2, "Action", 0, 3, 0, 1, 0), 10);
+		cardsInField[9] = new FieldCards(new Action(10, "Card4", "", 2, "Action", 2, 0, 0, 0, 0), 10);
+		cardsInField[10] = new FieldCards(new Action(11, "Card5", "", 3, "Action", 0, 0, 2, 0, 0), 10);
+		cardsInField[11] = new FieldCards(new Action(12, "Card6", "", 2, "Action", 0, 3, 0, 0, 0), 10);
+		cardsInField[12] = new FieldCards(new Action(13, "Card7", "", 3, "Action", 1, 0, 1, 2, 0), 10);
+		cardsInField[13] = new FieldCards(new Action(14, "Card8", "", 5, "Action", 1, 3, 0, 0, 0), 10);
+		cardsInField[14] = new FieldCards(new Action(15, "Card9", "", 1, "Action", 2, 1, 1, 0, 0), 10);
+		cardsInField[15] = new FieldCards(new Action(16, "Card10", "", 4, "Action", 0, 2, 2, 0, 0), 10);
+		cardsInField[16] = new FieldCards(new Action(17, "Card15", "", 4, "Action", 1, 0, 1, 0, 0), 10);
+
 		cardsInField[7] = new FieldCards(new Action(8, "Cellar", "", 2, "Action", 0, 0, 1, 0, 0), 10);
 		cardsInField[8] = new FieldCards(new Action(9, "Card3", "", 2, "Action", 0, 3, 0, 1, 0), 10);
 		cardsInField[9] = new FieldCards(new Action(10, "Card4", "", 2, "Action", 2, 0, 0, 0, 0), 10);
@@ -114,5 +147,9 @@ public class Game {
 	public Command getCommand()
 	{
 		return command;
+	}
+	public ArrayList<Player> getPlayersArray()
+	{
+		return players;
 	}
 }

@@ -26,6 +26,15 @@
 		/*window.onbeforeunload = function() {
 	        return "";
 	    }*/
+	    
+	    $.ajax({
+			type: 'POST',
+			data: {operation: "getPlayers"},
+			url: 'AjaxController',
+			success: function(result){
+				$("#result3").html(result);
+			}
+		});
 		
 		$(".inHand").click(function() {
 			var cardname = $(this).attr("cardname");  
@@ -42,7 +51,7 @@
 					cardname: cardname},
 				url: 'AjaxController',
 				success: function(result){
-					$("#result1").html(result);
+					$("#result2").html(result);
 				}
 			});
 		});
@@ -209,7 +218,8 @@
 				<div class="piles">
 					<div class="trashPile"></div>
 				</div>
-				<span id="result1"></span>
+				<span id="result2"></span>
+				<span id="result3"></span>
 			</div>
 		</div>
 	</div>
