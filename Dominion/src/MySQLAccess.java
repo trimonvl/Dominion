@@ -1,4 +1,3 @@
-package sql;
 // Adapted from http://www.vogella.com/tutorials/MySQLJava/article.html
 //Hier kan je sql statements aanmaken om aan te spreken in andere klassen
 import java.sql.Connection;

@@ -1,7 +1,4 @@
-package javaGui;
 import java.util.ArrayList;
-
-import game.*;
 
 // Adapted from http://www.vogella.com/tutorials/MySQLJava/article.html
 public class Main {

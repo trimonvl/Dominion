@@ -1,7 +1,4 @@
-package player;
 import java.util.ArrayList;
-
-import card.*;
 
 public class Hand extends CardPile {
 	private ArrayList<Card> hand = new ArrayList<Card>();

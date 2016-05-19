@@ -1,8 +1,4 @@
-package player;
 import java.util.ArrayList;
-
-import card.*;
-import game.*;
 
 public class Player {
 	int gold = 0;
@@ -15,7 +11,7 @@ public class Player {
 	CardPile thrash = new CardPile();
 	Hand hand = new Hand();
 	String name;
-	public Player(String name){
+	Player(String name){
 		this.name = name;
 	}
 	public ArrayList<Card> getHand(){
@@ -141,9 +137,5 @@ public class Player {
 	public int getActions()
 	{
 		return actions;
-	}
-	public void addVictoryPoints(int amount)
-	{
-		victoryPoints += amount;
 	}
 }

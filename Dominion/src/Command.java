@@ -1,7 +1,4 @@
-package card;
 import java.util.ArrayList;
-
-import player.*;
 
 public class Command {
 	ArrayList<Card>toDiscard = new ArrayList<Card>();

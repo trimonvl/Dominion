@@ -1,11 +1,8 @@
-package player;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
 //import java.util.Random;
-
-import card.*;
 
 public class CardPile {
 	Queue<Card> List = new LinkedList<Card>();
