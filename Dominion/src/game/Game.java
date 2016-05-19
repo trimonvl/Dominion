@@ -80,6 +80,14 @@ public class Game {
 		temp.drawCard();
 		temp.drawCard();
 		players.add(temp);
+		
+		MySQLAccess conn = new MySQLAccess();
+		try {
+			conn.insertPlayer();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	public void nextPlayer(){
 			int i = players.indexOf(currentPlayer);

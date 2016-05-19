@@ -64,6 +64,43 @@ public class MySQLAccess {
     }
   }
 
+public void insertPlayer() throws SQLException {
+
+		Connection dbConnection = null;
+		PreparedStatement preparedStatement = null;
+
+		String insertTableSQL = "INSERT INTO players"
+				+ "(id, name) VALUES"
+				+ "(?,?)";
+
+		try {
+			preparedStatement = connect.prepareStatement(insertTableSQL);
+
+			preparedStatement.setInt(1, 1);
+			preparedStatement.setString(2, "Test");
+
+			// execute insert SQL statement
+			preparedStatement.executeUpdate();
+
+			System.out.println("Record is inserted into player table!");
+
+		} catch (SQLException e) {
+
+			System.out.println(e.getMessage());
+
+		} finally {
+
+			if (preparedStatement != null) {
+				preparedStatement.close();
+			}
+
+			if (dbConnection != null) {
+				dbConnection.close();
+			}
+
+		}
+}
+  
   // You need to close the resultSet
   private void close() {
     try {
