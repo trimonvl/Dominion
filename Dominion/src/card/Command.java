@@ -4,20 +4,43 @@ import java.util.ArrayList;
 import player.*;
 
 public class Command {
-	ArrayList<Card>toDiscard = new ArrayList<Card>();
+	ArrayList<Card>toUse = new ArrayList<Card>();
 	public void addDiscard(Card card)
 	{
-		toDiscard.add(card);
+		toUse.add(card);
 	}
 	public void CellarComplete(Player player)
 	{
-		if (toDiscard.size()!=0)
+		if (toUse.size()!=0)
 		{
-			for(int i=0; i<toDiscard.size();i++)
+			for(int i=0; i<toUse.size();i++)
 			{
-				player.discardCard(toDiscard.get(i));
+				player.discardCard(toUse.get(i));
 				player.drawCard();
 			}	
 		}
+		toUse.removeAll(toUse);
+	}
+	public void addChapelTrash(Card card)
+	{
+		if(toUse.size()<4)
+		{
+			toUse.add(card);
+		}
+	}
+	public void ChapelComplete(Player player)
+	{
+		if (toUse.size()!=0)
+		{
+			for(int i=0; i<toUse.size();i++)
+			{
+				player.trashCard(toUse.get(i));
+			}	
+		}
+		toUse.removeAll(toUse);
+	}
+	public int getToUseSize()
+	{
+		return toUse.size();
 	}
 }

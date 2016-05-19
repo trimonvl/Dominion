@@ -12,7 +12,7 @@ public class Player {
 	int phase = 1;
 	CardPile deck = new CardPile();
 	CardPile discardPile = new CardPile();
-	CardPile thrash = new CardPile();
+	CardPile trash = new CardPile();
 	Hand hand = new Hand();
 	String name;
 	public Player(String name){
@@ -45,7 +45,13 @@ public class Player {
 	}
 	public void discardCard(Card card)
 	{
-		hand.discard(card, this);
+		hand.discard(card);
+		discardPile.addCard(card);
+	}
+	public void trashCard(Card card)
+	{
+		hand.discard(card);
+		trash.addCard(card);
 	}
 	public void addCardstoDeck(ArrayList<Card> cards){
 		deck.insertCards(cards);
@@ -60,12 +66,15 @@ public class Player {
 		hand.emptyPile();
 	}
 	public void drawCard(){
-		if(deck.getCards().size() <= 0){
-	//		System.out.println("Empty");
-			moveDiscardToNewDeck();
-		}
-	//	System.out.println("Not Empty");
-		hand.addCard(deck.drawCard(this));	
+		if(deck.getCards().size()!=0 || discardPile.getCards().size()!=0)
+		{
+			if(deck.getCards().size() <= 0){
+				//		System.out.println("Empty");
+						moveDiscardToNewDeck();
+					}
+				//	System.out.println("Not Empty");
+					hand.addCard(deck.drawCard(this));	
+		}	
 	}
 	public void buyCard(FieldCards cards){
 		if(buysLeft > 0){

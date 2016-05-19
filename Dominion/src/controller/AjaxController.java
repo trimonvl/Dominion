@@ -75,7 +75,7 @@ public class AjaxController extends HttpServlet {
 				
 				//Aantal spelers toevoegen a.d.h.v. hun usernames
 				for(int i=0; i<numberPlayers; i++) {
-					currentGame.addPlayer(playerArray[i]);
+					currentGame.addPlayerToGame(playerArray[i]);
 				}
 				players = currentGame.getPlayersArray();
 			break;
