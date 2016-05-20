@@ -72,7 +72,6 @@ public class Game {
 		temp.drawCard();
 		players.add(temp);
 		
-<<<<<<< HEAD
 /*		MySQLAccess conn = new MySQLAccess();
 =======
 		/*MySQLAccess conn = new MySQLAccess();
