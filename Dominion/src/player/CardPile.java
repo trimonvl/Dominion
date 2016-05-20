@@ -39,4 +39,8 @@ public class CardPile {
 		}
 		return temp;
 	}
+	public Queue<Card> getList()
+	{
+		return List;
+	}
 }

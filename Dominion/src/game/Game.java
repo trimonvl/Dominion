@@ -1,8 +1,10 @@
 package game;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import card.*;
 import player.*;
+import sql.MySQLAccess;
 public class Game {
 	private ArrayList<Player> players = new ArrayList<Player>();
 	Player currentPlayer = null;
@@ -50,26 +52,15 @@ public class Game {
 		}
 
 		cardsInField[7] = new FieldCards(new Action(8, "Cellar", "", 2, "Action", 0, 0, 1, 0, 0), 10);
-		cardsInField[8] = new FieldCards(new Action(9, "Card3", "", 2, "Action", 0, 3, 0, 1, 0), 10);
-		cardsInField[9] = new FieldCards(new Action(10, "Card4", "", 2, "Action", 2, 0, 0, 0, 0), 10);
-		cardsInField[10] = new FieldCards(new Action(11, "Card5", "", 3, "Action", 0, 0, 2, 0, 0), 10);
-		cardsInField[11] = new FieldCards(new Action(12, "Card6", "", 2, "Action", 0, 3, 0, 0, 0), 10);
-		cardsInField[12] = new FieldCards(new Action(13, "Card7", "", 3, "Action", 1, 0, 1, 2, 0), 10);
-		cardsInField[13] = new FieldCards(new Action(14, "Card8", "", 5, "Action", 1, 3, 0, 0, 0), 10);
-		cardsInField[14] = new FieldCards(new Action(15, "Card9", "", 1, "Action", 2, 1, 1, 0, 0), 10);
-		cardsInField[15] = new FieldCards(new Action(16, "Card10", "", 4, "Action", 0, 2, 2, 0, 0), 10);
-		cardsInField[16] = new FieldCards(new Action(17, "Card15", "", 4, "Action", 1, 0, 1, 0, 0), 10);
-
-		cardsInField[7] = new FieldCards(new Action(8, "Cellar", "", 2, "Action", 0, 0, 1, 0, 0), 10);
 		cardsInField[8] = new FieldCards(new Action(9, "Chapel", "", 2, "Action", 0, 0, 0, 0, 0), 10);
-		cardsInField[9] = new FieldCards(new Action(10, "Card4", "", 2, "Action", 2, 0, 0, 0, 0), 10);
-		cardsInField[10] = new FieldCards(new Action(11, "Card5", "", 3, "Action", 0, 0, 2, 0, 0), 10);
-		cardsInField[11] = new FieldCards(new Action(12, "Card6", "", 2, "Action", 0, 3, 0, 0, 0), 10);
-		cardsInField[12] = new FieldCards(new Action(13, "Card7", "", 3, "Action", 1, 0, 1, 2, 0), 10);
-		cardsInField[13] = new FieldCards(new Action(14, "Card8", "", 5, "Action", 1, 3, 0, 0, 0), 10);
-		cardsInField[14] = new FieldCards(new Action(15, "Card9", "", 1, "Action", 2, 1, 1, 0, 0), 10);
-		cardsInField[15] = new FieldCards(new Action(16, "Card10", "", 4, "Action", 0, 2, 2, 0, 0), 10);
-		cardsInField[16] = new FieldCards(new Action(17, "Card15", "", 4, "Action", 1, 0, 1, 0, 0), 10);
+		cardsInField[9] = new FieldCards(new Action(10, "Chancellor", "", 3, "Action", 0, 2, 0, 0, 0), 10);
+		cardsInField[10] = new FieldCards(new Action(11, "Village", "", 3, "Action", 1, 0, 2, 0, 0), 10);
+		cardsInField[11] = new FieldCards(new Action(12, "Woodcutter", "", 3, "Action", 0, 2, 0, 1, 0), 10);
+		cardsInField[12] = new FieldCards(new Action(13, "Feast", "", 3, "Action", 4, 0, 0, 0, 0), 10);
+		cardsInField[13] = new FieldCards(new Action(14, "Militia", "", 4, "Action - Attack", 0, 2, 0, 0, 0), 10);
+		cardsInField[14] = new FieldCards(new Action(15, "Moneylender", "", 4, "Action", 0, 0, 0, 0, 0), 10);
+		cardsInField[15] = new FieldCards(new Action(16, "Remodel", "", 4, "Action", 0, 0, 0, 0, 0), 10);
+		cardsInField[16] = new FieldCards(new Action(17, "Smithy", "", 4, "Action", 3, 0, 0, 0, 0), 10);
 	}
 	public void addPlayerToGame(String name){
 		Player temp = new Player(name);
@@ -81,13 +72,13 @@ public class Game {
 		temp.drawCard();
 		players.add(temp);
 		
-		MySQLAccess conn = new MySQLAccess();
+		/*MySQLAccess conn = new MySQLAccess();
 		try {
 			conn.insertPlayer();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	}
 	public void nextPlayer(){
 			int i = players.indexOf(currentPlayer);
