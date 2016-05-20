@@ -18,8 +18,7 @@ public class MySQLAccess {
 
   final private String host = "localhost";
   final private String user = "root";
-  final private String passwd = "root";
-  
+  final private String passwd = "admin";
   public void readDataBase() throws Exception {
     try {
       // This will load the MySQL driver, each DB has its own driver
@@ -64,21 +63,19 @@ public class MySQLAccess {
     }
   }
 
-public void insertPlayer() throws SQLException {
+public void insertPlayer(String playerName) throws SQLException {
+    
+    // Setup the connection with the DB
+    connect = DriverManager
+        .getConnection("jdbc:mysql://" + host + "/Dominion?"
+            + "user=" + user + "&password=" + passwd );
 
-		Connection dbConnection = null;
-		PreparedStatement preparedStatement = null;
-
-		String insertTableSQL = "INSERT INTO players"
-				+ "(id, name) VALUES"
-				+ "(?,?)";
+		String insertTableSQL = "INSERT INTO players(name) VALUES(?)";
 
 		try {
 			preparedStatement = connect.prepareStatement(insertTableSQL);
-
-			preparedStatement.setInt(1, 1);
-			preparedStatement.setString(2, "Test");
-
+			preparedStatement.setString(1, playerName);
+			
 			// execute insert SQL statement
 			preparedStatement.executeUpdate();
 
@@ -94,12 +91,98 @@ public void insertPlayer() throws SQLException {
 				preparedStatement.close();
 			}
 
-			if (dbConnection != null) {
-				dbConnection.close();
+			if (connect != null) {
+				connect.close();
 			}
 
 		}
 }
+
+public void insertPlayerInGame() throws SQLException {
+    
+    // Setup the connection with the DB
+    connect = DriverManager
+        .getConnection("jdbc:mysql://" + host + "/Dominion?"
+            + "user=" + user + "&password=" + passwd );
+
+		String extractPlayerSQL = "SELECT id FROM players ORDER BY ID DESC LIMIT 1";
+		String extractGameSQL = "SELECT id FROM games ORDER BY ID DESC LIMIT 1";
+		String insertPlayerInGameSQL = "INSERT INTO playersingames(game_id, player_id) VALUES(?, ?)";
+		//String extractGameSQL = "SELECT LAST(id) FROM games";
+		try {
+			preparedStatement = connect.prepareStatement(extractPlayerSQL);
+		    resultSet = preparedStatement.executeQuery();
+		    resultSet.next();
+		    int playerId = resultSet.getInt("id");
+			System.out.println("Record is extracted out of player table!");
+			System.out.println(playerId);
+			
+			preparedStatement = connect.prepareStatement(extractGameSQL);
+		    resultSet = preparedStatement.executeQuery();
+		    resultSet.next();
+		    int gameId = resultSet.getInt("id");
+			System.out.println("Record is extracted out of games table!");
+			System.out.println(gameId);
+			
+			preparedStatement = connect.prepareStatement(insertPlayerInGameSQL);
+			preparedStatement.setInt(1, gameId);
+			preparedStatement.setInt(2, playerId);
+
+			// execute insert SQL statement
+			preparedStatement.executeUpdate();
+
+			System.out.println("PlayerId and GameId inserted!");
+		} catch (SQLException e) {
+
+			System.out.println(e.getMessage());
+
+		} finally {
+
+			if (preparedStatement != null) {
+				preparedStatement.close();
+			}
+
+			if (connect != null) {
+				connect.close();
+			}
+
+		}
+}
+
+public void insertGame() throws SQLException {
+    
+    // Setup the connection with the DB
+    connect = DriverManager
+        .getConnection("jdbc:mysql://" + host + "/Dominion?"
+            + "user=" + user + "&password=" + passwd );
+
+		String insertTableSQL = "INSERT INTO games() VALUES()";
+
+		try {
+			preparedStatement = connect.prepareStatement(insertTableSQL);
+
+			// execute insert SQL statement
+			preparedStatement.executeUpdate();
+
+			System.out.println("Record is inserted into games table!");
+
+		} catch (SQLException e) {
+
+			System.out.println(e.getMessage());
+
+		} finally {
+
+			if (preparedStatement != null) {
+				preparedStatement.close();
+			}
+
+			if (connect != null) {
+				connect.close();
+			}
+
+		}
+}
+
   
   // You need to close the resultSet
   private void close() {

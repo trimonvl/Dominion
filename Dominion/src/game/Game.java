@@ -1,8 +1,10 @@
 package game;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import card.*;
 import player.*;
+import sql.MySQLAccess;
 public class Game {
 	private ArrayList<Player> players = new ArrayList<Player>();
 	Player currentPlayer = null;
@@ -83,7 +85,8 @@ public class Game {
 		
 		MySQLAccess conn = new MySQLAccess();
 		try {
-			conn.insertPlayer();
+			conn.insertPlayer(name);
+			conn.insertPlayerInGame();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
