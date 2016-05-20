@@ -2,6 +2,7 @@ package javaGui;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -9,6 +10,7 @@ import javax.swing.*;
 import card.*;
 import game.*;
 import player.*;
+import sql.MySQLAccess;
 public class TestFrame{
 	JButton[] FieldButtons = new JButton[17];
 	JButton[] HandButtons;
@@ -38,6 +40,24 @@ public class TestFrame{
 		buttonPane.setLayout(new FlowLayout());
 		playerPane.setLayout(new FlowLayout());
 		paint();
+		
+		MySQLAccess conn = new MySQLAccess();
+		try {
+			/*
+			conn.insertGame();
+			conn.insertPlayer("Jan");
+			conn.insertPlayerInGame();
+			conn.insertPlayer("Nick");
+			conn.insertPlayerInGame();
+			conn.insertPlayer("Tijs");
+			conn.insertPlayerInGame();
+			*/
+			conn.extractRandomCards();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 	
 	private void clearButtons()
