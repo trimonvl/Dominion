@@ -18,7 +18,7 @@ public class MySQLAccess {
 
   final private String host = "localhost";
   final private String user = "root";
-  final private String passwd = "admin";
+  final private String passwd = "root";
   public void readDataBase() throws Exception {
     try {
       // This will load the MySQL driver, each DB has its own driver
