@@ -238,6 +238,15 @@ input[type=submit] {
 	background: #cccccc;
 }
 
+.treasureCards {
+	//width: calc(100% - 66px);
+	height: calc(37.5% - 49px);
+	padding: 33px;
+	//padding-bottom: 16px;
+	text-align: center;
+	background: #cccccc;
+}
+
 .curseCards {
 	//width: calc(100% - 66px);
 	height: calc(100% - 49px);
@@ -309,6 +318,14 @@ input[type=submit] {
 /********/
 
 .victoryCard {
+	float: none !important;
+	display: inline-block;
+	width: calc(100%);
+	height: calc(33.33% - 17px);
+	margin-bottom: 17px;
+}
+
+.treasureCard {
 	float: none !important;
 	display: inline-block;
 	width: calc(100%);
@@ -478,37 +495,37 @@ input[type=submit] {
 
 /**** Card images small ****/
 
-.estateSmall {
+.EstateSmall {
 	background: url(http://i.imgur.com/3aXwH5Q.jpg) no-repeat;
 	background-size: 100% 100%;
 }
 
-.duchySmall {
+.DuchySmall {
 	background: url(http://i.imgur.com/ArK5NbE.jpg) no-repeat;
 	background-size: 100% 100%;
 }
 
-.provinceSmall {
+.ProvinceSmall {
 	background: url(http://i.imgur.com/dG8hyPH.jpg) no-repeat;
 	background-size: 100% 100%;
 }
 
-.copperSmall {
+.CopperSmall {
 	background: url(http://i.imgur.com/vchVYL2.jpg) no-repeat;
 	background-size: 100% 100%;
 }
 
-.silverSmall {
+.SilverSmall {
 	background: url(http://i.imgur.com/3rpxaUP.jpg) no-repeat;
 	background-size: 100% 100%;
 }
 
-.goldSmall {
+.GoldSmall {
 	background: url(http://i.imgur.com/fxUN3aI.jpg) no-repeat;
 	background-size: 100% 100%;
 }
 
-.curseSmall {
+.CurseSmall {
 	background: url(http://i.imgur.com/q8bgTrg.jpg) no-repeat;
 	background-size: 100% 100%;
 }

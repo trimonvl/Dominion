@@ -155,4 +155,14 @@ public class Player {
 	{
 		victoryPoints += amount;
 	}
+	public CardPile getPile(String pile)
+	{
+		switch(pile)
+		{
+			case "deck": return deck;
+			case "discard": return discardPile;
+			case "trash": return trash;
+		}
+		return deck;
+	}
 }
