@@ -73,10 +73,17 @@ public class Game {
 		players.add(temp);
 		
 <<<<<<< HEAD
+<<<<<<< HEAD
 		/*
 		MySQLAccess conn = new MySQLAccess();
 =======
 		/*MySQLAccess conn = new MySQLAccess();
+>>>>>>> origin/develop
+=======
+/*		MySQLAccess conn = new MySQLAccess();
+=======
+		/*MySQLAccess conn = new MySQLAccess();
+>>>>>>> 0f2e8b3c9c7efb4838bbbac0fc17aec95ec96570
 >>>>>>> origin/develop
 		try {
 			conn.insertPlayer(name);
