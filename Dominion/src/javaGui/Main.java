@@ -15,7 +15,7 @@ public class Main {
 	Game newGame = new Game();
 	TestFrame newFrame = new TestFrame(newGame);
 	
-	
+	/*
 	MySQLAccess conn = new MySQLAccess();
 	try {
 		conn.insertGame();
@@ -23,6 +23,8 @@ public class Main {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
+	*/
+	
 /*	newGame.start();
 	System.out.println("Player " + newGame.currentPlayer.name + " has these cards in his hand: ");
 	System.out.println(newGame.currentPlayer.hand.toString());

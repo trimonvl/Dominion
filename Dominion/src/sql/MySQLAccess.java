@@ -98,6 +98,41 @@ public void insertPlayer(String playerName) throws SQLException {
 		}
 }
 
+public void extractRandomCards() throws SQLException {
+    
+    // Setup the connection with the DB
+    connect = DriverManager
+        .getConnection("jdbc:mysql://" + host + "/Dominion?"
+            + "user=" + user + "&password=" + passwd );
+
+	String extractCardsSQL = "SELECT * FROM cards WHERE card_id >= 8 ORDER BY RAND() DESC LIMIT 10 ";
+
+		try {
+			preparedStatement = connect.prepareStatement(extractCardsSQL);
+		    resultSet = preparedStatement.executeQuery();
+		    while(resultSet.next()){
+		    	String cardName = resultSet.getString("name");
+		    	System.out.println(cardName);
+		    }
+
+		} catch (SQLException e) {
+
+			System.out.println(e.getMessage());
+
+		} finally {
+
+			if (preparedStatement != null) {
+				preparedStatement.close();
+			}
+
+			if (connect != null) {
+				connect.close();
+			}
+
+		}
+}
+
+
 public void insertPlayerInGame() throws SQLException {
     
     // Setup the connection with the DB

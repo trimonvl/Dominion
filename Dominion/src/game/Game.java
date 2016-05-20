@@ -83,6 +83,7 @@ public class Game {
 		temp.drawCard();
 		players.add(temp);
 		
+		/*
 		MySQLAccess conn = new MySQLAccess();
 		try {
 			conn.insertPlayer(name);
@@ -91,6 +92,7 @@ public class Game {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		*/
 	}
 	public void nextPlayer(){
 			int i = players.indexOf(currentPlayer);

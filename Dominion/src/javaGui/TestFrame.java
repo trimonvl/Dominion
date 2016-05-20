@@ -43,6 +43,7 @@ public class TestFrame{
 		
 		MySQLAccess conn = new MySQLAccess();
 		try {
+			/*
 			conn.insertGame();
 			conn.insertPlayer("Jan");
 			conn.insertPlayerInGame();
@@ -50,6 +51,8 @@ public class TestFrame{
 			conn.insertPlayerInGame();
 			conn.insertPlayer("Tijs");
 			conn.insertPlayerInGame();
+			*/
+			conn.extractRandomCards();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
