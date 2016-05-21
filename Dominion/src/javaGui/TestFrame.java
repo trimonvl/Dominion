@@ -103,6 +103,8 @@ public class TestFrame{
 		break;
 		case "Chancellor":paintChancellor(player);
 		break;
+		case "Workshop":paintWorkshop(player);
+		break;
 		default: paintNormal(player);
 		break;
 		}
@@ -195,6 +197,34 @@ public class TestFrame{
 		doNotAction.setText("Do not discard deck");		
 		playerPane.add(doAction);
 		playerPane.add(doNotAction);
+	}
+	private void paintWorkshop(Player player)
+	{
+		buttonPane.removeAll();
+		buttonPane.repaint();
+		clearButtons();
+		for(int i = 0;i < 17;i++)
+		{
+			FieldCards fieldCard = currentGame.getFieldCard(i);
+			Card card = fieldCard.getCard();
+			FieldButtons[i] = new JButton(card.getName() + " | Cost " + card.getCost() + " | " + fieldCard.getAmount() + " Cards");
+			FieldButtons[i].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e){SpecialFieldCardButtonPressed(e,4);}});
+			buttonPane.add(FieldButtons[i]);
+			if(fieldCard.getAmount()<=0 || card.getCost()>4)
+			{
+				FieldButtons[i].setEnabled(false);
+			}
+		}
+		for(int i = 0;i < cardsInHand.size();i++)
+		{
+			Card card = cardsInHand.get(i);
+			HandButtons[i]= new JButton(card.getName() + " | Cost " + card.getCost());
+			playerPane.add(HandButtons[i]);
+			HandButtons[i].setEnabled(false);
+		}
+		playerPane.add(actions);
+		playerPane.add(buys);
+		playerPane.add(gold);
 	}
 	
 	private void repaint()
@@ -309,5 +339,17 @@ public class TestFrame{
 		currentGame.getCommand().chancellor(currentGame.getCurrentPlayer());
 		state = "normal";
 		repaint();	
+	}
+	private void SpecialFieldCardButtonPressed(ActionEvent e, int cost)
+	{
+		for(int i = 0;i < 17;i++)
+		{
+			if(e.getSource().equals(FieldButtons[i]))
+			{
+				currentGame.getCommand().getCard(currentGame.getCurrentPlayer(),cost,currentGame.getFieldCard(i));
+			}
+		}
+		state = "normal";
+		repaint();
 	}
 }

@@ -1,6 +1,7 @@
 package card;
 import java.util.ArrayList;
 
+import game.FieldCards;
 import player.*;
 
 public class Command {
@@ -46,5 +47,13 @@ public class Command {
 	public void chancellor(Player player)
 	{
 		player.discardDeck();
+	}
+	public void getCard(Player player,int maxCost,FieldCards cards)
+	{
+		if(cards.getCard().getCost()<=maxCost)
+		{
+			player.getPile("discard").addCard(cards.getCard());
+			cards.remove();
+		}
 	}
 }

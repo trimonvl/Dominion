@@ -88,7 +88,6 @@ public class Player {
 			if(cards.getCard().getCost() <= gold){
 				gold -= cards.getCard().getCost();
 				discardPile.addCard(cards.getCard());
-	//			System.out.println(discardPile.List.size());
 				cards.remove();
 				buysLeft -= 1;
 			}	
