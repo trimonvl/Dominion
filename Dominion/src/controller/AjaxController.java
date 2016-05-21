@@ -129,6 +129,13 @@ public class AjaxController extends HttpServlet {
 			break;
 			
 			case "draw":
+				for(int i=0; i<currentGame.getCurrentPlayer().getHand().size();i++) {
+					Card card = currentGame.getCurrentPlayer().getHand().get(i);
+					
+				}
+			break;
+			
+			case "play":
 				String cardname = request.getParameter("cardname");
 				
 				PrintWriter out5 = response.getWriter();
