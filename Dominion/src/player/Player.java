@@ -48,6 +48,13 @@ public class Player {
 		hand.discard(card);
 		discardPile.addCard(card);
 	}
+	public void discardDeck()
+	{
+		for(int i=0; i<deck.getList().size(); i++)
+		{
+			discardPile.addCard(deck.getList().poll());
+		}
+	}
 	public void trashCard(Card card)
 	{
 		hand.discard(card);

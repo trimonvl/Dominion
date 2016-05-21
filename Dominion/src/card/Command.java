@@ -43,4 +43,8 @@ public class Command {
 	{
 		return toUse.size();
 	}
+	public void chancellor(Player player)
+	{
+		player.discardDeck();
+	}
 }

@@ -91,11 +91,17 @@ public class TestFrame{
 		buys = new JLabel("Buys: " + player.getBuys());
 		gold = new JLabel("Gold: " + player.getGold());
 		next = new JButton();
+		JLabel playerName= new JLabel(player.getName());
+		playerPane.add(playerName);
+		cardsInHand = player.getHand();
+		HandButtons = new JButton[cardsInHand.size()];
 		switch(state)
 		{
 		case "Cellar": paintCellar(player);
 		break;
 		case "Chapel": paintChapel(player);
+		break;
+		case "Chancellor":paintChancellor(player);
 		break;
 		default: paintNormal(player);
 		break;
@@ -105,10 +111,6 @@ public class TestFrame{
 	
 	private void paintNormal(Player player)
 	{
-		JLabel playerName= new JLabel(player.getName());
-		playerPane.add(playerName);
-		cardsInHand = player.getHand();
-		HandButtons = new JButton[cardsInHand.size()];
 		for(int i = 0;i < cardsInHand.size();i++)
 		{
 			Card card = cardsInHand.get(i);
@@ -142,10 +144,6 @@ public class TestFrame{
 	
 	private void paintCellar(Player player)
 	{
-		JLabel playerName= new JLabel(player.getName());
-		playerPane.add(playerName);
-		cardsInHand = player.getHand();
-		HandButtons = new JButton[cardsInHand.size()];
 		for(int i = 0;i < cardsInHand.size();i++)
 		{
 			Card card = cardsInHand.get(i);
@@ -163,10 +161,6 @@ public class TestFrame{
 	
 	private void paintChapel(Player player)
 	{
-		JLabel playerName= new JLabel(player.getName());
-		playerPane.add(playerName);
-		cardsInHand = player.getHand();
-		HandButtons = new JButton[cardsInHand.size()];
 		for(int i = 0;i < cardsInHand.size();i++)
 		{
 			Card card = cardsInHand.get(i);
@@ -180,6 +174,27 @@ public class TestFrame{
 		next.setText("end thrash");
 		next.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e){endChapelTrash(e);}});
 		playerPane.add(next);
+	}
+	private void paintChancellor(Player player)
+	{
+		for(int i = 0;i < cardsInHand.size();i++)
+		{
+			Card card = cardsInHand.get(i);
+			HandButtons[i]= new JButton(card.getName() + " | Cost " + card.getCost());
+			playerPane.add(HandButtons[i]);
+			HandButtons[i].setEnabled(false);
+		}
+		playerPane.add(actions);
+		playerPane.add(buys);
+		playerPane.add(gold);
+		JButton doAction = new JButton();
+		JButton doNotAction = new JButton();
+		doAction.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e){doChancellor(e);}});
+		doNotAction.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e){state = "normal";repaint();}});
+		doAction.setText("Discard deck");
+		doNotAction.setText("Do not discard deck");		
+		playerPane.add(doAction);
+		playerPane.add(doNotAction);
 	}
 	
 	private void repaint()
@@ -286,6 +301,12 @@ public class TestFrame{
 	private void endChapelTrash(ActionEvent e)
 	{
 		currentGame.getCommand().ChapelComplete(currentGame.getCurrentPlayer());
+		state = "normal";
+		repaint();	
+	}
+	private void doChancellor(ActionEvent e)
+	{
+		currentGame.getCommand().chancellor(currentGame.getCurrentPlayer());
 		state = "normal";
 		repaint();	
 	}
