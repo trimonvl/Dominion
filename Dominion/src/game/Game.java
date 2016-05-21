@@ -12,16 +12,16 @@ public class Game {
 	ArrayList<Card> startingCards = new ArrayList<Card>();
 	Command command = new Command();
 	public Game(){
-		startingCards.add(new Treasure(1, "copper", "", 0, "Treasure", 0, 1, 0, 0, 0));
-		startingCards.add(new Treasure(1, "copper", "", 0, "Treasure", 0, 1, 0, 0, 0));
-		startingCards.add(new Treasure(1, "copper", "", 0, "Treasure", 0, 1, 0, 0, 0));
-		startingCards.add(new Treasure(1, "copper", "", 0, "Treasure", 0, 1, 0, 0, 0));
-		startingCards.add(new Treasure(1, "copper", "", 0, "Treasure", 0, 1, 0, 0, 0));
-		startingCards.add(new Treasure(1, "copper", "", 0, "Treasure", 0, 1, 0, 0, 0));
-		startingCards.add(new Treasure(1, "copper", "", 0, "Treasure", 0, 1, 0, 0, 0));
-		startingCards.add(new Victory(4, "estate", "", 2, "Victory", 0, 0, 0, 0, 1));
-		startingCards.add(new Victory(4, "estate", "", 2, "Victory", 0, 0, 0, 0, 1));
-		startingCards.add(new Victory(4, "estate", "", 2, "Victory", 0, 0, 0, 0, 1));
+		startingCards.add(new Treasure(1, "Copper", "", 0, "Treasure", 0, 1, 0, 0, 0));
+		startingCards.add(new Treasure(1, "Copper", "", 0, "Treasure", 0, 1, 0, 0, 0));
+		startingCards.add(new Treasure(1, "Copper", "", 0, "Treasure", 0, 1, 0, 0, 0));
+		startingCards.add(new Treasure(1, "Copper", "", 0, "Treasure", 0, 1, 0, 0, 0));
+		startingCards.add(new Treasure(1, "Copper", "", 0, "Treasure", 0, 1, 0, 0, 0));
+		startingCards.add(new Treasure(1, "Copper", "", 0, "Treasure", 0, 1, 0, 0, 0));
+		startingCards.add(new Treasure(1, "Copper", "", 0, "Treasure", 0, 1, 0, 0, 0));
+		startingCards.add(new Victory(4, "Estate", "", 2, "Victory", 0, 0, 0, 0, 1));
+		startingCards.add(new Victory(4, "Estate", "", 2, "Victory", 0, 0, 0, 0, 1));
+		startingCards.add(new Victory(4, "Estate", "", 2, "Victory", 0, 0, 0, 0, 1));
 	}
 	public void addCardsToGame()
 	{	

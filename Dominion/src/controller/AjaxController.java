@@ -12,10 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
-
-import card.Card;
+import card.*;
 import game.*;
 import player.*;
 
@@ -92,13 +89,14 @@ public class AjaxController extends HttpServlet {
 				for(int i=0; i<players.size();i++) {
 					Player player = players.get(i);
 					Queue<Card> deck = player.getPile("deck").getList();
+					Queue<Card> discard = player.getPile("discard").getList();
 					
 					PrintWriter out3 = response.getWriter();
-					out3.print("<div class='player'><div class='halfVertical'><div class='avatar'></div><div class='name'>" + player.getName() + "</div></div><div class='halfVertical'><div class='piles'><div class='discardPile'><div class='amount'>0</div></div><div class='cardPile'></div><div class='amount'>" + deck.size() + "</div></div></div></div>");
+					out3.print("<div class='player' name='" + player.getName() + "'><div class='halfVertical'><div class='avatar default'></div><div class='name'>" + player.getName() + "</div></div><div class='halfVertical'><div class='piles'><div class='discardPile BackLarge'><div class='amount'>" + discard.size() + "</div></div><div class='cardPile BackLarge'><div class='amount'>" + deck.size() + "</div></div></div></div></div>");
 				}
 			break;
 				
-			case "getFieldCards":
+			case "getVictoryCards":
 				for(int i=3; i<6;i++) {
 					FieldCards fieldCard = currentGame.getFieldCard(i);
 					Card card = fieldCard.getCard();
@@ -108,7 +106,7 @@ public class AjaxController extends HttpServlet {
 				}
 			break;
 			
-			case "getFieldCards1":
+			case "getTreasureCards":
 				for(int i=0; i<3;i++) {
 					FieldCards fieldCard = currentGame.getFieldCard(i);
 					Card card = fieldCard.getCard();
@@ -118,7 +116,7 @@ public class AjaxController extends HttpServlet {
 				}
 			break;
 			
-			case "getFieldCards2":
+			case "getCurseCards":
 				for(int i=6; i<7;i++) {
 					FieldCards fieldCard = currentGame.getFieldCard(i);
 					Card card = fieldCard.getCard();
@@ -128,18 +126,39 @@ public class AjaxController extends HttpServlet {
 				}
 			break;
 			
-			case "draw":
+			case "getKingdomCards":
+				for(int i=7; i<17;i++) {
+					FieldCards fieldCard = currentGame.getFieldCard(i);
+					Card card = fieldCard.getCard();
+					
+					PrintWriter out4 = response.getWriter();
+					out4.print("<a class='detailView' href='http://ngartworks.be/Dominion/" + card.getName() + "-xl.jpg'><div class='card kingdomCard " + card.getName() + "Small'><div class='amount'>" + fieldCard.getAmount() + "</div><h4 class='name hidden'>Cardname</h4><div class='image hidden'></div><div class='cost'>" + card.getCost() + "</div><h6 class='type hidden'>Cardtype</h6><button type='button' class='buy'>+</button></div></a>");
+				}
+			break;
+			
+			case "getTrash":
+				
+			break;
+			
+			case "getPlayerOnTurn":
+				String playerOnTurn = currentGame.getCurrentPlayer().getName();
+				PrintWriter out4 = response.getWriter();
+				out4.print(playerOnTurn);
+			break;
+			
+			case "draw":				
 				for(int i=0; i<currentGame.getCurrentPlayer().getHand().size();i++) {
 					Card card = currentGame.getCurrentPlayer().getHand().get(i);
-					
+					PrintWriter out5 = response.getWriter();
+					out5.print("<div class='card inHand kingdomCard " + card.getName() + "Large' cardname='" + card.getName() + "'><div class='value hidden'></div><h4 class='name hidden'></h4><div class='image hidden'></div><div class='cost hidden'></div><h6 class='type hidden'></h6></div>");
 				}
 			break;
 			
 			case "play":
 				String cardname = request.getParameter("cardname");
 				
-				PrintWriter out5 = response.getWriter();
-				out5.print(cardname);
+				PrintWriter out6 = response.getWriter();
+				out6.print(cardname);
 			break;
 			
 			//doGet(request, response);
