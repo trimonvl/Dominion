@@ -157,7 +157,7 @@ public class AjaxController extends HttpServlet {
 			case "play":
 				String cardname = request.getParameter("cardname");
 				String numberinhand = request.getParameter("numberinhand");
-				
+				currentGame.getCurrentPlayer().playCard(currentGame.getCurrentPlayer().getHand().get(Integer.parseInt(numberinhand)));
 				PrintWriter out6 = response.getWriter();
 				out6.print(cardname);
 				out6.print(numberinhand);
