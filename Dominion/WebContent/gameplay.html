@@ -107,12 +107,22 @@
 		});
 	    
 	    $(".handCards").on("click", ".inHand", function() {
-	    	var cardname = $(this).attr("cardname");
-	    	var numberinhand = $(this).attr("numberinhand");
+	    	draw(this);
+	    });
+	    
+	    $(".actionButtons").on("click", "#playAllTreasureCards", function() {
+	    	for (i = 0; i < $(".handCards .card").length; i++) {
+	    		console.log("Card!");
+	    	}
+	    });
+	    
+	    function draw(card) {
+	    	var cardname = $(card).attr("cardname");
+	    	var numberinhand = $(card).attr("numberinhand");
 		    
-		    $(this).appendTo(".playedCards");
-		    $(this).removeClass("inHand");
-		    $(this).addClass("played");
+		    $(card).appendTo(".playedCards");
+		    $(card).removeClass("inHand");
+		    $(card).addClass("played");
 		    
 		    resizeCards();
 			
@@ -126,7 +136,7 @@
 					$("#result2").html(result);
 				}
 			});
-	    });
+	    }
 	});
 	
 	$(window).resize(function() {
@@ -396,7 +406,7 @@
 			</div>
 			<div class="actionButtons">
 				<button type="button" class="">Action</button>
-				<button type="button" class="">Action with a long description</button>
+				<button type="button" class="" id="playAllTreasureCards">Play all Treasure Cards</button>
 			</div>
 		</div>
 		<div class="cards handCards">
