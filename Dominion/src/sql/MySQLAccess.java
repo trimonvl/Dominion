@@ -111,10 +111,19 @@ public void extractRandomCards() throws SQLException {
 			preparedStatement = connect.prepareStatement(extractCardsSQL);
 		    resultSet = preparedStatement.executeQuery();
 		    while(resultSet.next()){
+		    	int cardId = resultSet.getInt("card_id");
 		    	String cardName = resultSet.getString("name");
 		    	System.out.println(cardName);
-		    }
+		    	String cardText = resultSet.getString("text");
+		    	int cardCost = resultSet.getInt("cost");
+		    	String cardType = resultSet.getString("type");
+		    	int cardDraw = resultSet.getInt("draw_card");
+		    	int cardBonusGold = resultSet.getInt("give_gold");
+		    	int cardBonusAction = resultSet.getInt("extra_action");
+		    	int cardBonusBuy = resultSet.getInt("extra_buy");
+		    	int cardVictoryPoints = resultSet.getInt("Victory_points");
 
+		    }
 		} catch (SQLException e) {
 
 			System.out.println(e.getMessage());
