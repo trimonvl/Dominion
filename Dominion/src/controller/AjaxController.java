@@ -150,15 +150,17 @@ public class AjaxController extends HttpServlet {
 				for(int i=0; i<currentGame.getCurrentPlayer().getHand().size();i++) {
 					Card card = currentGame.getCurrentPlayer().getHand().get(i);
 					PrintWriter out5 = response.getWriter();
-					out5.print("<div class='card inHand kingdomCard " + card.getName() + "Large' cardname='" + card.getName() + "'><div class='value hidden'></div><h4 class='name hidden'></h4><div class='image hidden'></div><div class='cost hidden'></div><h6 class='type hidden'></h6></div>");
+					out5.print("<div class='card inHand kingdomCard " + card.getName() + "Large' cardname='" + card.getName() + "' numberInHand='" + i + "'><div class='value hidden'></div><h4 class='name hidden'></h4><div class='image hidden'></div><div class='cost hidden'></div><h6 class='type hidden'></h6></div>");
 				}
 			break;
 			
 			case "play":
 				String cardname = request.getParameter("cardname");
+				String numberinhand = request.getParameter("numberinhand");
 				
 				PrintWriter out6 = response.getWriter();
 				out6.print(cardname);
+				out6.print(numberinhand);
 			break;
 			
 			//doGet(request, response);

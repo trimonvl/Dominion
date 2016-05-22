@@ -108,7 +108,7 @@
 	    
 	    $(".handCards").on("click", ".inHand", function() {
 	    	var cardname = $(this).attr("cardname");
-			console.log(cardname);
+	    	var numberinhand = $(this).attr("numberinhand");
 		    
 		    $(this).appendTo(".playedCards");
 		    $(this).removeClass("inHand");
@@ -119,7 +119,8 @@
 			$.ajax({
 				type: 'POST',
 				data: {operation: "play",
-					cardname: cardname},
+					cardname: cardname,
+					numberinhand: numberinhand},
 				url: 'AjaxController',
 				success: function(result){
 					$("#result2").html(result);
