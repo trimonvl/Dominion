@@ -107,35 +107,46 @@
 		});
 	    
 	    $(".handCards").on("click", ".inHand", function() {
-	    	draw(this);
+	    	play(this);
 	    });
 	    
 	    $(".actionButtons").on("click", "#playAllTreasureCards", function() {
-	    	for (i = 0; i < $(".handCards .card").length; i++) {
-	    		console.log("Card!");
+	    	var numberCardsInHand = $(".inHand").length;
+	    	for (i = 0; i < numberCardsInHand; i++) {
+	    		var card = $(".inHand[numberinhand='" + i + "']");
+	    		var cardtype = $(card).attr("cardtype");
+	    		
+	    		if(cardtype == "Treasure") {
+	    			play(card);
+	    		}
 	    	}
 	    });
 	    
-	    function draw(card) {
-	    	var cardname = $(card).attr("cardname");
-	    	var numberinhand = $(card).attr("numberinhand");
-		    
-		    $(card).appendTo(".playedCards");
-		    $(card).removeClass("inHand");
-		    $(card).addClass("played");
-		    
-		    resizeCards();
-			
-			$.ajax({
-				type: 'POST',
-				data: {operation: "play",
-					cardname: cardname,
-					numberinhand: numberinhand},
-				url: 'AjaxController',
-				success: function(result){
-					$("#result2").html(result);
-				}
-			});
+	    function play(card) {
+	    	var cardtype = $(card).attr("cardtype");
+	    	
+	    	if(cardtype == "Treasure" || cardtype == "Action" || cardtype == "Action - Attack") {
+		    	var cardname = $(card).attr("cardname");
+		    	var numberinhand = $(card).attr("numberinhand");
+			    
+			    $(card).appendTo(".playedCards");
+			    $(card).removeClass("inHand");
+			    $(card).addClass("played");
+			    
+			    resizeCards();
+			    //rotateCards();
+				
+				$.ajax({
+					type: 'POST',
+					data: {operation: "play",
+						cardname: cardname,
+						numberinhand: numberinhand},
+					url: 'AjaxController',
+					success: function(result){
+						$("#result2").html(result);
+					}
+				});
+	    	}
 	    }
 	});
 	
@@ -168,8 +179,23 @@
 	
 	function rotateCards() {
 		var numberHandCards = $(".handCards .card").length;
-		var rotateInterval = 30 / (numberHandCards - 1);
-		var rotate = -15;
+		
+		if(numberHandCards >= 5) {
+			var rotate = -15;
+			var rotateInterval = 30 / (numberHandCards - 1);
+		}
+		
+		else {
+			if(numberHandCards == 1) {
+				var rotate = 0;
+			}
+			
+			else {
+				var rotate = numberHandCards * -3;
+				var rotateFullAngle = numberHandCards * 3 * 2;
+				var rotateInterval = rotateFullAngle / (numberHandCards - 1);
+			}
+		}
 		
 		var handCards = document.getElementsByClassName("inHand");
 		
