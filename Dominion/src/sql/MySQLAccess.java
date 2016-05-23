@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
 
+import card.*;
+
 public class MySQLAccess {
         
   private Connection connect = null;
@@ -98,7 +100,9 @@ public void insertPlayer(String playerName) throws SQLException {
 		}
 }
 
-public void extractRandomCards() throws SQLException {
+public Card[] extractRandomCards() throws SQLException {
+	int i = 0;
+	Card[] cardArray = new Card[10];
     
     // Setup the connection with the DB
     connect = DriverManager
@@ -122,9 +126,14 @@ public void extractRandomCards() throws SQLException {
 		    	int cardBonusAction = resultSet.getInt("extra_action");
 		    	int cardBonusBuy = resultSet.getInt("extra_buy");
 		    	int cardVictoryPoints = resultSet.getInt("Victory_points");
-
+		    	cardArray[i] = new Action(cardId, cardName, cardText, cardCost, cardType, cardDraw, cardBonusGold
+		    			, cardBonusAction, cardBonusBuy, cardVictoryPoints);
+		    	i += 1;
 		    }
-		} catch (SQLException e) {
+		    
+		}
+		
+		catch (SQLException e) {
 
 			System.out.println(e.getMessage());
 
@@ -139,6 +148,8 @@ public void extractRandomCards() throws SQLException {
 			}
 
 		}
+		return cardArray;
+
 }
 
 
