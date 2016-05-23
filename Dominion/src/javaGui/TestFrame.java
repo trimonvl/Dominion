@@ -52,7 +52,7 @@ public class TestFrame{
 			conn.insertPlayer("Tijs");
 			conn.insertPlayerInGame();
 			*/
-			conn.extractRandomCards();
+			conn.extractCards();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

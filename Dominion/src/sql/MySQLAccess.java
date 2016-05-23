@@ -16,11 +16,15 @@ public class MySQLAccess {
   private Connection connect = null;
   private Statement statement = null;
   private PreparedStatement preparedStatement = null;
+  private PreparedStatement preparedStatement2 = null;
+  private PreparedStatement preparedStatement3 = null;
   private ResultSet resultSet = null;
-
+  private ResultSet resultSet2 = null;
+  private ResultSet resultSet3 = null;
+  
   final private String host = "localhost";
   final private String user = "root";
-  final private String passwd = "root";
+  final private String passwd = "admin";
   public void readDataBase() throws Exception {
     try {
       // This will load the MySQL driver, each DB has its own driver
@@ -100,19 +104,22 @@ public void insertPlayer(String playerName) throws SQLException {
 		}
 }
 
-public Card[] extractRandomCards() throws SQLException {
+public Card[] extractCards() throws SQLException {
 	int i = 0;
-	Card[] cardArray = new Card[10];
+	Card[] cardArray = new Card[17];
     
     // Setup the connection with the DB
     connect = DriverManager
         .getConnection("jdbc:mysql://" + host + "/Dominion?"
             + "user=" + user + "&password=" + passwd );
 
+	String extractTreasureCardsSQL = "SELECT * FROM cards WHERE card_id IN (1,2,3)";
+	String extractVictoryCardsSQL = "SELECT * FROM cards WHERE card_id IN (4,5,6,7)";
 	String extractCardsSQL = "SELECT * FROM cards WHERE card_id >= 8 ORDER BY RAND() DESC LIMIT 10 ";
 
+
 		try {
-			preparedStatement = connect.prepareStatement(extractCardsSQL);
+			preparedStatement = connect.prepareStatement(extractTreasureCardsSQL);
 		    resultSet = preparedStatement.executeQuery();
 		    while(resultSet.next()){
 		    	int cardId = resultSet.getInt("card_id");
@@ -126,9 +133,52 @@ public Card[] extractRandomCards() throws SQLException {
 		    	int cardBonusAction = resultSet.getInt("extra_action");
 		    	int cardBonusBuy = resultSet.getInt("extra_buy");
 		    	int cardVictoryPoints = resultSet.getInt("Victory_points");
+		    	cardArray[i] = new Treasure(cardId, cardName, cardText, cardCost, cardType, cardDraw, cardBonusGold
+		    			, cardBonusAction, cardBonusBuy, cardVictoryPoints);
+		    	i += 1;
+
+		    }
+		    
+			preparedStatement2 = connect.prepareStatement(extractVictoryCardsSQL);
+		    resultSet2 = preparedStatement2.executeQuery();
+
+		    while(resultSet2.next()){
+		    	int cardId = resultSet2.getInt("card_id");
+		    	String cardName = resultSet2.getString("name");
+		    	System.out.println(cardName);
+		    	String cardText = resultSet2.getString("text");
+		    	int cardCost = resultSet2.getInt("cost");
+		    	String cardType = resultSet2.getString("type");
+		    	int cardDraw = resultSet2.getInt("draw_card");
+		    	int cardBonusGold = resultSet2.getInt("give_gold");
+		    	int cardBonusAction = resultSet2.getInt("extra_action");
+		    	int cardBonusBuy = resultSet2.getInt("extra_buy");
+		    	int cardVictoryPoints = resultSet2.getInt("Victory_points");
+		    	cardArray[i] = new Victory(cardId, cardName, cardText, cardCost, cardType, cardDraw, cardBonusGold
+		    			, cardBonusAction, cardBonusBuy, cardVictoryPoints);
+		    	i += 1;
+
+		    }
+
+			preparedStatement3 = connect.prepareStatement(extractCardsSQL);
+		    resultSet3 = preparedStatement3.executeQuery();
+
+		    while(resultSet3.next()){
+		    	int cardId = resultSet3.getInt("card_id");
+		    	String cardName = resultSet3.getString("name");
+		    	System.out.println(cardName);
+		    	String cardText = resultSet3.getString("text");
+		    	int cardCost = resultSet3.getInt("cost");
+		    	String cardType = resultSet3.getString("type");
+		    	int cardDraw = resultSet3.getInt("draw_card");
+		    	int cardBonusGold = resultSet3.getInt("give_gold");
+		    	int cardBonusAction = resultSet3.getInt("extra_action");
+		    	int cardBonusBuy = resultSet3.getInt("extra_buy");
+		    	int cardVictoryPoints = resultSet3.getInt("Victory_points");
 		    	cardArray[i] = new Action(cardId, cardName, cardText, cardCost, cardType, cardDraw, cardBonusGold
 		    			, cardBonusAction, cardBonusBuy, cardVictoryPoints);
 		    	i += 1;
+
 		    }
 		    
 		}
