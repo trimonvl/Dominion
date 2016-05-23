@@ -101,9 +101,13 @@ public class TestFrame{
 		break;
 		case "Chapel": paintChapel(player);
 		break;
-		case "Chancellor":paintChancellor(player);
+		case "Chancellor": paintChancellor(player);
 		break;
-		case "Workshop":paintWorkshop(player);
+		case "Workshop": paintWorkshop(player);
+		break;
+		case "Bureaucrat": currentGame.getCommand().addSilverToDeck(player, currentGame.getFieldCardsArray()); paintBureaucrat(player);
+		break;
+		case "Feast": currentGame.getCommand().trash(player, "Feast"); paintFeast(player);
 		break;
 		default: paintNormal(player);
 		break;
@@ -226,7 +230,28 @@ public class TestFrame{
 		playerPane.add(buys);
 		playerPane.add(gold);
 	}
-	
+	private void paintBureaucrat(Player player)
+	{
+		
+	}
+	private void paintFeast(Player player)
+	{
+		buttonPane.removeAll();
+		buttonPane.repaint();
+		clearButtons();
+		for(int i = 0;i < 17;i++)
+		{
+			FieldCards fieldCard = currentGame.getFieldCard(i);
+			Card card = fieldCard.getCard();
+			FieldButtons[i] = new JButton(card.getName() + " | Cost " + card.getCost() + " | " + fieldCard.getAmount() + " Cards");
+			FieldButtons[i].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e){SpecialFieldCardButtonPressed(e,5);}});
+			buttonPane.add(FieldButtons[i]);
+			if(fieldCard.getAmount()<=0 || card.getCost()>5)
+			{
+				FieldButtons[i].setEnabled(false);
+			}
+		}
+	}
 	private void repaint()
 	{
 		buttonPane.removeAll();

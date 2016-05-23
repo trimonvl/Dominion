@@ -171,4 +171,8 @@ public class Player {
 		}
 		return deck;
 	}
+	public void addCardToTopDeck(Card card) 
+	{
+		deck.addCardToTop(card);
+	}
 }

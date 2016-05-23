@@ -56,4 +56,27 @@ public class Command {
 			cards.remove();
 		}
 	}
+	public void addSilverToDeck(Player player, FieldCards[] FieldCards) 
+	{
+		for(int i=0;i<FieldCards.length;i++)
+		{
+			if(FieldCards[i].getCard().getName()=="Silver")
+			{
+				player.addCardToTopDeck(FieldCards[i].getCard());
+				FieldCards[i].remove();
+				break;
+			}
+		}
+	}
+	public void trash(Player player, String cardName)
+	{
+		for(int i=0;i<player.getHand().size();i++)
+		{
+			if(player.getHand().get(i).getName()==cardName)
+			{
+				player.trashCard(player.getHand().get(i));;
+				break;
+			}
+		}
+	}
 }

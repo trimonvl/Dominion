@@ -54,13 +54,13 @@ public class Game {
 		cardsInField[7] = new FieldCards(new Action(8, "Cellar", "", 2, "Action", 0, 0, 1, 0, 0), 10);
 		cardsInField[8] = new FieldCards(new Action(9, "Chapel", "", 2, "Action", 0, 0, 0, 0, 0), 10);
 		cardsInField[9] = new FieldCards(new Action(10, "Chancellor", "", 3, "Action", 0, 2, 0, 0, 0), 10);
-		cardsInField[10] = new FieldCards(new Action(11, "Workshop", "", 3, "Action", 0, 0, 0, 0, 0), 10);
-		cardsInField[11] = new FieldCards(new Action(12, "Bureaucrat", "", 4, "Action - Attack", 0, 0, 0, 0, 0), 10);
+		cardsInField[10] = new FieldCards(new Action(31, "Workshop", "", 3, "Action", 0, 0, 0, 0, 0), 10);
+		cardsInField[11] = new FieldCards(new Action(32, "Bureaucrat", "", 4, "Action - Attack", 0, 0, 0, 0, 0), 10);
 		cardsInField[12] = new FieldCards(new Action(13, "Feast", "", 3, "Action", 4, 0, 0, 0, 0), 10);
 		cardsInField[13] = new FieldCards(new Action(14, "Militia", "", 4, "Action - Attack", 0, 2, 0, 0, 0), 10);
 		cardsInField[14] = new FieldCards(new Action(15, "Moneylender", "", 4, "Action", 0, 0, 0, 0, 0), 10);
 		cardsInField[15] = new FieldCards(new Action(16, "Remodel", "", 4, "Action", 0, 0, 0, 0, 0), 10);
-		cardsInField[16] = new FieldCards(new Action(17, "Spy", "", 4, "Action - Attack", 1, 0, 1, 0, 0), 10);
+		cardsInField[16] = new FieldCards(new Action(18, "Spy", "", 4, "Action - Attack", 1, 0, 1, 0, 0), 10);
 	}
 	public void addPlayerToGame(String name){
 		Player temp = new Player(name);
@@ -94,6 +94,10 @@ public class Game {
 	public FieldCards getFieldCard(int id)
 	{
 		return cardsInField[id];
+	}
+	public FieldCards[] getFieldCardsArray()
+	{
+		return cardsInField;
 	}
 	public Player getCurrentPlayer()
 	{

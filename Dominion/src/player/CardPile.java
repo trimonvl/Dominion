@@ -15,6 +15,12 @@ public class CardPile {
 	public void addCard(Card card){
 		List.add(card);
 	}
+	public void addCardToTop(Card card){
+		Queue<Card> temp = List;
+		List.clear();
+		List.add(card);
+		List.addAll(temp);
+	}
 	public Card drawCard(Player player){
 		System.out.println(List.size());
 		System.out.println(List.peek());
