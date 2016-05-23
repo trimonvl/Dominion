@@ -40,24 +40,6 @@ public class TestFrame{
 		buttonPane.setLayout(new FlowLayout());
 		playerPane.setLayout(new FlowLayout());
 		paint();
-		
-		MySQLAccess conn = new MySQLAccess();
-		try {
-			/*
-			conn.insertGame();
-			conn.insertPlayer("Jan");
-			conn.insertPlayerInGame();
-			conn.insertPlayer("Nick");
-			conn.insertPlayerInGame();
-			conn.insertPlayer("Tijs");
-			conn.insertPlayerInGame();
-			*/
-			conn.extractCards();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
 	}
 	
 	private void clearButtons()
