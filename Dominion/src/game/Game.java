@@ -35,22 +35,22 @@ public class Game {
 			cardsInField[3] = new FieldCards(new Victory(4, "Estate", "", 2, "Victory", 0, 0, 0, 0, 1), 8);
 			cardsInField[4] = new FieldCards(new Victory(5, "Duchy", "", 5, "Victory", 0, 0, 0, 0, 3), 8);
 			cardsInField[5] = new FieldCards(new Victory(6, "Province", "", 8, "Victory", 0, 0, 0, 0, 6), 8);
-			cardsInField[6] = new FieldCards(new Action(7, "Curse", "", 0, "Curse", 0, 0, 0, 0, -1), 10);
+			cardsInField[6] = new FieldCards(new Victory(7, "Curse", "", 0, "Curse", 0, 0, 0, 0, -1), 10);
 			break;
 		case 3:
 			cardsInField[3] = new FieldCards(new Victory(4, "Estate", "", 2, "Victory", 0, 0, 0, 0, 1), 12);
 			cardsInField[4] = new FieldCards(new Victory(5, "Duchy", "", 5, "Victory", 0, 0, 0, 0, 3), 12);
 			cardsInField[5] = new FieldCards(new Victory(6, "Province", "", 8, "Victory", 0, 0, 0, 0, 6), 12);
-			cardsInField[6] = new FieldCards(new Action(7, "Curse", "", 3, "Curse", 0, 0, 0, 0, -1), 20);
+			cardsInField[6] = new FieldCards(new Victory(7, "Curse", "", 3, "Curse", 0, 0, 0, 0, -1), 20);
 			break;
 		case 4:
 			cardsInField[3] = new FieldCards(new Victory(4, "Estate", "", 2, "Victory", 0, 0, 0, 0, 1), 12);
 			cardsInField[4] = new FieldCards(new Victory(5, "Duchy", "", 5, "Victory", 0, 0, 0, 0, 3), 12);
 			cardsInField[5] = new FieldCards(new Victory(6, "Province", "", 8, "Victory", 0, 0, 0, 0, 6), 12);
-			cardsInField[6] = new FieldCards(new Action(7, "Curse", "", 3, "Curse", 0, 0, 0, 0, -1), 30);
+			cardsInField[6] = new FieldCards(new Victory(7, "Curse", "", 3, "Curse", 0, 0, 0, 0, -1), 30);
 			break;
 		}
-
+		
 		cardsInField[7] = new FieldCards(new Action(8, "Cellar", "", 2, "Action", 0, 0, 1, 0, 0), 10);
 		cardsInField[8] = new FieldCards(new Action(9, "Chapel", "", 2, "Action", 0, 0, 0, 0, 0), 10);
 		cardsInField[9] = new FieldCards(new Action(10, "Chancellor", "", 3, "Action", 0, 2, 0, 0, 0), 10);
@@ -115,5 +115,13 @@ public class Game {
 	public ArrayList<Player> getPlayersArray()
 	{
 		return players;
+	}
+	public void nextPhase()
+	{
+		currentPlayer.nextPhase();
+		if(currentPlayer.getPhase()==3)
+		{
+			nextPlayer();
+		}
 	}
 }

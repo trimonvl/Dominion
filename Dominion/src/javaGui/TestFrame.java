@@ -296,14 +296,7 @@ public class TestFrame{
 	private void nextPressed(ActionEvent e)
 	{
 		System.out.println("clickedNext");
-		if(currentGame.getCurrentPlayer().getPhase()==3)
-		{
-			currentGame.getCurrentPlayer().nextPhase();
-			currentGame.nextPlayer();
-		}
-		else{
-			currentGame.getCurrentPlayer().nextPhase();
-		}
+		currentGame.nextPhase();
 		repaint();
 	}
 	private void endCellarDiscard(ActionEvent e)
