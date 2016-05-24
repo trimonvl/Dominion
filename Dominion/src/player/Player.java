@@ -25,18 +25,23 @@ public class Player {
 		switch(phase)
 		{
 		case 1:
-			if(actions > 0 && card.getType() == "Action"){
-				hand.playCard(card, this);
-	//			System.out.println(card.toString());
-				discardPile.addCard(card);	
+			if(actions > 0 && card.getID()>=8 && card.getID()!=30){
+				if(card.getID()==13)
+				{
+					trashCard(card);
+				}
+				else
+				{
+					hand.playCard(card, this);
+					discardPile.addCard(card);	
+				}
 				actions -= 1;
 				System.out.println("Player played card");
 			}
 			break;
 		case 2:
-			if(card.getType() == "Treasure"){
+			if(card.getID()<=3){
 				hand.playCard(card, this);
-		//		System.out.println(card.toString());
 				discardPile.addCard(card);	
 				System.out.println("Player played card");
 			}

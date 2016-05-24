@@ -68,14 +68,13 @@ public class Command {
 			}
 		}
 	}
-	public void trash(Player player, String cardName)
+	public void trash(Player player, int cardID)
 	{
 		for(int i=0;i<player.getHand().size();i++)
 		{
-			if(player.getHand().get(i).getName()==cardName)
+			if(player.getHand().get(i).getID()==cardID)
 			{
 				player.trashCard(player.getHand().get(i));;
-				break;
 			}
 		}
 	}

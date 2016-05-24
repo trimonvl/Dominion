@@ -89,7 +89,7 @@ public class TestFrame{
 		break;
 		case "Bureaucrat": currentGame.getCommand().addSilverToDeck(player, currentGame.getFieldCardsArray()); paintBureaucrat(player);
 		break;
-		case "Feast": currentGame.getCommand().trash(player, "Feast"); paintFeast(player);
+		case "Feast": paintFeast(player);
 		break;
 		default: paintNormal(player);
 		break;
@@ -105,11 +105,11 @@ public class TestFrame{
 			HandButtons[i]= new JButton(card.getName() + " | Cost " + card.getCost());
 			HandButtons[i].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e){HandCardButtonPressed(e);}});
 			playerPane.add(HandButtons[i]);
-			if((card.getType()!="Action" && player.getPhase()== 1)||(card.getType()!="Treasure" && player.getPhase()== 2) || (player.getPhase()==3))
+			if(((card.getID()<8 || card.getID()==30 || player.getActions()==0) && player.getPhase()== 1)||(card.getID()>3 && player.getPhase()== 2) || (player.getPhase()==3))
 			{
 				HandButtons[i].setEnabled(false);
 			}
-			if(card.getType()!= "Action" && card.getType()!= "Treasure")
+			if((card.getID()>3 && card.getID()<8) || card.getID()==30)
 			{
 				HandButtons[i].setEnabled(false);
 			}
@@ -233,6 +233,16 @@ public class TestFrame{
 				FieldButtons[i].setEnabled(false);
 			}
 		}
+		for(int i = 0;i < cardsInHand.size();i++)
+		{
+			Card card = cardsInHand.get(i);
+			HandButtons[i]= new JButton(card.getName() + " | Cost " + card.getCost());
+			playerPane.add(HandButtons[i]);
+			HandButtons[i].setEnabled(false);
+		}
+		playerPane.add(actions);
+		playerPane.add(buys);
+		playerPane.add(gold);
 	}
 	private void repaint()
 	{
@@ -265,7 +275,7 @@ public class TestFrame{
 		{
 			if(e.getSource().equals(HandButtons[i]))
 			{
-				if(player.getPhase()==1 && cardsInHand.get(i).getType()=="Action" || player.getPhase()==2 && cardsInHand.get(i).getType()=="Treasure")
+				if((player.getPhase()==1 && cardsInHand.get(i).getID()>=8 && player.getActions()>0) || player.getPhase()==2 && cardsInHand.get(i).getID()<=3)
 				{
 					player.playCard(cardsInHand.get(i));
 					specialAction(cardsInHand.get(i));
