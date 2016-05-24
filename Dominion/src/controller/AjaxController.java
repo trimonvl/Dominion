@@ -90,9 +90,19 @@ public class AjaxController extends HttpServlet {
 					Player player = players.get(i);
 					Queue<Card> deck = player.getPile("deck").getList();
 					Queue<Card> discard = player.getPile("discard").getList();
+					int lengthDiscardPile = player.getPile("discard").getCards().size();
 					
-					PrintWriter out3 = response.getWriter();
-					out3.print("<div class='player' name='" + player.getName() + "'><div class='halfVertical'><div class='avatar default'></div><div class='name'>" + player.getName() + "</div></div><div class='halfVertical'><div class='piles'><div class='discardPile BackLarge'><div class='amount'>" + discard.size() + "</div></div><div class='cardPile BackLarge'><div class='amount'>" + deck.size() + "</div></div></div></div></div>");
+					if(lengthDiscardPile > 0) {
+						String lastCardDiscardPile = player.getPile("discard").getCards().get(lengthDiscardPile-1).getName();
+					
+						PrintWriter out3 = response.getWriter();
+						out3.print("<div class='player' name='" + player.getName() + "'><div class='halfVertical'><div class='avatar default'></div><div class='name'>" + player.getName() + "</div></div><div class='halfVertical'><div class='piles'><div class='discardPile " + lastCardDiscardPile + "Large'><div class='amount'>" + discard.size() + "</div></div><div class='cardPile BackLarge'><div class='amount'>" + deck.size() + "</div></div></div></div></div>");
+					}
+					
+					else {
+						PrintWriter out3 = response.getWriter();
+						out3.print("<div class='player' name='" + player.getName() + "'><div class='halfVertical'><div class='avatar default'></div><div class='name'>" + player.getName() + "</div></div><div class='halfVertical'><div class='piles'><div class='discardPile'><div class='amount'>" + discard.size() + "</div></div><div class='cardPile BackLarge'><div class='amount'>" + deck.size() + "</div></div></div></div></div>");
+					}
 				}
 			break;
 				
@@ -102,7 +112,7 @@ public class AjaxController extends HttpServlet {
 					Card card = fieldCard.getCard();
 					
 					PrintWriter out4 = response.getWriter();
-					out4.print("<div class='card victoryCard " + card.getName() + "Small' numberindiv='" + i + "'><div class='amount'>" + fieldCard.getAmount() + "</div><h4 class='name hidden'>Cardname</h4><div class='image hidden'></div><div class='cost'>" + card.getCost() + "</div><h6 class='type hidden'>Cardtype</h6><button type='button' class='buy'>+</button></div>");
+					out4.print("<div class='card victoryCard " + card.getName() + "Small' cost='" + card.getCost() + "' numberindiv='" + i + "'><div class='amount'>" + fieldCard.getAmount() + "</div><h4 class='name hidden'>Cardname</h4><div class='image hidden'></div><div class='cost'>" + card.getCost() + "</div><h6 class='type hidden'>Cardtype</h6><button type='button' class='buy hidden' numberindiv='" + i + "'>+</button></div>");
 				}
 			break;
 			
@@ -112,7 +122,7 @@ public class AjaxController extends HttpServlet {
 					Card card = fieldCard.getCard();
 					
 					PrintWriter out4 = response.getWriter();
-					out4.print("<div class='card treasureCard " + card.getName() + "Small' numberindiv='" + i + "'><div class='amount'>" + fieldCard.getAmount() + "</div><h4 class='name hidden'>Cardname</h4><div class='image hidden'></div><div class='cost'>" + card.getCost() + "</div><h6 class='type hidden'>Cardtype</h6><button type='button' class='buy'>+</button></div>");
+					out4.print("<div class='card treasureCard " + card.getName() + "Small' cost='" + card.getCost() + "' numberindiv='" + i + "'><div class='amount'>" + fieldCard.getAmount() + "</div><h4 class='name hidden'>Cardname</h4><div class='image hidden'></div><div class='cost'>" + card.getCost() + "</div><h6 class='type hidden'>Cardtype</h6><button type='button' class='buy hidden' numberindiv='" + i + "'>+</button></div>");
 				}
 			break;
 			
@@ -122,7 +132,7 @@ public class AjaxController extends HttpServlet {
 					Card card = fieldCard.getCard();
 					
 					PrintWriter out4 = response.getWriter();
-					out4.print("<div class='card curseCard " + card.getName() + "Small' numberindiv='" + i + "'><div class='amount'>" + fieldCard.getAmount() + "</div><h4 class='name hidden'>Cardname</h4><div class='image hidden'></div><div class='cost'>" + card.getCost() + "</div><h6 class='type hidden'>Cardtype</h6><button type='button' class='buy'>+</button></div>");
+					out4.print("<div class='card curseCard " + card.getName() + "Small' cost='" + card.getCost() + "' numberindiv='" + i + "'><div class='amount'>" + fieldCard.getAmount() + "</div><h4 class='name hidden'>Cardname</h4><div class='image hidden'></div><div class='cost'>" + card.getCost() + "</div><h6 class='type hidden'>Cardtype</h6><button type='button' class='buy hidden' numberindiv='" + i + "'>+</button></div>");
 				}
 			break;
 			
@@ -132,7 +142,7 @@ public class AjaxController extends HttpServlet {
 					Card card = fieldCard.getCard();
 					
 					PrintWriter out4 = response.getWriter();
-					out4.print("<a class='detailView' href='http://ngartworks.be/Dominion/" + card.getName() + "-xl.jpg'><div class='card kingdomCard " + card.getName() + "Small' cost='" + card.getCost() + "' numberindiv='" + i + "'><div class='amount'>" + fieldCard.getAmount() + "</div><h4 class='name hidden'>Cardname</h4><div class='image hidden'></div><div class='cost'>" + card.getCost() + "</div><h6 class='type hidden'>Cardtype</h6><button type='button' class='buy hidden'>+</button></div></a>");
+					out4.print("<a class='detailView' href='http://ngartworks.be/Dominion/" + card.getName() + "-xl.jpg'><div class='card kingdomCard " + card.getName() + "Small' cost='" + card.getCost() + "' numberindiv='" + i + "'><div class='amount'>" + fieldCard.getAmount() + "</div><h4 class='name hidden'>Cardname</h4><div class='image hidden'></div><div class='cost'>" + card.getCost() + "</div><h6 class='type hidden'>Cardtype</h6><button type='button' class='buy hidden' numberindiv='" + i + "'>+</button></div></a>");
 				}
 			break;
 			
@@ -172,12 +182,20 @@ public class AjaxController extends HttpServlet {
 				int actions = currentGame.getCurrentPlayer().getActions();
 				int buys = currentGame.getCurrentPlayer().getBuys();
 				int coins = currentGame.getCurrentPlayer().getGold();
-				System.out.println(coins);
 				
 				PrintWriter out7 = response.getWriter();
 				out7.print("<h4>Actions</h4><div class='amountActions'>" + actions + "</div><h4>Buys</h4><div class='amountBuys'>" + buys + "</div><h4>Coins</h4><div class='amountCoins'>" + coins + "</div>");
 			break;
 			
+			/**** GET BUYS ****/
+			case "getBuys":
+				int buys1 = currentGame.getCurrentPlayer().getBuys();
+				
+				PrintWriter outBuys = response.getWriter();
+				outBuys.print(buys1);
+			break;
+			
+			/**** GET COINS ****/
 			case "getCoins":
 				int coins1 = currentGame.getCurrentPlayer().getGold();
 				
@@ -185,6 +203,7 @@ public class AjaxController extends HttpServlet {
 				outCoins.print(coins1);
 			break;
 			
+			/**** END PHASE ****/
 			case "endPhase":
 				currentGame.nextPhase();
 				int phase = currentGame.getCurrentPlayer().getPhase();
@@ -205,6 +224,7 @@ public class AjaxController extends HttpServlet {
 				}
 			break;
 			
+			/**** END TURN ****/
 			case "endTurn":
 				currentGame.nextPhase();
 				
@@ -212,8 +232,8 @@ public class AjaxController extends HttpServlet {
 				outEndTurn.print("<button type='button' class='' id='endActionPhase'>End action phase</button>");
 			break;
 			
+			/**** BUY CARD ****/
 			case "buyCard":
-				String cardname1 = request.getParameter("cardname");
 				String numberindiv = request.getParameter("numberindiv");
 				
 				FieldCards fieldCard = currentGame.getFieldCard(Integer.parseInt(numberindiv));

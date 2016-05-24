@@ -116,8 +116,13 @@
 			});
 	    }
 		
+		/**** CLEARS ****/
 		function clearPlayedCards() {
 			$(".playedCards").html("<div class='overviewTurn'><h4>Actions</h4><div class='amountActions'>1</div><h4>Buys</h4><div class='amountBuys'>1</div><h4>Coins</h4><div class='amountCoins'>0</div></div><div class='actionButtons'><button type='button' class='' id='endActionPhase'>End action phase</button></div>");
+		}
+		
+		function clearBuyableCards() {
+			$(".kingdomCards .buy").addClass("hidden");
 		}
 	    
 	    /*$.ajax({
@@ -191,9 +196,9 @@
 			});
 	    	
 	    	getPlayerOnTurn();
-	    	resizeCards();
 	    	draw();
 	    	clearPlayedCards();
+	    	disableBuyableCards();
 	    });
 	    
 	    function play(card) {
@@ -258,39 +263,63 @@
 	    	
 	    	$.ajax({
 				type: 'POST',
-				data: {operation: "getCoins"},
+				data: {operation: "getBuys"},
 				url: 'AjaxController',
 				success: function(result){
-			    	enableBuyableCards(result);
-			    	console.log(result);
+			    	if(result >= 1) {
+				    	$.ajax({
+							type: 'POST',
+							data: {operation: "getCoins"},
+							url: 'AjaxController',
+							success: function(result){
+						    	enableBuyableCards(result);
+							}
+						});
+			    	}
+			    	
+			    	else {
+			    		disableBuyableCards();
+			    	}
 				}
 			});
 	    }
 		
-	    $(".kingdomCards").on("click", ".kingdomCard button", function() {
-	    	var cardname = $(this).attr("cardname");
+	    $("body").on("click", ".card button", function() {
 	    	var numberindiv = $(this).attr("numberindiv");
 	    	
 	    	$.ajax({
 				type: 'POST',
 				data: {operation: "buyCard",
-					cardname: cardname,
 					numberindiv: numberindiv},
-				url: 'AjaxController',
-				success: function(result){
-					$(".kingdomCards").html(result);
-				}
+				url: 'AjaxController'
 			});
 	    	
-	    	getKingdomCards();
+	    	updateStats();
 	    });
 		
 		function enableBuyableCards(amountCoins) {
+			console.log("Amount coins: " + amountCoins);
 			for (i = 0; i < 3; i++) {
+				var cost = $(".treasureCards .card[numberindiv=" + i + "]").attr("cost");
+				
+				if(amountCoins >= cost) {
+					$(".treasureCards .card[numberindiv=" + i + "] .buy").removeClass("hidden");
+				}
+			}
+			
+			for (i = 3; i < 6; i++) {
 				var cost = $(".victoryCards .card[numberindiv=" + i + "]").attr("cost");
 				
 				if(amountCoins >= cost) {
-					$(".kingdomCards .card[numberindiv=" + i + "] .buy").removeClass("hidden");
+					$(".victoryCards .card[numberindiv=" + i + "] .buy").removeClass("hidden");
+				}
+			}
+			
+			for (i = 6; i < 7; i++) {
+				var cost = $(".curseCards .card[numberindiv=" + i + "]").attr("cost");
+				
+				if(amountCoins >= cost) {
+					$(".curseCards .card[numberindiv=" + i + "] .buy").removeClass("hidden");
 				}
 			}
 			
@@ -300,6 +329,24 @@
 				if(amountCoins >= cost) {
 					$(".kingdomCards .card[numberindiv=" + i + "] .buy").removeClass("hidden");
 				}
+			}
+		}
+		
+		function disableBuyableCards() {
+			for (i = 0; i < 3; i++) {
+					$(".treasureCards .card[numberindiv=" + i + "] .buy").addClass("hidden");
+			}
+			
+			for (i = 3; i < 6; i++) {
+					$(".victoryCards .card[numberindiv=" + i + "] .buy").addClass("hidden");
+			}
+			
+			for (i = 6; i < 7; i++) {
+					$(".curseCards .card[numberindiv=" + i + "] .buy").addClass("hidden");
+			}
+			
+			for (i = 7; i < 17; i++) {
+					$(".kingdomCards .card[numberindiv=" + i + "] .buy").addClass("hidden");
 			}
 		}
 	});
@@ -323,7 +370,6 @@
 		var widthHandCards = heightHandCards * 0.652;
 		var widthPlayedCards = heightPlayedCards * 0.652;
 		var heightDiscardPileCards = widthDiscardPileCards * 1.533;
-		console.log(heightDiscardPileCards);
 		
 		$(".victoryCards .card, .treasureCards .card, .curseCards .card").css("width", widthVictoryCards);
 		$(".kingdomCards .card").css("width", widthKingdomCards);
@@ -370,110 +416,16 @@
 </head>
 <body>
 	<div class="left">
-		<div class="cards victoryCards">
-<!-- 			<div class="card victoryCard provinceSmall"> -->
-<!-- 				<div class="amount">9</div> -->
-<!-- 				<h4 class="name hidden">Cardname</h4> -->
-<!-- 				<div class="image hidden"></div> -->
-<!-- 				<div class="cost">5</div> -->
-<!-- 				<h6 class="type hidden">Cardtype</h6> -->
-<!-- 				<button type="button" class="buy">+</button> -->
-<!-- 			</div> -->
-<!-- 			<div class="card victoryCard duchySmall"> -->
-<!-- 				<div class="amount">9</div> -->
-<!-- 				<h4 class="name hidden">Cardname</h4> -->
-<!-- 				<div class="image hidden"></div> -->
-<!-- 				<div class="cost">5</div> -->
-<!-- 				<h6 class="type hidden">Cardtype</h6> -->
-<!-- 				<button type="button" class="buy">+</button> -->
-<!-- 			</div> -->
-<!-- 			<div class="card victoryCard estateSmall"> -->
-<!-- 				<div class="amount">9</div> -->
-<!-- 				<h4 class="name hidden">Cardname</h4> -->
-<!-- 				<div class="image hidden"></div> -->
-<!-- 				<div class="cost">5</div> -->
-<!-- 				<h6 class="type hidden">Cardtype</h6> -->
-<!-- 				<button type="button" class="buy">+</button> -->
-<!-- 			</div> -->
-		</div>
+		<div class="cards victoryCards"></div>
 	</div>
 	<div class="left bottom" id="playersContainer">
-		<div class="players">
-<!-- 			<div class="player" id="playerFour"> -->
-<!-- 				<div class="avatar"></div> -->
-<!-- 				<div class="piles hidden"> -->
-<!-- 					<div class="cardPile"></div> -->
-<!-- 					<div class="discardPile"></div> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 			<div class="player" id="playerThree"> -->
-<!-- 				<div class="avatar"></div> -->
-<!-- 				<div class="piles hidden"> -->
-<!-- 					<div class="cardPile"></div> -->
-<!-- 					<div class="discardPile"></div> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 			<div class="player" id="playerTwo"> -->
-<!-- 				<div class="avatar"></div> -->
-<!-- 				<div class="piles hidden"> -->
-<!-- 					<div class="cardPile"></div> -->
-<!-- 					<div class="discardPile"></div> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 			<div class="player onTurn" id="playerOne"> -->
-<!-- 				<div class="halfVertical"> -->
-<!-- 					<div class="avatar"></div> -->
-<!-- 				</div> -->
-<!-- 				<div class="halfVertical"> -->
-<!-- 					<div class="piles"> -->
-<!-- 						<div class="discardPile"> -->
-<!-- 							<div class="amount">9</div> -->
-<!-- 						</div> -->
-<!-- 						<div class="cardPile"></div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-		</div>
+		<div class="players"></div>
 	</div>
 	<div class="right">
-		<div class="cards treasureCards">
-<!-- 			<div class="card treasureCard goldSmall"> -->
-<!-- 				<div class="amount">10</div> -->
-<!-- 				<h4 class="name hidden">Cardname</h4> -->
-<!-- 				<div class="image hidden"></div> -->
-<!-- 				<div class="cost">5</div> -->
-<!-- 				<h6 class="type hidden">Cardtype</h6> -->
-<!-- 				<button type="button" class="buy">+</button> -->
-<!-- 			</div> -->
-<!-- 			<div class="card treasureCard silverSmall"> -->
-<!-- 				<div class="amount">20</div> -->
-<!-- 				<h4 class="name hidden">Cardname</h4> -->
-<!-- 				<div class="image hidden"></div> -->
-<!-- 				<div class="cost">5</div> -->
-<!-- 				<h6 class="type hidden">Cardtype</h6> -->
-<!-- 				<button type="button" class="buy">+</button> -->
-<!-- 			</div> -->
-<!-- 			<div class="card treasureCard copperSmall"> -->
-<!-- 				<div class="amount">30</div> -->
-<!-- 				<h4 class="name hidden">Cardname</h4> -->
-<!-- 				<div class="image hidden"></div> -->
-<!-- 				<div class="cost">5</div> -->
-<!-- 				<h6 class="type hidden">Cardtype</h6> -->
-<!-- 				<button type="button" class="buy">+</button> -->
-<!-- 			</div> -->
-		</div>
+		<div class="cards treasureCards"></div>
 	</div>
 	<div class="right bis">
-		<div class="cards curseCards">
-<!-- 			<div class="card curseCard curseSmall"> -->
-<!-- 				<div class="amount">9</div> -->
-<!-- 				<h4 class="name hidden">Cardname</h4> -->
-<!-- 				<div class="image hidden"></div> -->
-<!-- 				<div class="cost">5</div> -->
-<!-- 				<h6 class="type hidden">Cardtype</h6> -->
-<!-- 				<button type="button" class="buy">+</button> -->
-<!-- 			</div> -->
-		</div>
+		<div class="cards curseCards"></div>
 	</div>
 	<div class="right bottom" id="optionsContainer">
 		<div class="options">
@@ -492,90 +444,7 @@
 		</div>
 	</div>
 	<div class="center">
-		<div class="cards kingdomCards">
-<!-- 			<a id="single_2" href="http://i.imgur.com/6xBi2yT.jpg"> -->
-<!-- 				<div class="card kingdomCard moatSmall"> -->
-<!-- 					<div class="amount">9</div> -->
-<!-- 					<h4 class="name hidden">Cardname</h4> -->
-<!-- 					<div class="image hidden"></div> -->
-<!-- 					<div class="cost">5</div> -->
-<!-- 					<h6 class="type hidden">Cardtype</h6> -->
-<!-- 					<button type="button" class="buy">+</button> -->
-<!-- 				</div> -->
-<!-- 			</a> -->
-<!-- 			<div class="card kingdomCard festivalSmall"> -->
-<!-- 				<div class="amount">9</div> -->
-<!-- 				<h4 class="name hidden">Cardname</h4> -->
-<!-- 				<div class="image hidden"></div> -->
-<!-- 				<div class="cost">5</div> -->
-<!-- 				<h6 class="type hidden">Cardtype</h6> -->
-<!-- 				<button type="button" class="buy">+</button> -->
-<!-- 			</div> -->
-<!-- 			<div class="card kingdomCard adventurerSmall"> -->
-<!-- 				<div class="amount">9</div> -->
-<!-- 				<h4 class="name hidden">Cardname</h4> -->
-<!-- 				<div class="image hidden"></div> -->
-<!-- 				<div class="cost">5</div> -->
-<!-- 				<h6 class="type hidden">Cardtype</h6> -->
-<!-- 				<button type="button" class="buy">+</button> -->
-<!-- 			</div> -->
-<!-- 			<div class="card kingdomCard thiefSmall"> -->
-<!-- 				<div class="amount">9</div> -->
-<!-- 				<h4 class="name hidden">Cardname</h4> -->
-<!-- 				<div class="image hidden"></div> -->
-<!-- 				<div class="cost">5</div> -->
-<!-- 				<h6 class="type hidden">Cardtype</h6> -->
-<!-- 				<button type="button" class="buy">+</button> -->
-<!-- 			</div> -->
-<!-- 			<div class="card kingdomCard mineSmall"> -->
-<!-- 				<div class="amount">9</div> -->
-<!-- 				<h4 class="name hidden">Cardname</h4> -->
-<!-- 				<div class="image hidden"></div> -->
-<!-- 				<div class="cost">5</div> -->
-<!-- 				<h6 class="type hidden">Cardtype</h6> -->
-<!-- 				<button type="button" class="buy">+</button> -->
-<!-- 			</div> -->
-<!-- 			<div class="card kingdomCard gardensSmall"> -->
-<!-- 				<div class="amount">9</div> -->
-<!-- 				<h4 class="name hidden">Cardname</h4> -->
-<!-- 				<div class="image hidden"></div> -->
-<!-- 				<div class="cost">5</div> -->
-<!-- 				<h6 class="type hidden">Cardtype</h6> -->
-<!-- 				<button type="button" class="buy">+</button> -->
-<!-- 			</div> -->
-<!-- 			<div class="card kingdomCard throneRoomSmall"> -->
-<!-- 				<div class="amount">9</div> -->
-<!-- 				<h4 class="name hidden">Cardname</h4> -->
-<!-- 				<div class="image hidden"></div> -->
-<!-- 				<div class="cost">5</div> -->
-<!-- 				<h6 class="type hidden">Cardtype</h6> -->
-<!-- 				<button type="button" class="buy">+</button> -->
-<!-- 			</div> -->
-<!-- 			<div class="card kingdomCard councilRoomSmall"> -->
-<!-- 				<div class="amount">9</div> -->
-<!-- 				<h4 class="name hidden">Cardname</h4> -->
-<!-- 				<div class="image hidden"></div> -->
-<!-- 				<div class="cost">5</div> -->
-<!-- 				<h6 class="type hidden">Cardtype</h6> -->
-<!-- 				<button type="button" class="buy">+</button> -->
-<!-- 			</div> -->
-<!-- 			<div class="card kingdomCard workshopSmall"> -->
-<!-- 				<div class="amount">9</div> -->
-<!-- 				<h4 class="name hidden">Cardname</h4> -->
-<!-- 				<div class="image hidden"></div> -->
-<!-- 				<div class="cost">5</div> -->
-<!-- 				<h6 class="type hidden">Cardtype</h6> -->
-<!-- 				<button type="button" class="buy">+</button> -->
-<!-- 			</div> -->
-<!-- 			<div class="card kingdomCard woodcutterSmall"> -->
-<!-- 				<div class="amount">9</div> -->
-<!-- 				<h4 class="name hidden">Cardname</h4> -->
-<!-- 				<div class="image hidden"></div> -->
-<!-- 				<div class="cost">5</div> -->
-<!-- 				<h6 class="type hidden">Cardtype</h6> -->
-<!-- 				<button type="button" class="buy">+</button> -->
-<!-- 			</div> -->
-		</div>
+		<div class="cards kingdomCards"></div>
 		<div class="cards playedCards">
 			<div class="overviewTurn">
 				<h4>Actions</h4>
@@ -589,43 +458,7 @@
 				<button type="button" class="" id="endActionPhase">End action phase</button>
 			</div>
 		</div>
-		<div class="cards handCards">
-<!-- 			<div class="card inHand kingdomCard copperLarge" cardname="Copper"> -->
-<!-- 				<div class="value">9</div> -->
-<!-- 				<h4 class="name hidden">Cardname</h4> -->
-<!-- 				<div class="image hidden"></div> -->
-<!-- 				<div class="cost">5</div> -->
-<!-- 				<h6 class="type hidden">Cardtype</h6> -->
-<!-- 			</div> -->
-<!-- 			<div class="card inHand kingdomCard copperLarge" cardname="Copper"> -->
-<!-- 				<div class="value">9</div> -->
-<!-- 				<h4 class="name hidden">Cardname</h4> -->
-<!-- 				<div class="image hidden"></div> -->
-<!-- 				<div class="cost">5</div> -->
-<!-- 				<h6 class="type hidden">Cardtype</h6> -->
-<!-- 			</div> -->
-<!-- 			<div class="card inHand victoryCard provinceLarge" cardname="Province"> -->
-<!-- 				<div class="value">9</div> -->
-<!-- 				<h4 class="name hidden">Cardname</h4> -->
-<!-- 				<div class="image hidden"></div> -->
-<!-- 				<div class="cost">5</div> -->
-<!-- 				<h6 class="type hidden">Cardtype</h6> -->
-<!-- 			</div> -->
-<!-- 			<div class="card inHand victoryCard gardensLarge" cardname="Gardens"> -->
-<!-- 				<div class="value">9</div> -->
-<!-- 				<h4 class="name hidden">Cardname</h4> -->
-<!-- 				<div class="image hidden"></div> -->
-<!-- 				<div class="cost">5</div> -->
-<!-- 				<h6 class="type hidden">Cardtype</h6> -->
-<!-- 			</div> -->
-<!-- 			<div class="card inHand victoryCard councilRoomLarge" cardname="CouncilRoom"> -->
-<!-- 				<div class="value">9</div> -->
-<!-- 				<h4 class="name hidden">Cardname</h4> -->
-<!-- 				<div class="image hidden"></div> -->
-<!-- 				<div class="cost">5</div> -->
-<!-- 				<h6 class="type hidden">Cardtype</h6> -->
-<!-- 			</div> -->
-		</div>
+		<div class="cards handCards"></div>
 	</div>
 </body>
 </html>
