@@ -16,7 +16,7 @@ public class Game {
 	public Game(){
 		try {
 			gameCards = conn.extractCards();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

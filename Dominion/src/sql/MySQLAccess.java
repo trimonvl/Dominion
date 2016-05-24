@@ -24,7 +24,7 @@ public class MySQLAccess {
   
   final private String host = "localhost";
   final private String user = "root";
-  final private String passwd = "admin";
+  final private String passwd = "root";
   public void readDataBase() throws Exception {
     try {
       // This will load the MySQL driver, each DB has its own driver
@@ -69,8 +69,10 @@ public class MySQLAccess {
     }
   }
 
-public void insertPlayer(String playerName) throws SQLException {
+public void insertPlayer(String playerName) throws Exception {
     
+	Class.forName("com.mysql.jdbc.Driver");
+
     // Setup the connection with the DB
     connect = DriverManager
         .getConnection("jdbc:mysql://" + host + "/Dominion?"
@@ -104,10 +106,10 @@ public void insertPlayer(String playerName) throws SQLException {
 		}
 }
 
-public Card[] extractCards() throws SQLException {
+public Card[] extractCards() throws Exception {
 	int i = 0;
 	Card[] cardArray = new Card[17];
-    
+	Class.forName("com.mysql.jdbc.Driver");
     // Setup the connection with the DB
     connect = DriverManager
         .getConnection("jdbc:mysql://" + host + "/Dominion?"
@@ -183,7 +185,7 @@ public Card[] extractCards() throws SQLException {
 		    
 		}
 		
-		catch (SQLException e) {
+		catch (Exception e) {
 
 			System.out.println(e.getMessage());
 
@@ -203,9 +205,11 @@ public Card[] extractCards() throws SQLException {
 }
 
 
-public void insertPlayerInGame() throws SQLException {
+public void insertPlayerInGame() throws Exception {
     
     // Setup the connection with the DB
+	Class.forName("com.mysql.jdbc.Driver");
+
     connect = DriverManager
         .getConnection("jdbc:mysql://" + host + "/Dominion?"
             + "user=" + user + "&password=" + passwd );
@@ -254,8 +258,10 @@ public void insertPlayerInGame() throws SQLException {
 		}
 }
 
-public void insertGame() throws SQLException {
+public void insertGame() throws Exception {
     
+	Class.forName("com.mysql.jdbc.Driver");
+
     // Setup the connection with the DB
     connect = DriverManager
         .getConnection("jdbc:mysql://" + host + "/Dominion?"
