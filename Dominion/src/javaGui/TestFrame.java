@@ -1,8 +1,8 @@
 package javaGui;
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.*;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -10,7 +10,6 @@ import javax.swing.*;
 import card.*;
 import game.*;
 import player.*;
-import sql.MySQLAccess;
 public class TestFrame{
 	JButton[] FieldButtons = new JButton[17];
 	JButton[] HandButtons;
@@ -244,6 +243,18 @@ public class TestFrame{
 		playerPane.add(buys);
 		playerPane.add(gold);
 	}
+	private void paintGameOver()
+	{
+		ArrayList<Player> players = currentGame.getPlayersArray();
+		JLabel[] playerInfoLabels = new JLabel[players.size()];
+		for(int i=0;i<playerInfoLabels.length;i++)
+		{
+			playerInfoLabels[i] = new JLabel(players.get(i).getName()+ " has scored " + players.get(i).getScore()+ " points");
+			buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.Y_AXIS));
+			buttonPane.add(playerInfoLabels[i]);
+	    }
+		frame.setVisible(true);
+	}
 	private void repaint()
 	{
 		buttonPane.removeAll();
@@ -251,7 +262,14 @@ public class TestFrame{
 		playerPane.removeAll();
 		playerPane.repaint();
 		clearButtons();
-		paint();
+		if(currentGame.getIsGameOver())
+		{
+			paintGameOver();
+		}
+		else
+		{
+			paint();	
+		}
 	}
 	
 	private void FieldCardButtonPressed(ActionEvent e) 

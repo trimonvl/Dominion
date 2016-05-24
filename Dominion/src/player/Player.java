@@ -8,7 +8,6 @@ public class Player {
 	int gold = 0;
 	int actions = 1;
 	int buysLeft = 1;
-	int victoryPoints;
 	int phase = 1;
 	CardPile deck = new CardPile();
 	CardPile discardPile = new CardPile();
@@ -55,9 +54,9 @@ public class Player {
 	}
 	public void discardDeck()
 	{
-		for(int i=0; i<deck.getList().size(); i++)
+		for(int i=0; i<deck.getCards().size(); i++)
 		{
-			discardPile.addCard(deck.getList().poll());
+			discardPile.addCard(deck.getCards().get(i));
 		}
 	}
 	public void trashCard(Card card)
@@ -162,10 +161,6 @@ public class Player {
 	{
 		return actions;
 	}
-	public void addVictoryPoints(int amount)
-	{
-		victoryPoints += amount;
-	}
 	public CardPile getPile(String pile)
 	{
 		switch(pile)
@@ -179,5 +174,19 @@ public class Player {
 	public void addCardToTopDeck(Card card) 
 	{
 		deck.addCardToTop(card);
+	}
+	public int getScore()
+	{
+		int score = 0;
+		System.out.println(discardPile.getCards().size());
+		for(int i=0;i<discardPile.getCards().size();i++)
+		{
+			score += discardPile.getCards().get(i).getVictoryPoints();
+			if(discardPile.getCards().get(i).getID()==30)
+			{
+				score += discardPile.getCards().size()/10;
+			}
+		}
+		return score;
 	}
 }

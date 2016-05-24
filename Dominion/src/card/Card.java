@@ -79,11 +79,10 @@ public abstract class Card {
 			System.out.println("De speler krijgt " + bonusBuy + " extra koop beurten");		
 		}
 	}
-	public final void giveVictoryPoints(){
-		if(victoryPoints != 0){
-			player.addVictoryPoints(victoryPoints);
-			System.out.println("The player gets "+victoryPoints+"Victory points");
-		}
+	
+	public int getVictoryPoints()
+	{
+		return victoryPoints;
 	}
 	
 	//override om kaarten te vergelijken

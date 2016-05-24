@@ -12,6 +12,7 @@ public class Game {
 	Command command = new Command();
 	MySQLAccess conn = new MySQLAccess();
 	Card[] gameCards;
+	boolean isGameOver = false;
 	public Game(){
 		try {
 			gameCards = conn.extractCards();
@@ -141,13 +142,14 @@ public class Game {
 		*/
 	}
 	public void nextPlayer(){
-			int i = players.indexOf(currentPlayer);
-			if(currentPlayer == null || players.size() <= i + 1){
-				currentPlayer = players.get(0);
-			}
-			else{
-				currentPlayer = players.get(i + 1);
-			}
+		int i = players.indexOf(currentPlayer);
+		if(currentPlayer == null || players.size() <= i + 1){
+			currentPlayer = players.get(0);
+		}
+		else{
+			currentPlayer = players.get(i + 1);
+		}
+		checkGameOver();
 	}
 	public FieldCards getFieldCard(int id)
 	{
@@ -185,5 +187,30 @@ public class Game {
 		{
 			currentPlayer.nextPhase();	
 		}
+	}
+	private void checkGameOver()
+	{
+		int emptyPiles = 0;
+		for(int i=0;i<cardsInField.length;i++)
+		{
+			if(cardsInField[i].getAmount()==0)
+			{
+				emptyPiles++;
+			}
+		}
+		if(emptyPiles>=3)
+		{
+			for(int i=0;i<players.size();i++)
+			{
+				Player player = players.get(i);
+				player.moveHandtoDiscard();
+				player.discardDeck();
+			}
+			isGameOver = true;
+		}
+	}
+	public boolean getIsGameOver()
+	{
+		return isGameOver;
 	}
 }
