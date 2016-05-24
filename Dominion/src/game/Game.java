@@ -1,7 +1,6 @@
 package game;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import card.*;
 import player.*;
 import sql.MySQLAccess;
@@ -131,7 +130,6 @@ public class Game {
 		temp.drawCard();
 		temp.drawCard();
 		players.add(temp);
-
 		/*MySQLAccess conn = new MySQLAccess();
 		try {
 			conn.insertPlayer(name);

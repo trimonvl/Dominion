@@ -22,60 +22,105 @@
 	$(window).ready(function() {
 		var players;
 		
-		/*window.onbeforeunload = function() {
-	        return "";
-	    }*/
+	    /**** GET PLAYERS ****/
+	    function getPlayers() {
+		    $.ajax({
+				type: 'POST',
+				data: {operation: "getPlayers"},
+				url: 'AjaxController',
+				success: function(result){
+					$(".players").html(result);
+				}
+			});
+	    }
 	    
-	    $.ajax({
-			type: 'POST',
-			data: {operation: "getPlayers"},
-			url: 'AjaxController',
-			success: function(result){
-				$(".players").html(result);
-			}
-		});
+	    /**** GET VICTORY CARDS ****/
+	    function getVictoryCards() {
+		    $.ajax({
+				type: 'POST',
+				data: {operation: "getVictoryCards"},
+				url: 'AjaxController',
+				success: function(result){
+					$(".victoryCards").html(result);
+					resizeCards();
+				}
+			});
+	    }
 	    
-	    $.ajax({
-			type: 'POST',
-			data: {operation: "getVictoryCards"},
-			url: 'AjaxController',
-			success: function(result){
-				$(".victoryCards").html(result);
-				resizeCards();
-			}
-		});
+	    /**** GET TREASURE CARDS ****/
+	    function getTreasureCards() {
+		    $.ajax({
+				type: 'POST',
+				data: {operation: "getTreasureCards"},
+				url: 'AjaxController',
+				success: function(result){
+					$(".treasureCards").html(result);
+					resizeCards();
+				}
+			});
+	    }
 	    
-	    $.ajax({
-			type: 'POST',
-			data: {operation: "getTreasureCards"},
-			url: 'AjaxController',
-			success: function(result){
-				$(".treasureCards").html(result);
-				resizeCards();
-			}
-		});
+	    /**** GET CURSE CARDS ****/
+	    function getCurseCards() {
+		    $.ajax({
+				type: 'POST',
+				data: {operation: "getCurseCards"},
+				url: 'AjaxController',
+				success: function(result){
+					$(".curseCards").html(result);
+					resizeCards();
+				}
+			});
+	    }
 	    
-	    $.ajax({
-			type: 'POST',
-			data: {operation: "getCurseCards"},
-			url: 'AjaxController',
-			success: function(result){
-				$(".curseCards").html(result);
-				resizeCards();
-			}
-		});
+	    /**** GET KINGDOM CARDS ****/
+	    function getKingdomCards() {
+		    $.ajax({
+				type: 'POST',
+				data: {operation: "getKingdomCards"},
+				url: 'AjaxController',
+				success: function(result){
+					$(".kingdomCards").html(result);
+					resizeCards();
+				}
+			});
+	    }
 	    
-	    $.ajax({
-			type: 'POST',
-			data: {operation: "getKingdomCards"},
-			url: 'AjaxController',
-			success: function(result){
-				$(".kingdomCards").html(result);
-				resizeCards();
-			}
-		});
+	    /**** GET PLAYER ON TURN ****/
+	    function getPlayerOnTurn() {
+		    $.ajax({
+				type: 'POST',
+				data: {operation: "getPlayerOnTurn"},
+				url: 'AjaxController',
+				success: function(result){
+					$(".player").removeClass("onTurn");
+					$(".player .piles").removeClass("hidden");
+					
+					$("div[name=" + result + "]").addClass("onTurn");
+					$(".player .piles:not(div[name=" + result + "] .piles)").addClass("hidden");
+				}
+			});
+	    }
 	    
-	    $.ajax({
+		/**** DRAW ****/
+	    function draw() {
+	    	$.ajax({
+				type: 'POST',
+				data: {operation: "draw"},
+				url: 'AjaxController',
+				success: function(result){
+					$(".handCards").html(result);
+					resizeCards();
+					rotateCards();
+				}
+			});
+	    }
+		
+		function clearPlayedCards() {
+			$(".playedCards").html("<div class='overviewTurn'><h4>Actions</h4><div class='amountActions'>1</div><h4>Buys</h4><div class='amountBuys'>1</div><h4>Coins</h4><div class='amountCoins'>0</div></div><div class='actionButtons'><button type='button' class='' id='endActionPhase'>End action phase</button></div>");
+		}
+	    
+	    /*$.ajax({
 			type: 'POST',
 			data: {operation: "getTrash"},
 			url: 'AjaxController',
@@ -83,34 +128,25 @@
 				$(".trashPile").html(result);
 				resizeCards();
 			}
-		});
+		});*/
+		
+		/*window.onbeforeunload = function() {
+	        return "";
+	    }*/
 	    
-	    $.ajax({
-			type: 'POST',
-			data: {operation: "getPlayerOnTurn"},
-			url: 'AjaxController',
-			success: function(result){
-				$("div[name=" + result + "]").addClass("onTurn");
-				$(".player .piles:not(div[name=" + result + "] .piles)").addClass("hidden");
-			}
-		});
-	    
-	    $.ajax({
-			type: 'POST',
-			data: {operation: "draw"},
-			url: 'AjaxController',
-			success: function(result){
-				$(".handCards").html(result);
-				resizeCards();
-				rotateCards();
-			}
-		});
+	    getPlayers();
+	    getVictoryCards();
+	    getTreasureCards();
+	    getCurseCards();
+	    getKingdomCards();
+	    getPlayerOnTurn();
+	    draw();
 	    
 	    $(".handCards").on("click", ".inHand", function() {
 	    	play(this);
 	    });
 	    
-	    $(".actionButtons").on("click", "#playAllTreasureCards", function() {
+	    /*$(".actionButtons").on("click", "#playAllTreasureCards", function() {
 	    	var numberCardsInHand = $(".inHand").length;
 	    	for (i = 0; i < numberCardsInHand; i++) {
 	    		var card = $(".inHand[numberinhand='" + i + "']");
@@ -120,34 +156,152 @@
 	    			play(card);
 	    		}
 	    	}
+	    });*/
+	    
+	    $(".actionButtons").on("click", "#endActionPhase", function() {
+	    	$.ajax({
+				type: 'POST',
+				data: {operation: "endPhase"},
+				url: 'AjaxController',
+				success: function(result){
+					$(".actionButtons").html(result);
+				}
+			});
+	    });
+	    
+	    $(".actionButtons").on("click", "#endTreasurePhase", function() {
+	    	$.ajax({
+				type: 'POST',
+				data: {operation: "endPhase"},
+				url: 'AjaxController',
+				success: function(result){
+					$(".actionButtons").html(result);
+				}
+			});
+	    });
+	    
+	    $(".actionButtons").on("click", "#endTurn", function() {
+	    	$.ajax({
+				type: 'POST',
+				data: {operation: "endTurn"},
+				url: 'AjaxController',
+				success: function(result){
+					$(".actionButtons").html(result);
+				}
+			});
+	    	
+	    	getPlayerOnTurn();
+	    	resizeCards();
+	    	draw();
+	    	clearPlayedCards();
 	    });
 	    
 	    function play(card) {
 	    	var cardtype = $(card).attr("cardtype");
 	    	
-	    	if(cardtype == "Treasure" || cardtype == "Action" || cardtype == "Action - Attack") {
-		    	var cardname = $(card).attr("cardname");
-		    	var numberinhand = $(card).attr("numberinhand");
-			    
-			    $(card).appendTo(".playedCards");
-			    $(card).removeClass("inHand");
-			    $(card).addClass("played");
-			    
-			    resizeCards();
-			    //rotateCards();
-				
-				$.ajax({
-					type: 'POST',
-					data: {operation: "play",
-						cardname: cardname,
-						numberinhand: numberinhand},
-					url: 'AjaxController',
-					success: function(result){
-						$("#result2").html(result);
+	    	$.ajax({
+				type: 'POST',
+				data: {operation: "getPhase"},
+				url: 'AjaxController',
+				success: function(result){
+					var phase = result;
+					console.log("Phase: " + phase);
+					
+					if(phase == 1 && cardtype == "Action" || cardtype == "Action - Attack") {
+						console.log("Action( - Attack)!");
+						playThisCard(card);
 					}
-				});
-	    	}
+						
+					else if(phase == 2 && cardtype == "Treasure") {
+						console.log("Treasure!");
+					    playThisCard(card);
+				    }
+					
+					function playThisCard() {
+						var cardname = $(card).attr("cardname");
+				    	var numberinhand = $(card).attr("numberinhand");
+					    
+					    $(card).appendTo(".playedCards");
+					    $(card).removeClass("inHand");
+					    $(card).addClass("played");
+					    
+					    //resizeCards();
+					    //rotateCards();
+						
+						$.ajax({
+							type: 'POST',
+							data: {operation: "play",
+								cardname: cardname,
+								numberinhand: numberinhand},
+							url: 'AjaxController',
+							success: function(result){
+								$("#result2").html(result);
+								updateStats();
+							}
+						});
+						
+						draw();
+					}
+				}
+			});
 	    }
+	    
+		function updateStats() {
+	    	$.ajax({
+				type: 'POST',
+				data: {operation: "updateStats"},
+				url: 'AjaxController',
+				success: function(result){
+					$(".overviewTurn").html(result);
+				}
+			});
+	    	
+	    	$.ajax({
+				type: 'POST',
+				data: {operation: "getCoins"},
+				url: 'AjaxController',
+				success: function(result){
+			    	enableBuyableCards(result);
+			    	console.log(result);
+				}
+			});
+	    }
+		
+	    $(".kingdomCards").on("click", ".kingdomCard button", function() {
+	    	var cardname = $(this).attr("cardname");
+	    	var numberindiv = $(this).attr("numberindiv");
+	    	
+	    	$.ajax({
+				type: 'POST',
+				data: {operation: "buyCard",
+					cardname: cardname,
+					numberindiv: numberindiv},
+				url: 'AjaxController',
+				success: function(result){
+					$(".kingdomCards").html(result);
+				}
+			});
+	    	
+	    	getKingdomCards();
+	    });
+		
+		function enableBuyableCards(amountCoins) {
+			for (i = 0; i < 3; i++) {
+				var cost = $(".victoryCards .card[numberindiv=" + i + "]").attr("cost");
+				
+				if(amountCoins >= cost) {
+					$(".kingdomCards .card[numberindiv=" + i + "] .buy").removeClass("hidden");
+				}
+			}
+			
+			for (i = 7; i < 17; i++) {
+				var cost = $(".kingdomCards .card[numberindiv=" + i + "]").attr("cost");
+				
+				if(amountCoins >= cost) {
+					$(".kingdomCards .card[numberindiv=" + i + "] .buy").removeClass("hidden");
+				}
+			}
+		}
 	});
 	
 	$(window).resize(function() {
@@ -169,6 +323,7 @@
 		var widthHandCards = heightHandCards * 0.652;
 		var widthPlayedCards = heightPlayedCards * 0.652;
 		var heightDiscardPileCards = widthDiscardPileCards * 1.533;
+		console.log(heightDiscardPileCards);
 		
 		$(".victoryCards .card, .treasureCards .card, .curseCards .card").css("width", widthVictoryCards);
 		$(".kingdomCards .card").css("width", widthKingdomCards);
@@ -431,8 +586,7 @@
 				<div class="amountCoins">0</div>
 			</div>
 			<div class="actionButtons">
-				<button type="button" class="">Action</button>
-				<button type="button" class="" id="playAllTreasureCards">Play all Treasure Cards</button>
+				<button type="button" class="" id="endActionPhase">End action phase</button>
 			</div>
 		</div>
 		<div class="cards handCards">
