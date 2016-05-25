@@ -270,6 +270,21 @@ $(window).ready(function() {
 				$(".card[numberindiv=" + i + "] .buy").addClass("hidden");
 			}
 		}
+	    
+	    /**** IS GAME OVER ****/
+	    function isGameOver() {
+	    	$.ajax({
+				type: 'POST',
+				data: {operation: "isGameOver"},
+				url: 'AjaxController',
+				success: function(result){
+					console.log(result);
+					if(result == "true"){
+						window.location = "gameover.html";
+					}
+				}
+			});
+	    }
 		
 		/**** CLEARS ****/
 		function clearPlayedCards() {
@@ -303,6 +318,7 @@ $(window).ready(function() {
 		});
 	    
 	    /**** NEW GAME BASIC GETTERS ****/
+		isGameOver();
 	    getPlayers();
 	    getVictoryCards();
 	    getTreasureCards();
@@ -332,7 +348,7 @@ $(window).ready(function() {
 	    
 	    /**** CLICKLISTENER END ACTION PHASE ****/
 		$("body").on("click", "#endActionPhase", function() {
-		    	console.log("Click!");
+		    	console.log("Click!");  	
 		    	$.ajax({
 					type: 'POST',
 					data: {operation: "endPhase"},
@@ -366,6 +382,7 @@ $(window).ready(function() {
 				}
 			});
 	    	
+	   		isGameOver();
 	    	getPlayerOnTurn();
 	    	draw();
 	    	clearPlayedCards();

@@ -254,6 +254,23 @@ public class AjaxController extends HttpServlet {
 				currentGame.getCurrentPlayer().buyCard(fieldCard);
 			break;
 			
+			case "isGameOver":
+				boolean isGameOver = currentGame.getIsGameOver();
+				
+				PrintWriter outIsGameOver = response.getWriter();
+				outIsGameOver.print(isGameOver);
+			break;
+			
+			case "gameOver":
+				for(int i=0; i<players.size();i++) {
+					Player playerGameOver = players.get(i);
+					int score = playerGameOver.getScore();
+					
+					PrintWriter outGameOver = response.getWriter();
+					outGameOver.print("<div>" + playerGameOver.getName() + "</div><div>" + score + "</div>");
+				}
+			break;
+			
 			//doGet(request, response);
 		}
 	}

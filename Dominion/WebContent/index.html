@@ -5,10 +5,25 @@
 <title>Index</title>
 <link rel="stylesheet" type="text/css" href="css/default.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script type="text/javascript" src="js/howler.js"></script>
 <script>
 	var numberPlayers = null;
 	
 	$(document).ready(function() {
+		var sound = new Howl({
+			  urls: ['sounds/background-1.mp3'],
+			  loop: true
+		}).play();
+		
+		$("input").click(function() {
+			var sound = new Howl({
+				  urls: ['sounds/click-1.wav'],
+				  sprite: {
+					    click: [0, 1000]
+				  }
+			}).play('click');
+		});
+		
 		$("input[type=radio][name=number-players]").change(function() {
 			numberPlayers = parseInt(this.value);
 			
@@ -23,7 +38,7 @@
 			}
 	    });
 		
-		$("#initialize").click(function() {
+		$("#initialize").click(function() {		
 			var usernameplayer1 = $("#username-player-1").val();
 			var usernameplayer2 = $("#username-player-2").val();
 			var usernameplayer3 = $("#username-player-3").val();
@@ -69,13 +84,14 @@
 <body>
 	<div class="menu">
 		<form class="initialize-game" id="initialize-game" onsubmit="return validateForm()" method="POST" action="gameplay.html">
-			<h2>Choose your number of players.</h2>
-			<input id="two-players" type="radio" name="number-players" value="2" />
-        	<label class="number-players two-players" for="two-players"></label>
-        	<input id="three-players" type="radio" name="number-players" value="3" />
-        	<label class="number-players three-players" for="three-players"></label>
-        	<input id="four-players" type="radio" name="number-players" value="4" />
-        	<label class="number-players four-players" for="four-players"></label>
+			<img src="http://i.imgur.com/nD02Sbf.png" class="logo">
+			<h2>Choose your number of players</h2>
+			<input id="two-players" type="radio" name="number-players" value="2"/>
+        	<label class="number-players two-players" for="two-players">II</label>
+        	<input id="three-players" type="radio" name="number-players" value="3"/>
+        	<label class="number-players three-players" for="three-players">III</label>
+        	<input id="four-players" type="radio" name="number-players" value="4"/>
+        	<label class="number-players four-players" for="four-players">IV</label>
         	<input id="username-player-1" type="text" name="username-player-1" placeholder="Username player 1">
         	<label class="username-players" for="username-player-1"></label>
         	<input id="username-player-2" type="text" name="username-player-2" placeholder="Username player 2">

@@ -26,7 +26,11 @@ body {
 	width: 425px;
 	margin: 0 auto;
 	padding: 33px;
-	background: #f6f6f6;
+	background: url(http://i.imgur.com/EnsacpL.jpg) repeat;
+	border: 20px solid transparent;
+    -webkit-border-image: url(http://i.imgur.com/3D6oAvn.png) 30 round;
+    -o-border-image: url(http://i.imgur.com/3D6oAvn.png) 30 round;
+    border-image: url(http://i.imgur.com/3D6oAvn.png) 30 round;
 	text-align: center;
   	top: 50%;
   	transform: translateY(-50%);
@@ -81,59 +85,93 @@ input[type=radio]:checked +.number-players {
 
 .number-players {
     cursor: pointer;
-    background-size: contain;
-    background-repeat: no-repeat;
+    color: #ffffff;
+    font-size: 4.1rem;
+    background: url(http://i.imgur.com/RsVb2UA.jpg) repeat;
+    border: 20px solid transparent;
+    -webkit-border-image: url(http://i.imgur.com/Me6GmZs.png) 30 round;
+    -o-border-image: url(http://i.imgur.com/Me6GmZs.png) 30 round;
+    border-image: url(http://i.imgur.com/Me6GmZs.png) 30 round;
     display: inline-block;
-    width: 125px;
-    height: 125px;
-    -webkit-transition: all 100ms ease-in;
-    -moz-transition: all 100ms ease-in;
-    transition: all 100ms ease-in;
-    -webkit-filter: brightness(1.8) grayscale(1) opacity(.7);
-    -moz-filter: brightness(1.8) grayscale(1) opacity(.7);
-    filter: brightness(1.8) grayscale(1) opacity(.7);
+    width: 75px;
+    height: 75px;
 }
 
-.number-players:hover,
-input[type=submit]:hover {
-    -webkit-filter: brightness(1.2) grayscale(.5) opacity(.9);
-    -moz-filter: brightness(1.2) grayscale(.5) opacity(.9);
-    filter: brightness(1.2) grayscale(.5) opacity(.9);
-}
-
-.two-players {
-	background-image: url(http://i.imgur.com/il5rwFX.jpg);
-}
-
-.three-players {
-	background-image: url(http://i.imgur.com/TPMMhCe.jpg);
-}
-
-.four-players {
-	background-image: url(http://i.imgur.com/MTQw56K.jpg);
+#username-player-1 {
+	border-top: none;
 }
 
 input[type=text] {
+	padding: 8px;
+	color: #603d00;
+	font-family: 'TrajanPro-Bold';
+	font-size: 1rem;
+	text-transform: uppercase;
+	border: none;
+	border-top: 1px solid #ccc199;
+	background: url(http://i.imgur.com/GqA02In.jpg) repeat;
 	display: none;
+	text-align: center;
 	width: 100%;
+}
+
+::-webkit-input-placeholder {
+   color: #ccc199;
+}
+
+:-moz-placeholder {
+   color: #ccc199;  
+}
+
+::-moz-placeholder {
+   color: #ccc199;  
+}
+
+:-ms-input-placeholder {  
+   color: #ccc199;  
 }
 
 input[type=submit] {
 	width: 100%;
 	height: 75px;
 	color: #ffffff;
-	background: #000000;
-	border: none;
+	background: url(http://i.imgur.com/RsVb2UA.jpg) repeat;
+	border: 20px solid transparent;
+    -webkit-border-image: url(http://i.imgur.com/Me6GmZs.png) 30 round;
+    -o-border-image: url(http://i.imgur.com/Me6GmZs.png) 30 round;
+    border-image: url(http://i.imgur.com/Me6GmZs.png) 30 round;
 	font-family: 'TrajanPro-Bold';
-	font-size: 24pt;
+	font-size: 1.5rem;
 	text-transform: uppercase;
 	cursor: pointer;
-	-webkit-transition: all 100ms ease-in;
-    -moz-transition: all 100ms ease-in;
-    transition: all 100ms ease-in;
-    -webkit-filter: brightness(1.8) grayscale(1) opacity(.7);
-    -moz-filter: brightness(1.8) grayscale(1) opacity(.7);
-    filter: brightness(1.8) grayscale(1) opacity(.7);
+}
+
+input[type=submit]:active,
+.number-players:active {
+	border: 20px solid transparent;
+    -webkit-border-image: url(http://i.imgur.com/7iwugFZ.png) 30 round;
+    -o-border-image: url(http://i.imgur.com/7iwugFZ.png) 30 round;
+    border-image: url(http://i.imgur.com/7iwugFZ.png) 30 round;
+}
+
+.menu h2 {
+	font-size: 1em;
+	margin: 33px 0;
+	color: #ffffff;
+}
+
+#username-player-1 {
+	margin-top: 33px;
+}
+
+.menu input[type=submit] {
+	margin-top: 33px;
+}
+
+.logo {
+	position: absolute;
+	left: 50px;
+	top: -80px;
 }
 
 /********/
