@@ -87,7 +87,9 @@ public class TestFrame{
 		case "Feast": paintFeast(player);
 		break;
 		case "Moneylender": paintMoneylender(player);
-			break;
+		break;
+		case "Throne Room": paintThromeRoom(player);
+		break;
 		default: paintNormal(player);
 		break;
 		}
@@ -251,8 +253,8 @@ public class TestFrame{
 		{
 			Card card = cardsInHand.get(i);
 			HandButtons[i]= new JButton(card.getName() + " | Cost " + card.getCost());
-			if(card.getName() == "Copper"){
-				HandButtons[i].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e){DiscardHandCard(e);}});
+			if(card.getID() == 1){
+				HandButtons[i].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e){trashHandCard(e);}});
 			}
 			else
 			{
@@ -261,9 +263,9 @@ public class TestFrame{
 			playerPane.add(HandButtons[i]);
 		}
 		setValues();
-		next.setText("end discard");
-		next.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e){endCellarDiscard(e);}});
-		playerPane.add(next);
+	}
+	private void paintThromeRoom(Player player){
+		
 	}
 	private void repaint()
 	{
@@ -354,7 +356,9 @@ public class TestFrame{
 				}
 				else{
 					currentGame.getCommand().moneyLenderTrash(currentGame.getCurrentPlayer(), cardsInHand.get(i));
-					HandButtons[i].setEnabled(false);;
+					HandButtons[i].setEnabled(false);
+					currentGame.state = "normal";
+					repaint();
 				}
 			}
 		}
