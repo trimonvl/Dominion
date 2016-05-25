@@ -2,6 +2,7 @@ package card;
 import java.util.ArrayList;
 
 import game.FieldCards;
+import game.Game;
 import player.*;
 
 public class Command {
@@ -87,6 +88,25 @@ public class Command {
 			if(player.getHand().get(i).getID()==cardID)
 			{
 				player.trashCard(player.getHand().get(i));;
+			}
+		}
+	}
+	public void witch(Game currentGame)
+	{
+		ArrayList<Player> players = currentGame.getPlayersArray();
+		FieldCards witch = null;
+		for(int i=0;i<currentGame.getFieldCardsArray().length;i++)
+		{
+			if(currentGame.getFieldCard(i).getCard().getID()==7)
+			{
+				witch = currentGame.getFieldCard(i);
+			}
+		}
+		for(int i=0;i<players.size();i++)
+		{
+			if(players.get(i)!=currentGame.getCurrentPlayer() && witch.getAmount()>0)
+			{
+				players.get(i).getPile("discard").addCard(witch.getCard());;
 			}
 		}
 	}

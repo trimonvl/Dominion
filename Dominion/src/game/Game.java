@@ -33,6 +33,7 @@ public class Game {
 		{
 			startingCards.add(gameCards[3]);
 		}
+		startingCards.add(new Action(20, "Witch", "", 5, "Action", 2, 0, 0, 0, 0));
 	}
 	public void newGame(){
 		addPlayerToGame("Player1");
@@ -53,6 +54,11 @@ public class Game {
 		else
 		{
 			state = name;
+		}
+		if(name == "Witch")
+		{
+			state = "normal";
+			command.witch(this);
 		}
 	}
 	public void addCardsToGame()
