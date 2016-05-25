@@ -154,12 +154,12 @@ public class AjaxController extends HttpServlet {
 					String lastCardTrashPile = player.getPile("trash").getCards().get(lengthTrashPile-1).getName();
 				
 					PrintWriter outTrash = response.getWriter();
-					outTrash.print("<div class='trashPile " + lastCardTrashPile + "Large'></div>");
+					outTrash.print("<h4 class='trashTitle'>Trash</h4><div class='trashPile " + lastCardTrashPile + "Large'></div>");
 				}
 
 				else {
 					PrintWriter outTrash = response.getWriter();
-					outTrash.print("<div class='trashPile BackLarge'></div>");
+					outTrash.print("<h4 class='trashTitle'>Trash</h4><div class='trashPile BackLarge'></div>");
 				}
 
 			break;
@@ -303,12 +303,15 @@ public class AjaxController extends HttpServlet {
 			break;
 			
 			case "gameOver":
+				PrintWriter outLogo = response.getWriter();
+				outLogo.print("<img src='http://i.imgur.com/nD02Sbf.png' class='logo'>");
+				
 				for(int i=0; i<players.size();i++) {
 					Player playerGameOver = players.get(i);
 					int score = playerGameOver.getScore();
 					
 					PrintWriter outGameOver = response.getWriter();
-					outGameOver.print("<div>" + playerGameOver.getName() + "</div><div>" + score + "</div>");
+					outGameOver.print("<h2>" + playerGameOver.getName() + "</h2><h2>" + score + "</h2>");
 				}
 			break;
 			

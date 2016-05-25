@@ -295,9 +295,18 @@ $(window).ready(function() {
 			$(".kingdomCards .buy").addClass("hidden");
 		}
 		
-		/*window.onbeforeunload = function() {
-	        return "";
-	    }*/
+		/**** SOUNDS ****/
+		var backgroundSound = new Howl({
+			urls: ['sounds/background-1.mp3'],
+			loop: true
+		});
+		
+		var optionButtonSound = new Howl({
+			urls: ['sounds/click-1.wav'],
+			  sprite: {
+				    click: [0, 1000]
+			  }
+		});
 	    
 	    /********************************************************************************/
 	    
@@ -318,6 +327,10 @@ $(window).ready(function() {
 		});
 	    
 	    /**** NEW GAME BASIC GETTERS ****/
+		var backgroundSoundOn = true;
+		var optionButtonSoundOn = true;
+		
+		backgroundSound.play();
 		isGameOver();
 	    getPlayers();
 	    getVictoryCards();
@@ -327,6 +340,46 @@ $(window).ready(function() {
 	    getPlayerOnTurn();
 	    getTrash();
 	    draw();
+	    
+	    /**** CLICKLISTENER OPTION BUTTON ****/
+	    $(".options button").click(function() {
+	    	optionButtonSound.play("click");
+	    });
+		
+		/**** CLICKLISTENER FULLSCREEN ****/
+	    $("#fullscreen").click(function() {
+	    	var elem = document.getElementById('body');
+	        if(document.webkitFullscreenElement) {
+	            document.webkitCancelFullScreen();
+	            $("#fullscreen div").css("background", "url(http://i.imgur.com/Sf79OKh.png) no-repeat");
+				$("#fullscreen div").css("background-size", "cover");
+	        }
+	        
+	        else {
+	        	elem.webkitRequestFullScreen();
+	        	$("#fullscreen div").css("background", "url(http://i.imgur.com/i6F5Aan.png) no-repeat");
+				$("#fullscreen div").css("background-size", "cover");
+	        };
+		});
+		
+		/**** CLICKLISTENER MUTE BACKGROUND SOUND ****/
+		$("#mutebgsound").click(function() {
+			if(backgroundSoundOn == true) {
+				backgroundSound.mute();
+				optionButtonSound.mute();
+				backgroundSoundOn = false;
+				$("#mutebgsound div").css("background", "url(http://i.imgur.com/wRm2pT8.png) no-repeat");
+				$("#mutebgsound div").css("background-size", "cover");
+			}
+			
+			else {
+				backgroundSound.unmute();
+				optionButtonSound.unmute();
+				backgroundSoundOn = true;
+				$("#mutebgsound div").css("background", "url(http://i.imgur.com/UbY1dNO.png) no-repeat");
+				$("#mutebgsound div").css("background-size", "cover");
+			}
+		});
 	    
 	    /**** CLICKLISTENER PLAY CARD ****/
 	    $(".handCards").on("click", ".inHand", function() {
@@ -383,6 +436,7 @@ $(window).ready(function() {
 			});
 	    	
 	   		isGameOver();
+			getPlayers();
 	    	getPlayerOnTurn();
 	    	draw();
 	    	clearPlayedCards();

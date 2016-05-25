@@ -10,20 +10,31 @@
 	var numberPlayers = null;
 	
 	$(document).ready(function() {
-		var sound = new Howl({
-			  urls: ['sounds/background-1.mp3'],
-			  loop: true
-		}).play();
-		
-		$("input").click(function() {
-			var sound = new Howl({
-				  urls: ['sounds/click-1.wav'],
-				  sprite: {
-					    click: [0, 1000]
-				  }
-			}).play('click');
+		/**** SOUNDS ****/
+		var backgroundSound = new Howl({
+			urls: ['sounds/background-1.mp3'],
+			loop: true
 		});
 		
+		var optionButtonSound = new Howl({
+			urls: ['sounds/click-1.wav'],
+			  sprite: {
+				    click: [0, 1000]
+			  }
+		});
+		
+		/********************************************************************************/
+		
+		var backgroundSoundOn = true;
+		
+		backgroundSound.play();
+		
+		/**** CLICKLISTENER BUTTON ****/
+	    $("button, input[type=submit], input[type=radio]").click(function() {
+	    	optionButtonSound.play("click");
+	    });
+		
+		/**** CHANGELISTENER NUMBER OF PLAYERS ****/
 		$("input[type=radio][name=number-players]").change(function() {
 			numberPlayers = parseInt(this.value);
 			
@@ -38,6 +49,7 @@
 			}
 	    });
 		
+		/**** CLICKLISTENER PLAY ****/
 		$("#initialize").click(function() {		
 			var usernameplayer1 = $("#username-player-1").val();
 			var usernameplayer2 = $("#username-player-2").val();
@@ -60,6 +72,7 @@
 		});
 	});
 	
+	/**** VALIDATION FORM ****/
 	function validateForm() {
 	    var numberPlayers = document.forms["initialize-game"]["number-players"].value;
 	    //var usernamesPlayers = document.forms["initialize-game"]["username-players"].value;
@@ -107,16 +120,11 @@
 	<div class="right bottom" id="optionsContainer">
 		<div class="options">
 			<div class="halfHorizontal">
-				<button type="button" class="" id="fullscreen">F</button>
-				<button type="button" class="">O</button>
-				<button type="button" class="">R</button>
+				<div class="piles" style="opacity: 0"></div>
 			</div>
 			<div class="halfHorizontal">
-				<div class="piles">
-					<div class="trashPile"></div>
-				</div>
-				<span id="result2"></span>
-				<span id="result3"></span>
+				<button type="button" class="" id="fullscreen"><div></div></button>
+				<button type="button" class="" id="mutebgsound"><div></div></button>
 			</div>
 		</div>
 	</div>
