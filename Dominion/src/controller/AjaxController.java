@@ -147,7 +147,21 @@ public class AjaxController extends HttpServlet {
 			break;
 			
 			case "getTrash":
+				Player player = currentGame.getCurrentPlayer();
+				int lengthTrashPile = player.getPile("trash").getCards().size();
 				
+				if(lengthTrashPile > 0) {
+					String lastCardTrashPile = player.getPile("trash").getCards().get(lengthTrashPile-1).getName();
+				
+					PrintWriter outTrash = response.getWriter();
+					outTrash.print("<div class='trashPile " + lastCardTrashPile + "Large'></div>");
+				}
+
+				else {
+					PrintWriter outTrash = response.getWriter();
+					outTrash.print("<div class='trashPile BackLarge'></div>");
+				}
+
 			break;
 			
 			case "getPlayerOnTurn":
@@ -215,7 +229,7 @@ public class AjaxController extends HttpServlet {
 				
 				else if(phase == 2) {
 					out8.print("<button type='button' class='' id='endTreasurePhase'>End treasure phase</button>");
-					//out8.print("<button type='button' class='' id='playAllTreasureCards'>Play all treasure cards</button>");
+					out8.print("<button type='button' class='' id='playAllTreasureCards'>Play all treasure cards</button>");
 				}
 				
 				else if(phase == 3) {
