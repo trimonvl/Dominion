@@ -10,6 +10,8 @@ import java.sql.Statement;
 import java.util.Date;
 
 import card.*;
+import game.Game;
+import player.Player;
 
 public class MySQLAccess {
         
@@ -103,6 +105,58 @@ public void insertPlayer(String playerName) throws Exception {
 				connect.close();
 			}
 
+		}
+}
+
+public void saveCardsInHand(Game currentGame) throws Exception {
+    
+	Class.forName("com.mysql.jdbc.Driver");
+
+    // Setup the connection with the DB
+    connect = DriverManager
+        .getConnection("jdbc:mysql://" + host + "/Dominion?"
+            + "user=" + user + "&password=" + passwd );
+    	
+		String getCurrentPlayerIdSQL = "SELECT id FROM players WHERE name = ?";
+		String saveCards = "INSERT INTO cardsinhands(player_id, card_id) VALUES(?,?)";
+
+		for(int i = 0; i < currentGame.getPlayersArray().size(); i++){
+			Player player = currentGame.getPlayersArray().get(i);
+			String playerName = player.getName();
+			
+			
+			try {
+				preparedStatement = connect.prepareStatement(getCurrentPlayerIdSQL);
+				preparedStatement.setString(1, playerName);
+			    resultSet = preparedStatement.executeQuery();
+			   
+			    while(resultSet.next()){
+			    	int playerId = resultSet.getInt("id");
+			    	for(int in = 0; in < player.getHand().size(); in++){
+			    		int cardId = player.getHand().get(in).getID();
+			    		
+						preparedStatement = connect.prepareStatement(saveCards);
+						preparedStatement.setInt(1, playerId);
+						preparedStatement.setInt(2, cardId);
+					    preparedStatement.executeUpdate();
+			    	}
+			    }
+			}
+			    catch (SQLException e) {
+
+				System.out.println(e.getMessage());
+
+			} finally {
+
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+
+				if (connect != null) {
+					connect.close();
+				}
+
+			}
 		}
 }
 
