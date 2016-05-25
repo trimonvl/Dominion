@@ -171,7 +171,15 @@ $(window).ready(function() {
 		/**** PLAY ****/
 	    function play(card) {
 	    	var cardtype = $(card).attr("cardtype");
-	    	
+	    	var waitingFor = "play";
+	    	$.ajax({
+				type: 'POST',
+				data: {operation: "getWaitingFor"},
+				url: 'AjaxController',
+				success: function(result){
+					waitingFor = result;
+				}
+			});
 	    	$.ajax({
 				type: 'POST',
 				data: {operation: "getPhase"},
@@ -180,7 +188,7 @@ $(window).ready(function() {
 					var phase = result;
 					console.log("Phase: " + phase);
 					
-					if(phase == 1 && cardtype == "Action" || cardtype == "Action - Attack") {
+					if((phase == 1 && cardtype == "Action" || cardtype == "Action - Attack") || waitingFor != "play") {
 						console.log("Action( - Attack)!");
 						playThisCard(card);
 					}

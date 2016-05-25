@@ -362,7 +362,7 @@ public class TestFrame{
 					}	
 				}
 				else{
-					currentGame.getCommand().moneyLenderTrash(currentGame.getCurrentPlayer(), cardsInHand.get(i));
+					currentGame.getCommand().moneyLenderTrash(currentGame.getCurrentPlayer());
 					HandButtons[i].setEnabled(false);
 					currentGame.state = "normal";
 					repaint();

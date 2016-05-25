@@ -12,7 +12,7 @@ public class Player {
 	CardPile deck = new CardPile();
 	CardPile discardPile = new CardPile();
 	CardPile trash = new CardPile();
-	Hand hand = new Hand();
+	public Hand hand = new Hand();
 	String name;
 	public Player(String name){
 		this.name = name;
@@ -35,7 +35,6 @@ public class Player {
 					discardPile.addCard(card);	
 				}
 				actions -= 1;
-				System.out.println("Player played card");
 			}
 			break;
 		case 2:
@@ -50,6 +49,9 @@ public class Player {
 	public void discardCard(Card card)
 	{
 		hand.discard(card);
+		discardPile.addCard(card);
+	}
+	public void addCardtoDiscardPile(Card card){
 		discardPile.addCard(card);
 	}
 	public void discardDeck()

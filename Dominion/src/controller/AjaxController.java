@@ -182,19 +182,29 @@ public class AjaxController extends HttpServlet {
 				PrintWriter outCurrentPhase = response.getWriter();
 				outCurrentPhase.print(currentGame.getCurrentPlayer().getPhase());
 			break;
-			
+			case "getWaitingFor":
+				PrintWriter outWaitingFor = response.getWriter();
+				outWaitingFor.print(currentGame.actionWaitingFor);
+			break;
 			case "play":
 				String cardname = request.getParameter("cardname");
 				String numberinhand = request.getParameter("numberinhand");
 				Card card = currentGame.getCurrentPlayer().getHand().get(Integer.parseInt(numberinhand));
 				Player currentPlayer = currentGame.getCurrentPlayer();
-				System.out.println("card type is : --" + card.getType() + "---- naam is: " + card.getName());
 				switch(currentGame.actionWaitingFor){
+					//deze switch is voor kaarten die extra input vereisen van de speler
 					case "chapel":
-						boolean res = currentGame.chooseChapelCards(card);
-						if(!res){
-							currentGame.ChapelComplete();
+						currentGame.addToList(card);
+						currentPlayer.trashCard(card);
+						if(currentGame.selectList.size() == 4){
+							currentPlayer.nextPhase();
+							currentGame.selectList.removeAll(currentGame.selectList);
 						}
+						break;
+					case "Cellar":
+						currentGame.addToList(card);
+						currentPlayer.discardCard(card);
+						currentPlayer.drawCard();
 						break;
 					case "play":
 						if(card.getType().equals("Action") || card.getType().equals("Action - Attack")){
@@ -207,14 +217,24 @@ public class AjaxController extends HttpServlet {
 								break;
 							//witch
 							case "Witch":
-								System.out.println("witch played");
 								currentGame.witchGiveCurse();
 								currentPlayer.playCard(card);
 								break;
 							case "Chapel":
-								System.out.println("chapel played");
+								currentPlayer.discardCard(card);
 								currentGame.actionWaitingFor = "chapel";
+								break;
+							case "Cellar":
+								currentPlayer.discardCard(card);
+								currentGame.actionWaitingFor = "Cellar";
+								break;
+							case "Council Room":
+								currentGame.everyOneElseDraw();
 								currentPlayer.playCard(card);
+								break;
+							case "Throne Room":
+								currentPlayer.discardCard(card);
+								currentGame.actionWaitingFor = "Throne Room";
 								break;
 							default:
 								currentPlayer.playCard(card);
@@ -260,6 +280,10 @@ public class AjaxController extends HttpServlet {
 			
 			/**** END PHASE ****/
 			case "endPhase":
+				//finish speciale kaart effecten
+				currentGame.actionWaitingFor = "play";
+				//-------
+				
 				currentGame.nextPhase();
 				int phase = currentGame.getCurrentPlayer().getPhase();
 				PrintWriter out8 = response.getWriter();
