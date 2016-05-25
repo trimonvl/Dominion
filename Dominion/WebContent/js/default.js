@@ -25,7 +25,6 @@ $(window).ready(function() {
 			$(".trashPile").css("height", heightTrashPileCards);
 		}
 		
-		/**** ROTATE CARDS ****/
 		function rotateCards() {
 			var numberHandCards = $(".handCards .card").length;
 			
@@ -58,6 +57,25 @@ $(window).ready(function() {
 				var marginLeftHandCards = -100 - (numberHandCards * 5 / 2); 
 				$(".handCards .card").css("margin-left", marginLeftHandCards);
 				$(".handCards .card:first-child").css("margin-left", "0");
+			}
+		}
+		
+		/**** OVERLAP CARDS ****/
+		function overlapCards() {
+			var numberPlayedCards = $(".playedCards .card").length;
+			
+			if(numberPlayedCards > 4) {
+				if(numberPlayedCards < 12) {
+					var marginMinus = numberPlayedCards * 9;
+				}
+				
+				else {
+					var marginMinus = 99;
+				}
+				
+				var cssMarginMinus = "-" + marginMinus + "px";
+				$(".playedCards .card").css("margin", "0 0 0 " + cssMarginMinus);
+				$("#playedCards .card:first-child").css("margin", "0 0 0 0 !important");
 			}
 		}
 		
@@ -168,7 +186,7 @@ $(window).ready(function() {
 			});
 	    }
 		
-		/**** PLAY ****/
+	    /**** PLAY ****/
 	    function play(card) {
 	    	var cardtype = $(card).attr("cardtype");
 	    	var waitingFor = "play";
@@ -226,6 +244,7 @@ $(window).ready(function() {
 				}
 			});
 	    }
+	    
 		
 		/**** UPDATE STATS ****/
 	    function updateStats() {
@@ -286,7 +305,6 @@ $(window).ready(function() {
 				data: {operation: "isGameOver"},
 				url: 'AjaxController',
 				success: function(result){
-					console.log(result);
 					if(result == "true"){
 						window.location = "gameover.html";
 					}
@@ -336,7 +354,6 @@ $(window).ready(function() {
 	    
 	    /**** NEW GAME BASIC GETTERS ****/
 		var backgroundSoundOn = true;
-		var optionButtonSoundOn = true;
 		
 		backgroundSound.play();
 		isGameOver();
@@ -408,8 +425,7 @@ $(window).ready(function() {
 	    });
 	    
 	    /**** CLICKLISTENER END ACTION PHASE ****/
-		$("body").on("click", "#endActionPhase", function() {
-		    	console.log("Click!");  	
+		$("body").on("click", "#endActionPhase", function() {	
 		    	$.ajax({
 					type: 'POST',
 					data: {operation: "endPhase"},

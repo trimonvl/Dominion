@@ -96,12 +96,12 @@ public class AjaxController extends HttpServlet {
 						String lastCardDiscardPile = player.getPile("discard").getCards().get(lengthDiscardPile-1).getName();
 					
 						PrintWriter out3 = response.getWriter();
-						out3.print("<div class='player' name='" + player.getName() + "'><div class='halfVertical'><div class='avatar default'></div><div class='name'>" + player.getName() + "</div></div><div class='halfVertical'><div class='piles'><div class='discardPile " + lastCardDiscardPile + "Large'><div class='amount'>" + discard.size() + "</div></div><div class='cardPile BackLarge'><div class='amount'>" + deck.size() + "</div></div></div></div></div>");
+						out3.print("<div class='player' name='" + player.getName() + "'><div class='halfVertical'><div class='avatar hidden default'></div><div class='name'>" + player.getName() + "</div></div><div class='halfVertical'><div class='piles'><div class='discardPile " + lastCardDiscardPile + "Large'><div class='amount'>" + discard.size() + "</div></div><div class='cardPile BackLarge'><div class='amount'>" + deck.size() + "</div></div></div></div></div>");
 					}
 					
 					else {
 						PrintWriter out3 = response.getWriter();
-						out3.print("<div class='player' name='" + player.getName() + "'><div class='halfVertical'><div class='avatar default'></div><div class='name'>" + player.getName() + "</div></div><div class='halfVertical'><div class='piles'><div class='discardPile'><div class='amount'>" + discard.size() + "</div></div><div class='cardPile BackLarge'><div class='amount'>" + deck.size() + "</div></div></div></div></div>");
+						out3.print("<div class='player' name='" + player.getName() + "'><div class='halfVertical'><div class='avatar hidden default'></div><div class='name'>" + player.getName() + "</div></div><div class='halfVertical'><div class='piles'><div class='discardPile'><div class='amount'>" + discard.size() + "</div></div><div class='cardPile BackLarge'><div class='amount'>" + deck.size() + "</div></div></div></div></div>");
 					}
 				}
 			break;

@@ -181,6 +181,11 @@ input[type=submit]:active,
 	background-size: cover;
 }
 
+#newgame div {
+	background: url(http://i.imgur.com/yOkCqAy.png) no-repeat;
+	background-size: cover;
+}
+
 .menu h2 {
 	font-size: 1em;
 	margin: 33px 0;
@@ -225,7 +230,7 @@ input[type=submit]:active,
 
 .bis {
 	height: 16.92%;
-	top: 37.5%;
+	top: 39.5%;
 }
 
 .bottom {
@@ -414,7 +419,6 @@ input[type=submit]:active,
 
 .played {
 	height: 100% !important;
-	margin: 0 !important;
 	transform: rotate(0) !important;
 }
 

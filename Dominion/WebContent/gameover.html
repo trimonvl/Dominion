@@ -6,19 +6,32 @@
 <link rel="stylesheet" type="text/css" href="css/default.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script>
-$.ajax({
-	type: 'POST',
-	data: {operation: "gameOver"},
-	url: 'AjaxController',
-	success: function(result){
-		$(".menu").html(result);
-	}
-});
+	$(window).ready(function() {
+		$.ajax({
+			type: 'POST',
+			data: {operation: "gameOver"},
+			url: 'AjaxController',
+			success: function(result){
+				$(".menu").html(result);
+			}
+		});
+		
+		$("body").on("click", "#newgame", function() {			
+			window.location = "index.html";
+		});
+	});
 </script>
 </head>
 <body>
 	<div class="menu">
 		
+	</div>
+	<div class="right bottom" id="optionsContainer">
+		<div class="options">
+			<div class="halfHorizontal">
+				<button type="button" class="" id="newgame"><div></div></button>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
