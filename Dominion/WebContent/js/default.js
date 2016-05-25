@@ -206,7 +206,7 @@ $(window).ready(function() {
 					var phase = result;
 					console.log("Phase: " + phase);
 					
-					if((phase == 1 && cardtype == "Action" || cardtype == "Action - Attack") || waitingFor != "play") {
+					if((phase == 1 && cardtype == "Action" || cardtype == "Action - Attack" || cardtype == "Action - Reaction") || waitingFor != "play") {
 						console.log("Action( - Attack)!");
 						playThisCard(card);
 					}
@@ -240,6 +240,7 @@ $(window).ready(function() {
 						});
 						
 						draw();
+						overlapCards();
 					}
 				}
 			});
