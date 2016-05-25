@@ -14,6 +14,10 @@ public class Game {
 	MySQLAccess conn = new MySQLAccess();
 	Card[] gameCards;
 	boolean isGameOver = false;
+	//kan ofwel play card ofwel discard ofwel trash card zijn
+	public String actionWaitingFor = "play";
+	public Card cardWaitingFor = null;
+	
 	public Game(){
 		try {
 			gameCards = conn.extractCards();
@@ -230,6 +234,39 @@ public class Game {
 			}
 			isGameOver = true;
 		}
+	}
+	public void witchGiveCurse(){
+		for(Player player : players){
+			if(player != currentPlayer){
+				player.addCardToTopDeck(cardsInField[6].getCard());
+				cardsInField[6].remove();	
+			}
+		}
+	}
+	ArrayList<Card>toUse = new ArrayList<Card>();
+	public boolean chooseChapelCards(Card card){
+		if(toUse.size()<4)
+		{
+			toUse.add(card);
+			if(toUse.size()<4){
+				return false;
+			}
+			else{
+				return true;
+			}
+		}
+		return false;
+	}
+	public void ChapelComplete()
+	{
+		if (toUse.size()!=0)
+		{
+			for(int i=0; i<toUse.size();i++)
+			{
+				currentPlayer.trashCard(toUse.get(i));
+			}	
+		}
+		toUse.removeAll(toUse);
 	}
 	public boolean getIsGameOver()
 	{

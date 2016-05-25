@@ -186,7 +186,48 @@ public class AjaxController extends HttpServlet {
 			case "play":
 				String cardname = request.getParameter("cardname");
 				String numberinhand = request.getParameter("numberinhand");
-				currentGame.getCurrentPlayer().playCard(currentGame.getCurrentPlayer().getHand().get(Integer.parseInt(numberinhand)));
+				Card card = currentGame.getCurrentPlayer().getHand().get(Integer.parseInt(numberinhand));
+				Player currentPlayer = currentGame.getCurrentPlayer();
+				System.out.println("card type is : --" + card.getType() + "---- naam is: " + card.getName());
+				switch(currentGame.actionWaitingFor){
+					case "chapel":
+						boolean res = currentGame.chooseChapelCards(card);
+						if(!res){
+							currentGame.ChapelComplete();
+						}
+						break;
+					case "play":
+						if(card.getType().equals("Action") || card.getType().equals("Action - Attack")){
+							switch(card.getName()){
+							//moneylender
+							case "Moneylender":
+								System.out.println("Money lender played");
+								currentGame.getCommand().moneyLenderTrash(currentGame.getCurrentPlayer());	
+								currentPlayer.playCard(card);
+								break;
+							//witch
+							case "Witch":
+								System.out.println("witch played");
+								currentGame.witchGiveCurse();
+								currentPlayer.playCard(card);
+								break;
+							case "Chapel":
+								System.out.println("chapel played");
+								currentGame.actionWaitingFor = "chapel";
+								currentPlayer.playCard(card);
+								break;
+							default:
+								currentPlayer.playCard(card);
+								break;
+							}
+						}
+						else {
+							currentPlayer.playCard(card);
+						}
+						break;
+					default:
+						break;
+				}
 				PrintWriter out6 = response.getWriter();
 				out6.print(cardname);
 				out6.print(numberinhand);

@@ -68,9 +68,17 @@ public class Command {
 			}
 		}
 	}
-	public void moneyLenderTrash(Player player, Card card){
-		player.addGold(3);
-		player.trashCard(card);
+	public void moneyLenderTrash(Player player){
+		boolean copper = false;
+		for(Card card : player.getHand()){
+			if(card.getID() == 1){
+				copper = true;
+			}
+		}
+		if(copper == true){
+			player.addGold(3);
+			player.trashCard(new Treasure(1, "", "", 0, "", 0, 0, 0,0, 0));
+		}
 	}
 	public void trash(Player player, int cardID)
 	{
