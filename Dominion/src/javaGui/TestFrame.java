@@ -249,12 +249,14 @@ public class TestFrame{
 		frame.setVisible(true);
 	}
 	private void paintMoneylender(Player player){
+		boolean copperInHand = false;
 		for(int i = 0;i < cardsInHand.size();i++)
 		{
 			Card card = cardsInHand.get(i);
 			HandButtons[i]= new JButton(card.getName() + " | Cost " + card.getCost());
 			if(card.getID() == 1){
 				HandButtons[i].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e){trashHandCard(e);}});
+				copperInHand = true;
 			}
 			else
 			{
@@ -263,6 +265,11 @@ public class TestFrame{
 			playerPane.add(HandButtons[i]);
 		}
 		setValues();
+		if(!copperInHand)
+		{
+			currentGame.state = "normal";
+			repaint();
+		}
 	}
 	private void paintThromeRoom(Player player){
 		
