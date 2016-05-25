@@ -1,0 +1,972 @@
+@font-face {
+	font-family: 'TrajanPro-Bold';
+	src: url('fonts/TrajanPro-Bold.eot?#iefix') format('embedded-opentype'),  url('fonts/TrajanPro-Bold.otf')  format('opentype'),
+	     url('fonts/TrajanPro-Bold.woff') format('woff'), url('fonts/TrajanPro-Bold.ttf')  format('truetype'), url('fonts/TrajanPro-Bold.svg#TrajanPro-Bold') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+body {
+	height: 100vh;
+	min-width: 1182px;
+	margin: 0;
+	text-transform: uppercase;
+	background: url(http://i.imgur.com/D8Kt7EP.jpg) !important;
+	background-size: cover !important;
+	-webkit-touch-callout: none;
+  	-webkit-user-select: none;
+  	-khtml-user-select: none;
+  	-moz-user-select: none;
+  	-ms-user-select: none;
+  	user-select: none;  
+}
+
+.menu {
+	position: relative;
+	width: 425px;
+	margin: 0 auto;
+	padding: 33px;
+	background: url(http://i.imgur.com/EnsacpL.jpg) repeat;
+	border: 20px solid transparent;
+    -webkit-border-image: url(http://i.imgur.com/3D6oAvn.png) 30 round;
+    -o-border-image: url(http://i.imgur.com/3D6oAvn.png) 30 round;
+    border-image: url(http://i.imgur.com/3D6oAvn.png) 30 round;
+	text-align: center;
+  	top: 50%;
+  	transform: translateY(-50%);
+}
+
+.display {
+	display: block !important;
+}
+
+.remove {
+	display: none !important;
+}
+
+.hidden {
+	display: none !important;
+}
+
+.halfVertical {
+	height: 50%;
+}
+
+.halfHorizontal {
+	float: left;
+	width: 50%;
+}
+
+/**** Form ****/
+
+input:focus,
+button:focus {
+	outline: 0 !important;
+}
+
+input[type=radio] {
+	margin: 0;
+	padding: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+input[type=radio]:active +.number-players {
+	opacity: .9;
+}
+
+input[type=radio]:checked +.number-players {
+    -webkit-filter: none;
+    -moz-filter: none;
+    filter: none;
+}
+
+.number-players {
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 4.1rem;
+    background: url(http://i.imgur.com/RsVb2UA.jpg) repeat;
+    border: 20px solid transparent;
+    -webkit-border-image: url(http://i.imgur.com/Me6GmZs.png) 30 round;
+    -o-border-image: url(http://i.imgur.com/Me6GmZs.png) 30 round;
+    border-image: url(http://i.imgur.com/Me6GmZs.png) 30 round;
+    display: inline-block;
+    width: 75px;
+    height: 75px;
+}
+
+#username-player-1 {
+	border-top: none;
+}
+
+input[type=text] {
+	padding: 8px;
+	color: #603d00;
+	font-family: 'TrajanPro-Bold';
+	font-size: 1rem;
+	text-transform: uppercase;
+	border: none;
+	border-top: 1px solid #ccc199;
+	background: url(http://i.imgur.com/GqA02In.jpg) repeat;
+	display: none;
+	text-align: center;
+	width: 100%;
+}
+
+::-webkit-input-placeholder {
+   color: #ccc199;
+}
+
+:-moz-placeholder {
+   color: #ccc199;  
+}
+
+::-moz-placeholder {
+   color: #ccc199;  
+}
+
+:-ms-input-placeholder {  
+   color: #ccc199;  
+}
+
+input[type=submit] {
+	width: 100%;
+	height: 75px;
+	color: #ffffff;
+	background: url(http://i.imgur.com/RsVb2UA.jpg) repeat;
+	border: 20px solid transparent;
+    -webkit-border-image: url(http://i.imgur.com/Me6GmZs.png) 30 round;
+    -o-border-image: url(http://i.imgur.com/Me6GmZs.png) 30 round;
+    border-image: url(http://i.imgur.com/Me6GmZs.png) 30 round;
+	font-family: 'TrajanPro-Bold';
+	font-size: 1.5rem;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+
+input[type=submit]:active,
+.number-players:active {
+	border: 20px solid transparent;
+    -webkit-border-image: url(http://i.imgur.com/7iwugFZ.png) 30 round;
+    -o-border-image: url(http://i.imgur.com/7iwugFZ.png) 30 round;
+    border-image: url(http://i.imgur.com/7iwugFZ.png) 30 round;
+}
+
+.options button:active,
+.actionButtons button:active {
+	border: 10px solid transparent;
+    -webkit-border-image: url(http://i.imgur.com/7iwugFZ.png) 30 round;
+    -o-border-image: url(http://i.imgur.com/7iwugFZ.png) 30 round;
+    border-image: url(http://i.imgur.com/7iwugFZ.png) 30 round;
+}
+
+.options button div {
+	width: 20px;
+	height: 20px;
+}
+
+#fullscreen div {
+	background: url(http://i.imgur.com/Sf79OKh.png) no-repeat;
+	background-size: cover;
+}
+
+#mutebgsound div {
+	background: url(http://i.imgur.com/UbY1dNO.png) no-repeat;
+	background-size: cover;
+}
+
+#mutesound div {
+	background: url(http://i.imgur.com/DwCMnJU.png) no-repeat;
+	background-size: cover;
+}
+
+#newgame div {
+	background: url(http://i.imgur.com/yOkCqAy.png) no-repeat;
+	background-size: cover;
+}
+
+.menu h2 {
+	font-size: 1em;
+	margin: 33px 0;
+	color: #ffffff;
+}
+
+#username-player-1 {
+	margin-top: 33px;
+}
+
+.menu input[type=submit] {
+	margin-top: 33px;
+}
+
+.logo {
+	position: absolute;
+	left: 50px;
+	top: -80px;
+}
+
+/********/
+
+.left {
+	position: absolute;
+	width: 166px;
+	height: 100%;
+	left: 0;
+}
+
+.center {
+	width: 850px;
+	height: 100%;
+	margin: 0 auto;
+}
+
+.right {
+	position: absolute;
+	width: 166px;
+	height: 100%;
+	right: 0;
+}
+
+.bis {
+	height: 16.92%;
+	top: 39.5%;
+}
+
+.bottom {
+	height: 50%;
+	bottom: 0;
+}
+
+#playersContainer {
+	height: calc(100% - 37.5%);
+}
+
+#optionsContainer {
+	height: 25%;
+}
+
+.players {
+	float: bottom;
+	width: calc(100%);
+	height: calc(100% - 66px);
+	padding: 33px 0;
+	//background: #e6e6e6;
+}
+
+.player {
+	position: relative;
+	width: 100%;
+	height: 15%;
+	font-family: 'TrajanPro-Bold';
+	font-size: 10pt;
+	text-transform: uppercase;
+	background: url(http://i.imgur.com/EnsacpL.jpg) repeat;
+    border: 10px solid transparent;
+    -webkit-border-image: url(http://i.imgur.com/3D6oAvn.png) 30 round;
+    -o-border-image: url(http://i.imgur.com/3D6oAvn.png) 30 round;
+    border-image: url(http://i.imgur.com/3D6oAvn.png) 30 round;
+}
+
+.onTurn {
+	height: 40%;
+	background: green;
+}
+
+.onTurn .halfVertical {
+	height: 75%;
+}
+
+.onTurn .halfVertical:first-child {
+	height: 25%;
+}
+
+.options {
+	width: calc(100% - 66px);
+	height: calc(100% - 66px);
+	padding: 33px;
+	//background: #e6e6e6;
+}
+
+.options button {
+	margin-bottom: 8px;
+	background: url(http://i.imgur.com/RsVb2UA.jpg) repeat;
+    border: 10px solid transparent;
+    -webkit-border-image: url(http://i.imgur.com/Me6GmZs.png) 30 round;
+    -o-border-image: url(http://i.imgur.com/Me6GmZs.png) 30 round;
+    border-image: url(http://i.imgur.com/Me6GmZs.png) 30 round;
+}
+
+.cards {
+	width: calc(100% - 66px);
+	height: calc(37.5% - 49px);
+	width: calc(100% - 66px);
+}
+
+.card {
+	position: relative;
+	border-radius: 5px;
+	font-family: 'TrajanPro-Bold';
+}
+
+.handCards .card {
+	height: 100%;
+	margin: 0;
+	margin-left: -70px;
+	-webkit-transition: 0.5s ease-in-out;
+    -moz-transition: 0.5s ease-in-out;
+    -o-transition: 0.5s ease-in-out;
+    transition: 0.5s ease-in-out;
+}
+
+.handCards .card:first-child {
+	margin-left: 0;
+}
+
+.highlight {
+	-webkit-box-shadow: 0px 0px 20px 1px #ffffff;
+	-moz-box-shadow: 0px 0px 20px 1px #ffffff;
+	box-shadow: 0px 0px 20px 10px #ffffff; 
+}
+
+.victoryCards {
+	//width: calc(100% - 66px);
+	height: calc(37.5% - 49px);
+	padding: 33px;
+	//padding-bottom: 16px;
+	text-align: center;
+	//background: #cccccc;
+}
+
+.treasureCards {
+	//width: calc(100% - 66px);
+	height: calc(37.5% - 49px);
+	padding: 33px;
+	//padding-bottom: 16px;
+	text-align: center;
+	//background: #cccccc;
+}
+
+.curseCards {
+	//width: calc(100% - 66px);
+	height: calc(100% - 49px);
+	margin-top: -16px;
+	padding: 33px;
+	padding-top: 0;
+	//padding-bottom: 17px;
+	text-align: center;
+	//background: #cccccc;
+}
+
+.kingdomCards {
+	height: calc(37.5% - 66px);
+	padding: 33px;
+	text-align: center;
+	//background: #cccccc;
+}
+
+.playedCards {
+	position: relative;
+	width: calc(100% - 66px);
+	height: 25%;
+	padding: 0 33px;
+	overflow: hidden;
+	text-align: center;
+	//background: #e6e6e6;
+}
+
+.playedCards .card {
+	-webkit-transition: none !important;
+    -moz-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+}
+
+.handCards {
+	height: calc(37.5% - 33px);
+	padding: 33px;
+	padding-bottom: 0;
+	overflow: hidden;
+	text-align: center;
+	//background: #cccccc;
+}
+
+/**** inHand ****/
+
+.inHand {
+	float: none !important;
+	display: inline-block;
+	border-radius: 7px;
+}
+
+.inHand:hover {
+	z-index: 1;
+}
+
+.inHand .value {
+	left: 5px;
+	top: 5px;
+}
+
+.inHand .cost {
+	left: 5px;
+	bottom: 0;
+}
+
+/********/
+
+/**** played ****/
+
+.played {
+	height: 100% !important;
+	transform: rotate(0) !important;
+}
+
+/********/
+
+.victoryCard {
+	float: none !important;
+	display: inline-block;
+	width: calc(100%);
+	height: calc(33.33% - 17px);
+	margin-bottom: 17px;
+}
+
+.treasureCard {
+	float: none !important;
+	display: inline-block;
+	width: calc(100%);
+	height: calc(33.33% - 17px);
+	margin-bottom: 17px;
+}
+
+.curseCard {
+	float: none !important;
+	display: inline-block;
+	width: calc(100%);
+	height: calc(100% - 17px);
+	margin-bottom: 17px;
+}
+
+.kingdomCard {
+	float: none !important;
+	display: inline-block;
+	width: calc(20% - 17px);
+	height: calc(50% - 8px);
+	margin: 0 8px 12px 8px;
+	-webkit-transition: 0.5s ease-in-out;
+    -moz-transition: 0.5s ease-in-out;
+    -o-transition: 0.5s ease-in-out;
+    transition: 0.5s ease-in-out;
+}
+
+.overviewTurn {
+	position: absolute;
+	background: url(http://i.imgur.com/EnsacpL.jpg) repeat;
+	border: 10px solid transparent;
+    -webkit-border-image: url(http://i.imgur.com/3D6oAvn.png) 30 round;
+    -o-border-image: url(http://i.imgur.com/3D6oAvn.png) 30 round;
+    border-image: url(http://i.imgur.com/3D6oAvn.png) 30 round;
+	top: 50%;
+	padding: 8px;
+	color: #ffffff;
+  	transform: translateY(-50%);
+}
+
+.overviewTurn h4 {
+	margin: 0;
+}
+
+.actionButtons {
+	position: absolute;
+	width: 12,5%;
+	max-width: 100px;
+	right: 33px;
+	top: 50%;
+  	transform: translateY(-50%);
+}
+
+.actionButtons button {
+	color: #ffffff;
+	width: 100%;
+	margin-bottom: 16px;
+	//color: #ffffff;
+	font-family: 'TrajanPro-Bold';
+	font-size: 10px;
+	text-transform: uppercase;
+	background: url(http://i.imgur.com/RsVb2UA.jpg) repeat;
+    border: 10px solid transparent;
+    -webkit-border-image: url(http://i.imgur.com/Me6GmZs.png) 30 round;
+    -o-border-image: url(http://i.imgur.com/Me6GmZs.png) 30 round;
+    border-image: url(http://i.imgur.com/Me6GmZs.png) 30 round;
+}
+
+/**** Card Properties ****/
+
+.amount {
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	top: -10px;
+	right: -5px;
+	padding-top: 5px;
+	font-size: 10pt;
+	text-align: center;
+	background: url(http://i.imgur.com/F74eOj5.png) no-repeat;
+	background-size: contain;
+}
+
+.name {
+	position: absolute;
+	width: 100%;
+	margin: 0;
+	top: 0;
+	text-align: center;
+}
+
+.image {
+	position: absolute;
+	width: 100%;
+	height: 50%;
+	top: 25%;
+	background: yellow;
+}
+
+.value {
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	top: -10px;
+	left: -5px;
+	padding-top: 5px;
+	text-align: center;
+	background: url(http://i.imgur.com/F74eOj5.png) no-repeat;
+	background-size: contain;
+}
+
+.cost {
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	bottom: -10px;
+	left: -5px;
+	padding-top: 5px;
+	font-size: 10pt;
+	text-align: center;
+	background: url(http://i.imgur.com/F74eOj5.png) no-repeat;
+	background-size: contain;
+}
+
+.type {
+	position: absolute;
+	width: 100%;
+	margin: 0;
+	bottom: 0;
+	text-align: center;
+}
+
+.buy {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+/********/
+
+/**** Player Properties ****/
+
+.avatar {
+	position: relative;
+	height: 100%;
+	width: 50px;
+	top: 50%;
+  	transform: translateY(-50%);
+}
+
+.default {
+	background: url(http://i.imgur.com/zV4xQLH.jpg);
+	background-size: 100% 100%;
+}
+
+.name {
+	position: absolute;
+	top: 25%;
+	color: #ffffff;
+  	transform: translateY(-25%);
+}
+
+.onTurn .name {
+	top: 12.5%;
+  	transform: translateY(-12.5%);
+}
+
+.piles {
+	width: calc(100% - 8px);
+	height: calc(100% - 16px);
+	padding: 8px;
+	padding-right: 0;
+}
+
+.cardPile,
+.discardPile {
+	position: relative;
+	float: left;
+	width: calc(50% - 8px);
+	height: 100% !important;
+	margin-right: 8px;
+	border-radius: 3px;
+}
+
+.trashTitle {
+	margin-top: 0;
+	margin-bottom: 8px;
+	color: #ffffff;
+	font-size: 0.75rem;
+}
+
+/********/
+
+/**** Card images small ****/
+
+.EstateSmall {
+	background: url(http://i.imgur.com/3aXwH5Q.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.DuchySmall {
+	background: url(http://i.imgur.com/ArK5NbE.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.ProvinceSmall {
+	background: url(http://i.imgur.com/dG8hyPH.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.CopperSmall {
+	background: url(http://i.imgur.com/vchVYL2.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.SilverSmall {
+	background: url(http://i.imgur.com/3rpxaUP.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.GoldSmall {
+	background: url(http://i.imgur.com/fxUN3aI.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.CurseSmall {
+	background: url(http://i.imgur.com/q8bgTrg.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.AdventurerSmall {
+	background: url(http://i.imgur.com/RRbm0hD.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.BureaucratSmall {
+	background: url(http://i.imgur.com/TFkY8I1.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.CellarSmall {
+	background: url(http://i.imgur.com/Tk6ioKE.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.ChancellorSmall {
+	background: url(http://i.imgur.com/pJJViU7.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.ChapelSmall {
+	background: url(http://i.imgur.com/ru1L6oz.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.CouncilRoomSmall {
+	background: url(http://i.imgur.com/3mcN7iU.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.FeastSmall {
+	background: url(http://i.imgur.com/quYP45m.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.FestivalSmall {
+	background: url(http://i.imgur.com/CXDoF8Z.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.GardensSmall {
+	background: url(http://i.imgur.com/yIg8LkH.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.LaboratorySmall {
+	background: url(http://i.imgur.com/a9C9JAd.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.LibrarySmall {
+	background: url(http://i.imgur.com/PHVvBUy.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.MarketSmall {
+	background: url(http://i.imgur.com/B1rAp5I.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.MilitiaSmall {
+	background: url(http://i.imgur.com/fwtq7bo.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.MineSmall {
+	background: url(http://i.imgur.com/GKvHGt3.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.MoatSmall {
+	background: url(http://i.imgur.com/QgHDKxN.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.MoneylenderSmall {
+	background: url(http://i.imgur.com/sHCdyMr.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.RemodelSmall {
+	background: url(http://i.imgur.com/Pe0CgGq.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.SmithySmall {
+	background: url(http://i.imgur.com/fjfNRqf.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.SpySmall {
+	background: url(http://i.imgur.com/R3uQmOt.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.ThiefSmall {
+	background: url(http://i.imgur.com/dnfevQa.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.ThroneRoomSmall {
+	background: url(http://i.imgur.com/3HKbKtd.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.VillageSmall {
+	background: url(http://i.imgur.com/F2gIeDe.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.WitchSmall {
+	background: url(http://i.imgur.com/iB0lO3z.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.WoodcutterSmall {
+	background: url(http://i.imgur.com/JlOQ9tD.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.WorkshopSmall {
+	background: url(http://i.imgur.com/GrCHVtr.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+/********/
+
+/**** Card images large ****/
+
+.BackLarge {
+	background: url(http://i.imgur.com/SbAW36P.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.EstateLarge {
+	background: url(http://i.imgur.com/Ru2LRgM.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.DuchyLarge {
+	background: url(http://i.imgur.com/lpKqiim.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.ProvinceLarge {
+	background: url(http://i.imgur.com/uWzXvPF.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.CopperLarge {
+	background: url(http://i.imgur.com/Teg6dtX.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.SilverLarge {
+	background: url(http://i.imgur.com/podmgWW.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.GoldLarge {
+	background: url(http://i.imgur.com/2uTNcBA.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.CurseLarge {
+	background: url(http://i.imgur.com/dxPYnWQ.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.AdventurerLarge {
+	background: url(http://i.imgur.com/jr773xM.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.BureaucratLarge {
+	background: url(http://i.imgur.com/Nbk8gnU.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.CellarLarge {
+	background: url(http://i.imgur.com/rSicvBi.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.ChancellorLarge {
+	background: url(http://i.imgur.com/NvGRC8m.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.ChapelLarge {
+	background: url(http://i.imgur.com/puieL7U.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.CouncilRoomLarge {
+	background: url(http://i.imgur.com/qAhl8Io.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.FeastLarge {
+	background: url(http://i.imgur.com/UemZwUL.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.FestivalLarge {
+	background: url(http://i.imgur.com/9TDzRlO.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.GardensLarge {
+	background: url(http://i.imgur.com/frWaL2n.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.LaboratoryLarge {
+	background: url(http://i.imgur.com/XmWsJFO.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.LibraryLarge {
+	background: url(http://i.imgur.com/snOrOup.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.MarketLarge {
+	background: url(http://i.imgur.com/JRZXscy.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.MilitiaLarge {
+	background: url(http://i.imgur.com/o52CbSj.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.MineLarge {
+	background: url(http://i.imgur.com/baJ9aZN.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.MoatLarge {
+	background: url(http://i.imgur.com/QoM4lWD.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.MoneylenderLarge {
+	background: url(http://i.imgur.com/vwkSsFe.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.RemodelLarge {
+	background: url(http://i.imgur.com/Yjxdw39.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.SmithyLarge {
+	background: url(http://i.imgur.com/PCYBdku.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.SpyLarge {
+	background: url(http://i.imgur.com/sDaeAby.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.ThiefLarge {
+	background: url(http://i.imgur.com/mbvyf0p.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.ThroneRoomLarge {
+	background: url(http://i.imgur.com/9cFp3Ug.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.VillageLarge {
+	background: url(http://i.imgur.com/k0hjuPJ.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.WitchLarge {
+	background: url(http://i.imgur.com/XeZX7Ty.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.WoodcutterLarge {
+	background: url(http://i.imgur.com/R3moRDT.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+.WorkshopLarge {
+	background: url(http://i.imgur.com/elOShlL.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+
+/********/
+
+.fancybox-skin {
+	padding: 0 !important;	
+}
+
+.fancybox-wrap,
+.fancybox-skin,
+.fancybox-outer,
+.fancybox-inner,
+.fancybox-image {
+	border-radius: 15px !important;	
+}

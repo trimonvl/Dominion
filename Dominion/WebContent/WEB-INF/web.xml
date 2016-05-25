@@ -11,12 +11,12 @@
   </welcome-file-list>
   <servlet>
     <description></description>
-    <display-name>DominionServlet</display-name>
-    <servlet-name>DominionServlet</servlet-name>
-    <servlet-class>DominionServlet</servlet-class>
+    <display-name>AjaxController</display-name>
+    <servlet-name>AjaxController</servlet-name>
+    <servlet-class>controller.AjaxController</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>DominionServlet</servlet-name>
-    <url-pattern>/DominionServlet</url-pattern>
+    <servlet-name>AjaxController</servlet-name>
+    <url-pattern>/AjaxController</url-pattern>
   </servlet-mapping>
 </web-app>

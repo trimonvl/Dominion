@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Index</title>
+<link rel="stylesheet" type="text/css" href="css/default.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script type="text/javascript" src="js/howler.js"></script>
+<script>
+	var numberPlayers = null;
+	
+	$(document).ready(function() {
+		/**** SOUNDS ****/
+		var backgroundSound = new Howl({
+			urls: ['sounds/background-1.mp3'],
+			loop: true
+		});
+		
+		var optionButtonSound = new Howl({
+			urls: ['sounds/click-1.wav'],
+			  sprite: {
+				    click: [0, 1000]
+			  }
+		});
+		
+		/********************************************************************************/
+		
+		var backgroundSoundOn = true;
+		
+		backgroundSound.play();
+		
+		/**** CLICKLISTENER OPTION BUTTON ****/
+	    $(".options button").click(function() {
+	    	optionButtonSound.play("click");
+	    });
+		
+		/**** CLICKLISTENER FULLSCREEN ****/
+	    $("#fullscreen").click(function() {
+	    	var elem = document.getElementById('body');
+	        if(document.webkitFullscreenElement) {
+	            document.webkitCancelFullScreen();
+	            $("#fullscreen div").css("background", "url(http://i.imgur.com/Sf79OKh.png) no-repeat");
+				$("#fullscreen div").css("background-size", "cover");
+	        }
+	        
+	        else {
+	        	elem.webkitRequestFullScreen();
+	        	$("#fullscreen div").css("background", "url(http://i.imgur.com/i6F5Aan.png) no-repeat");
+				$("#fullscreen div").css("background-size", "cover");
+	        };
+		});
+		
+		/**** CLICKLISTENER MUTE BACKGROUND SOUND ****/
+		$("#mutebgsound").click(function() {
+			if(backgroundSoundOn == true) {
+				backgroundSound.mute();
+				optionButtonSound.mute();
+				backgroundSoundOn = false;
+				$("#mutebgsound div").css("background", "url(http://i.imgur.com/wRm2pT8.png) no-repeat");
+				$("#mutebgsound div").css("background-size", "cover");
+			}
+			
+			else {
+				backgroundSound.unmute();
+				optionButtonSound.unmute();
+				backgroundSoundOn = true;
+				$("#mutebgsound div").css("background", "url(http://i.imgur.com/UbY1dNO.png) no-repeat");
+				$("#mutebgsound div").css("background-size", "cover");
+			}
+		});
+		
+		/**** CLICKLISTENER BUTTON ****/
+	    $("button, input[type=submit], input[type=radio]").click(function() {
+	    	optionButtonSound.play("click");
+	    });
+		
+		/**** CHANGELISTENER NUMBER OF PLAYERS ****/
+		$("input[type=radio][name=number-players]").change(function() {
+			numberPlayers = parseInt(this.value);
+			
+			for (i = 1; i <= numberPlayers; i++) {
+				var usernameId = "username-player-" + i;
+				$("#"+usernameId).addClass("display");
+			}
+			
+			for (i = numberPlayers + 1; i <= 4; i++) {
+				var usernameId = "username-player-" + i;
+				$("#"+usernameId).removeClass("display");
+			}
+	    });
+		
+		/**** CLICKLISTENER PLAY ****/
+		$("#initialize").click(function() {		
+			var usernameplayer1 = $("#username-player-1").val();
+			var usernameplayer2 = $("#username-player-2").val();
+			var usernameplayer3 = $("#username-player-3").val();
+			var usernameplayer4 = $("#username-player-4").val();
+			
+			$.ajax({
+				type: 'POST',
+				data: {operation: "initialize",
+					numberplayers: numberPlayers,
+					usernameplayer1: usernameplayer1,
+					usernameplayer2: usernameplayer2,
+					usernameplayer3: usernameplayer3,
+					usernameplayer4: usernameplayer4},
+				url: 'AjaxController'
+			});
+			
+			$.ajax({
+				type: 'POST',
+				data: {operation: "getStatusSound",
+					mute: backgroundSoundOn},
+				url: 'AjaxController'
+			});
+		});
+	});
+	
+	/**** VALIDATION FORM ****/
+	function validateForm() {
+	    var numberPlayers = document.forms["initialize-game"]["number-players"].value;
+	    
+	    if (numberPlayers == null || numberPlayers == "") {
+	        alert("Please choose a number of players.");
+	        return false;
+	    }
+	    
+	    for (i = 1; i <= numberPlayers; i++) {
+			var usernameName = "username-player-" + i;
+			var usernamePlayer = document.forms["initialize-game"][usernameName].value;
+			if(usernamePlayer == null || usernamePlayer == "") {
+				alert("Please choose a username for every player.");
+				return false;
+			}
+		}
+	}
+</script>
+</head>
+<body>
+	<div class="menu" id="body">
+		<form class="initialize-game" id="initialize-game" onsubmit="return validateForm()" method="POST" action="gameplay.html">
+			<img src="http://i.imgur.com/nD02Sbf.png" class="logo">
+			<h2>Choose your number of players</h2>
+			<input id="two-players" type="radio" name="number-players" value="2"/>
+        	<label class="number-players two-players" for="two-players">II</label>
+        	<input id="three-players" type="radio" name="number-players" value="3"/>
+        	<label class="number-players three-players" for="three-players">III</label>
+        	<input id="four-players" type="radio" name="number-players" value="4"/>
+        	<label class="number-players four-players" for="four-players">IV</label>
+        	<input id="username-player-1" type="text" name="username-player-1" placeholder="Username player 1">
+        	<label class="username-players" for="username-player-1"></label>
+        	<input id="username-player-2" type="text" name="username-player-2" placeholder="Username player 2">
+        	<label class="username-players" for="username-player-2"></label>
+        	<input id="username-player-3" type="text" name="username-player-3" placeholder="Username player 3">
+        	<label class="username-players" for="username-player-3"></label>
+        	<input id="username-player-4" type="text" name="username-player-4" placeholder="Username player 4">
+        	<label class="username-players" for="username-player-4"></label>
+			<input type="submit" value="Play" id="initialize">
+			<span id="result1"></span>
+		</form>
+	</div>
+	<div class="right bottom" id="optionsContainer">
+		<div class="options">
+			<div class="halfHorizontal">
+				<div class="piles" style="opacity: 0"></div>
+			</div>
+			<div class="halfHorizontal">
+				<button type="button" class="" id="mutebgsound"><div></div></button>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
