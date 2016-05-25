@@ -5,6 +5,7 @@ import card.*;
 import player.*;
 import sql.MySQLAccess;
 public class Game {
+	public String state = "normal";
 	private ArrayList<Player> players = new ArrayList<Player>();
 	Player currentPlayer = null;
 	FieldCards[] cardsInField = new FieldCards[17];
@@ -27,6 +28,27 @@ public class Game {
 		for(int i=0;i<3;i++)
 		{
 			startingCards.add(gameCards[3]);
+		}
+	}
+	public void newGame(){
+		addPlayerToGame("Player1");
+		addPlayerToGame("Player2");
+		addCardsToGame();
+		setStartingPlayer();
+	}
+	public void saveGame(){
+		
+	}
+	public void specialAction(Card card)
+	{
+		String name = card.getName();
+		if(name == "Village" || name == "Woodcutter" || name == "Smithy" || name == "Festival" || name == "Laboratory" || name == "Market")
+		{
+			state = "normal";
+		}
+		else
+		{
+			state = name;
 		}
 	}
 	public void addCardsToGame()

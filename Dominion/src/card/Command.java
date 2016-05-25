@@ -68,6 +68,10 @@ public class Command {
 			}
 		}
 	}
+	public void moneyLenderTrash(Player player, Card card){
+		player.addGold(3);
+		player.trashCard(card);
+	}
 	public void trash(Player player, int cardID)
 	{
 		for(int i=0;i<player.getHand().size();i++)

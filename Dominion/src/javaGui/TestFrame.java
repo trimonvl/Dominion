@@ -18,17 +18,13 @@ public class TestFrame{
 	JPanel buttonPane;
 	JPanel playerPane;
 	Game currentGame;
-	String state = "normal";
 	JLabel actions;
 	JLabel buys;
 	JLabel gold;
 	ArrayList<Card> cardsInHand;
 	public TestFrame(Game currentGame){
 		this.currentGame = currentGame;
-		currentGame.addPlayerToGame("Player1");
-		currentGame.addPlayerToGame("Player2");
-		currentGame.addCardsToGame();
-		currentGame.setStartingPlayer();
+		currentGame.newGame();
 		frame = new JFrame("DominionFrame");
 		buttonPane = new JPanel();
 		playerPane = new JPanel();
@@ -76,7 +72,7 @@ public class TestFrame{
 		playerPane.add(playerName);
 		cardsInHand = player.getHand();
 		HandButtons = new JButton[cardsInHand.size()];
-		switch(state)
+		switch(currentGame.state)
 		{
 		case "Cellar": paintCellar(player);
 		break;
@@ -90,6 +86,8 @@ public class TestFrame{
 		break;
 		case "Feast": paintFeast(player);
 		break;
+		case "Moneylender": paintMoneylender(player);
+			break;
 		default: paintNormal(player);
 		break;
 		}
@@ -113,9 +111,7 @@ public class TestFrame{
 				HandButtons[i].setEnabled(false);
 			}
 		}
-		playerPane.add(actions);
-		playerPane.add(buys);
-		playerPane.add(gold);
+		setValues();
 		switch(player.getPhase())
 		{
 		case 1: next.setText("End actions");
@@ -128,6 +124,11 @@ public class TestFrame{
 		next.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e){nextPressed(e);}});
 		playerPane.add(next);	
 	}
+	private void setValues(){
+		playerPane.add(actions);
+		playerPane.add(buys);
+		playerPane.add(gold);
+	}
 	
 	private void paintCellar(Player player)
 	{
@@ -138,9 +139,7 @@ public class TestFrame{
 			HandButtons[i].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e){DiscardHandCard(e);}});
 			playerPane.add(HandButtons[i]);
 		}
-		playerPane.add(actions);
-		playerPane.add(buys);
-		playerPane.add(gold);
+		setValues();
 		next.setText("end discard");
 		next.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e){endCellarDiscard(e);}});
 		playerPane.add(next);	
@@ -155,9 +154,7 @@ public class TestFrame{
 			HandButtons[i].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e){trashHandCard(e);}});
 			playerPane.add(HandButtons[i]);
 		}
-		playerPane.add(actions);
-		playerPane.add(buys);
-		playerPane.add(gold);
+		setValues();
 		next.setText("end thrash");
 		next.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e){endChapelTrash(e);}});
 		playerPane.add(next);
@@ -171,13 +168,11 @@ public class TestFrame{
 			playerPane.add(HandButtons[i]);
 			HandButtons[i].setEnabled(false);
 		}
-		playerPane.add(actions);
-		playerPane.add(buys);
-		playerPane.add(gold);
+		setValues();
 		JButton doAction = new JButton();
 		JButton doNotAction = new JButton();
 		doAction.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e){doChancellor(e);}});
-		doNotAction.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e){state = "normal";repaint();}});
+		doNotAction.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e){currentGame.state = "normal";repaint();}});
 		doAction.setText("Discard deck");
 		doNotAction.setText("Do not discard deck");		
 		playerPane.add(doAction);
@@ -207,9 +202,7 @@ public class TestFrame{
 			playerPane.add(HandButtons[i]);
 			HandButtons[i].setEnabled(false);
 		}
-		playerPane.add(actions);
-		playerPane.add(buys);
-		playerPane.add(gold);
+		setValues();
 	}
 	private void paintBureaucrat(Player player)
 	{
@@ -239,9 +232,7 @@ public class TestFrame{
 			playerPane.add(HandButtons[i]);
 			HandButtons[i].setEnabled(false);
 		}
-		playerPane.add(actions);
-		playerPane.add(buys);
-		playerPane.add(gold);
+		setValues();
 	}
 	private void paintGameOver()
 	{
@@ -254,6 +245,25 @@ public class TestFrame{
 			buttonPane.add(playerInfoLabels[i]);
 	    }
 		frame.setVisible(true);
+	}
+	private void paintMoneylender(Player player){
+		for(int i = 0;i < cardsInHand.size();i++)
+		{
+			Card card = cardsInHand.get(i);
+			HandButtons[i]= new JButton(card.getName() + " | Cost " + card.getCost());
+			if(card.getName() == "Copper"){
+				HandButtons[i].addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e){DiscardHandCard(e);}});
+			}
+			else
+			{
+				HandButtons[i].setEnabled(false);
+			}
+			playerPane.add(HandButtons[i]);
+		}
+		setValues();
+		next.setText("end discard");
+		next.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e){endCellarDiscard(e);}});
+		playerPane.add(next);
 	}
 	private void repaint()
 	{
@@ -296,7 +306,7 @@ public class TestFrame{
 				if((player.getPhase()==1 && cardsInHand.get(i).getID()>=8 && player.getActions()>0) || player.getPhase()==2 && cardsInHand.get(i).getID()<=3)
 				{
 					player.playCard(cardsInHand.get(i));
-					specialAction(cardsInHand.get(i));
+					currentGame.specialAction(cardsInHand.get(i));
 				}
 			}
 		}
@@ -312,21 +322,10 @@ public class TestFrame{
 	private void endCellarDiscard(ActionEvent e)
 	{
 		currentGame.getCommand().CellarComplete(currentGame.getCurrentPlayer());
-		state = "normal";
+		currentGame.state = "normal";
 		repaint();
 	}
-	private void specialAction(Card card)
-	{
-		String name = card.getName();
-		if(name == "Village" || name == "Woodcutter" || name == "Smithy" || name == "Festival" || name == "Laboratory" || name == "Market")
-		{
-			state = "normal";
-		}
-		else
-		{
-			state = name;
-		}
-	}
+
 	
 	private void DiscardHandCard(ActionEvent e)
 	{
@@ -345,7 +344,7 @@ public class TestFrame{
 		{
 			if(e.getSource().equals(HandButtons[i]))
 			{
-				if(state == "Chapel")
+				if(currentGame.state == "Chapel")
 				{
 					if(currentGame.getCommand().getToUseSize()<4)
 					{
@@ -353,19 +352,23 @@ public class TestFrame{
 						HandButtons[i].setEnabled(false);	
 					}	
 				}
+				else{
+					currentGame.getCommand().moneyLenderTrash(currentGame.getCurrentPlayer(), cardsInHand.get(i));
+					HandButtons[i].setEnabled(false);;
+				}
 			}
 		}
 	}
 	private void endChapelTrash(ActionEvent e)
 	{
 		currentGame.getCommand().ChapelComplete(currentGame.getCurrentPlayer());
-		state = "normal";
+		currentGame.state = "normal";
 		repaint();	
 	}
 	private void doChancellor(ActionEvent e)
 	{
 		currentGame.getCommand().chancellor(currentGame.getCurrentPlayer());
-		state = "normal";
+		currentGame.state = "normal";
 		repaint();	
 	}
 	private void SpecialFieldCardButtonPressed(ActionEvent e, int cost)
@@ -377,7 +380,7 @@ public class TestFrame{
 				currentGame.getCommand().getCard(currentGame.getCurrentPlayer(),cost,currentGame.getFieldCard(i));
 			}
 		}
-		state = "normal";
+		currentGame.state = "normal";
 		repaint();
 	}
 }
